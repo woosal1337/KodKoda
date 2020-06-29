@@ -8,6 +8,8 @@ oda-api-test.pem
 /.pnp
 .pnp.js
 
+.idlk
+
 # testing
 /coverage
 

@@ -1,5 +1,7 @@
 import useSWR from 'swr'
 import Link from 'next/link'
+import Bar from '../components/Bar'
+import Main from '../components/Main'
 import { useUser } from '../utils/auth/useUser'
 
 const fetcher = (url, token) =>
@@ -18,16 +20,11 @@ const Index = () => {
   if (!user) {
     return (
       <>
-        <p>Hi there!</p>
-        <p>
-          You are not signed in.{' '}
-          <Link href={'/auth'}>
-            <a>Sign in</a>
-          </Link>
-        </p>
+      <Bar />
+      <Main />
       </>
     )
-  }
+  } 
 
   return (
     <div>
@@ -59,5 +56,17 @@ const Index = () => {
     </div>
   )
 }
+
+/*
+  <>
+    <p>Hi there!</p>
+    <p>
+      You are not signed in.{' '}
+      <Link href={'/auth'}>
+        <a>Sign in</a>
+      </Link>
+    </p>
+  </>
+*/
 
 export default Index

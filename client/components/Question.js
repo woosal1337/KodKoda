@@ -44,6 +44,17 @@ const useStyles = makeStyles(theme => ({
   voteButton: {
       color: theme.palette.text.secondary,
   },
+  languageButton: {
+    background: 'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
+    borderRadius: 3,
+    boxShadow: 'none',
+    border: 0,
+    fontSize:14,
+    fontWeight: 600,
+    color: 'white',
+    height: 24,
+    padding: '0 10px',
+  },
   vote: {
     fontSize: 40,
     margin:-12
@@ -58,6 +69,9 @@ const useStyles = makeStyles(theme => ({
 const Question = props => {
     const classes = useStyles();
     const { q } = props
+    const goToLanguage = () => {
+
+    }
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>
             <Divider className={classes.divider}/>
@@ -92,9 +106,10 @@ const Question = props => {
                             <Grid item>
                                 <Button
                                     variant="contained"
-                                    color="primary"
-                                    onClick={props.onGo}
+                                    onClick={props.goToLanguage}
                                     size="small"
+                                    className={classes.languageButton}
+                                    style= {{ 'background': palette.languages[q.language] }}
                                 >
                                     {q.language}
                                 </Button>
@@ -119,6 +134,12 @@ const Question = props => {
     </Typography>
 </Grid>
 */ }
+
+/*
+'--background-start': '#FE6B8B',
+'--background-end': '#FF8E53',
+'--box-shadow': 'rgba(255, 105, 135, .3)',
+*/
 
 //Main.getInitialProps = context => ({ response: context.query.response, token: context.query.token});
 

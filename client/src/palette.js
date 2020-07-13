@@ -24,8 +24,10 @@ export default {
     python: "#2B9AEA" ,
     cpp: "#42a5ec",
     java: "#885FA4",
-    javascript: "#15A160",
-    p5js: "#0f7445",
+    javascript:"#178EE5",
+    p5js: "#178EE5",
+    //javascript: "#15A160",
+    //p5js: "#0f7445",
     go: "#F5B50F",
     kotlin: "#f9d371",
     rust: "#FF7BAC",
@@ -67,7 +69,8 @@ export default {
     link: "#6b6b6b"
   },
   background: {
-    default: "#153647",
+    //default: "#153647",
+    default: "#222947",
     paper: "#1b455b" //%5 lighter of above
   },
   icon: colors.blueGrey[600],

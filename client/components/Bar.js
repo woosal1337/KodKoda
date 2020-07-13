@@ -21,8 +21,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     fontWeight: 700,
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.main,
+    //background: `-webkit-linear-gradient(135deg, #ff921e, #ff921e 85%, #2B9AEA)`,
+    //'-webkit-background-clip': 'text',
+    //'-webkit-text-fill-color': 'transparent',
   },
+  login: {
+    fontWeight:600
+  }
 }));
 
 export default function Bar() {
@@ -32,11 +38,11 @@ export default function Bar() {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h2" className={classes.title}>
+          <Typography variant="h2" component="h2" className={classes.title}>
             418 | Kodluyoruz
           </Typography>
-          <Button color="inherit">Giriş Yap</Button>
-          <Button color="inherit">Üye Ol</Button>
+          <Button color="inherit"><Typography variant="h4" className={classes.login}> Giriş Yap </Typography></Button>
+          <Button color="inherit"><Typography variant="h4" className={classes.login}> Üye Ol </Typography> </Button>
         </Toolbar>
       </AppBar>
     </div>

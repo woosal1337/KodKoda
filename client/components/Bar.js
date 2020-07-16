@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     //'-webkit-text-fill-color': 'transparent',
   },
   login: {
+    fontSize: 18,
     fontWeight:600
   }
 }));

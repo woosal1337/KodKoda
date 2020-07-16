@@ -32,18 +32,13 @@ const useStyles = makeStyles(theme => ({
       fontWeight:600,
       marginBottom:10,
       '&:hover': {
-        backgroundColor: theme.palette.background.paper
+        textDecoration: 'underline'
       }
   },
   question:{},
   questionPoster: {},
   questionPostedIn: {},
   questionResponders: {},
-  buttons: {
-  },
-  voteButton: {
-      color: theme.palette.text.secondary,
-  },
   languageButton: {
     background: 'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
     borderRadius: 3,
@@ -55,9 +50,20 @@ const useStyles = makeStyles(theme => ({
     height: 24,
     padding: '0 10px',
   },
-  vote: {
+  buttons: {
+      marginTop:-6
+  },
+  voteButton: {
+    color: theme.palette.text.secondary,
+  },
+  voteMore: {
     fontSize: 40,
     margin:-12
+  },
+  voteLess: {
+    fontSize: 40,
+    margin:-12,
+    marginTop: -18
   },
   divider: {
     marginTop:20,
@@ -70,7 +76,6 @@ const Question = props => {
     const classes = useStyles();
     const { q } = props
     const goToLanguage = () => {
-
     }
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>
@@ -78,22 +83,22 @@ const Question = props => {
             <Grid container item direction="column" alignItems="left" justify="center" xs={1} className={classes.buttons}>
                 <Grid item xs>
                     <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
-                        <ExpandLessIcon className={classes.vote} />
+                        <ExpandLessIcon className={classes.voteMore} />
                     </IconButton>
                 </Grid>
                 <Grid item xs>
                     <IconButton edge="start" className={classes.voteButton} aria-label="menu">
-                        <ExpandMoreIcon className={classes.vote}  />
+                        <ExpandMoreIcon className={classes.voteLess}  />
                     </IconButton>
                 </Grid>
             </Grid>
             <Grid item xs={8} className={classes.questionTextContainer}>
                 <Grid container direction="column" >
                     <Grid item >
-                        <Link href={'/index'} style={{ textDecoration: 'none' }}>
-                        <Typography variant="h5" component="h5" className={classes.questionTitle}>
-                            {q.title.charAt(0).toUpperCase() + q.title.slice(1)}
-                        </Typography>
+                        <Link href="/soru/[id]/" as={`/soru/${q.id}`} style={{ textDecoration: 'none' }}>
+                            <Typography variant="h5" component="h5" className={classes.questionTitle}>
+                                {q.title.charAt(0).toUpperCase() + q.title.slice(1)}
+                            </Typography>
                         </Link>
                     </Grid>
                     <Grid item>

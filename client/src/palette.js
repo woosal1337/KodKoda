@@ -20,17 +20,18 @@ export default {
     light: "#FF9E38"
   },
   languages: {
-    c: "#178EE5",
+    c: "#885FA4",
     python: "#2B9AEA" ,
-    cpp: "#42a5ec",
-    java: "#885FA4",
-    javascript:"#178EE5",
-    p5js: "#178EE5",
+    cpp: "#FF7BAC",
+    java: "#b2475d",
+    react: "#15A160",
+    javascript: "#F5B50F",
+    p5js: "#FF7D75",
     //javascript: "#15A160",
     //p5js: "#0f7445",
-    go: "#F5B50F",
+    go: "#2969DE",
     kotlin: "#f9d371",
-    rust: "#FF7BAC",
+    rust:"#eb7f64",
   },
   success: {
     contrastText: "#fefefe",
@@ -71,7 +72,7 @@ export default {
   background: {
     //default: "#153647",
     default: "#222947",
-    paper: "#1b455b" //%5 lighter of above
+    paper: "#333d69" //%5 lighter of above
   },
   icon: colors.blueGrey[600],
   divider: "#fefefe"

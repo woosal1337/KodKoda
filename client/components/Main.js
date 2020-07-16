@@ -23,14 +23,18 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   title: {
+    fontFamily: 'Hind',
     fontWeight: 700,
-    letterSpacing: 1
+    fontSize: 28,
   },
   rightTitle:{
     lineHeight: '29px'
   },
   divider:{
     marginBottom:20,
+  },
+  mainContainer: {
+    maxWidth:900
   },
   mainGridContainer:{
     marginTop:20
@@ -47,27 +51,22 @@ const Main = props => {
     /*
     useEffect(() => {
       setLoading(true)
-      fetch(`${process.env.NEXT_API_URL}/submit`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({values:values, token:token})
-      })
+      fetch('/questions')
+        .then( res => res.json() )
+        .then( questions => console.log(questions) )
     }, []);
 
     */
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className={classes.mainContainer}>
       <Grid container spacing={4} className={classes.mainGridContainer} >
-        <Grid item xs={12} md={8}>
-          <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
+        <Grid item xs={12} md={12} >
+          <Typography variant="h2" component="h2" className={classes.title} gutterBottom>
               Güncel Sorular
           </Typography>
           <Divider className={classes.divider} />
-          <Grid container direction="column"  wrap="nowrap" spacing={2} className={classes.questionsContainer} >
+          <Grid container direction="column"  wrap="nowrap" spacing={1} className={classes.questionsContainer} >
             {questions.map((q, i) => {
               return (
                 <Grid key={i}  item>
@@ -77,18 +76,10 @@ const Main = props => {
             })}
           </Grid>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Typography variant="h4" component="h4" className={classes.rightTitle} gutterBottom>
-              En Aktif Diller
-          </Typography>
-          <Divider className={classes.divider} />
-        </Grid>
       </Grid>
     </Container>
   );
 }
-
-//Main.getInitialProps = context => ({ response: context.query.response, token: context.query.token});
 
 
 export default Main;

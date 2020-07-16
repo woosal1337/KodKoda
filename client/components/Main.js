@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontFamily: 'Hind',
     fontWeight: 700,
-    fontSize: 28,
+    fontSize: 36,
   },
   rightTitle:{
     lineHeight: '29px'

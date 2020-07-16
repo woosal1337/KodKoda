@@ -121,7 +121,7 @@ const Question = props => {
                             </Grid>
                             <Grid item>
                                 <Typography className={classes.questionResponders}>
-                                    {q.responses}
+                                    {q.responses} cevap
                                 </Typography>
                             </Grid>
                         </Grid>

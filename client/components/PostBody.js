@@ -47,8 +47,10 @@ const useStyles = makeStyles(theme => ({
   questionContainer: {
     minHeight: 200,
   },
-  questionTextContainer: {
-    marginTop:5
+  questionText: {
+    marginTop:5,
+    fontSize: 18,
+    lineHeight: 1.5
   },
   buttons: {
     marginTop:-6,
@@ -87,13 +89,8 @@ const PostBody = props => {
 
     useEffect(() => {
         setLoading(true)
-        //fetch('/questions')
-        //  .then( res => res.json() )
-        //  .then( questions => {
-        //      console.log(questions) 
-        setPost(questions[0])
+        setPost(questions.filter(obj => { return obj.id === props.id })[0])
         setLoading(false)
-        //  })
     }, []);
     
     console.log(post);
@@ -126,7 +123,7 @@ const PostBody = props => {
                     <Grid item xs={10} >
                         <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
                             <Grid item >
-                                <Typography variant="body1" component="body1" className={classes.questionTextContainer}>
+                                <Typography variant="body1" component="body1" className={classes.questionText}>
                                     {post.text.charAt(0).toUpperCase() + post.text.slice(1)}
                                 </Typography>
                             </Grid>

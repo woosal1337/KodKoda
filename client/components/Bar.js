@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontFamily: 'Hind',
     fontWeight: 700,
-    fontSize: 28,
+    fontSize: 24,
     color: theme.palette.secondary.main,
     //background: `-webkit-linear-gradient(135deg, #ff921e, #ff921e 85%, #2B9AEA)`,
     //'-webkit-background-clip': 'text',
     //'-webkit-text-fill-color': 'transparent',
   },
   login: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight:600
   }
 }));

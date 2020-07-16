@@ -9,10 +9,10 @@ GET https://{FIRESTORE_API_URL}/questions
 
 ```json
 {
-  method: 'GET',
-  hostname: {FIRESTORE_API_URL},
-  path: '/questions',
-  headers: {
+  'method': 'GET',
+  'hostname': FIRESTORE_API_URL,
+  'path': '/questions',
+  'headers': {
   }
 }
 ```
@@ -22,13 +22,13 @@ Initially, questions can be retrieved based on their scores (upvotes - downvotes
 
 ```json
 {
-    posts: {
-        "1": {
-            id: "91748714",
+    'posts': {
+        '1': {
+            'id': "91748714",
             ...
         },
-        "2": {
-            id: "79402812",
+        '2': {
+            'id': "79402812",
             ...
         }
     }

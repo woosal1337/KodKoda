@@ -51,4 +51,69 @@ Filter questions from the posts model based on the postTypeId. Initially, questi
 
 ```
 
-## Questions
+## Question
+
+Retrieves all details re Post (Question).
+
+### Example Request 
+
+```
+GET https://{FIRESTORE_API_URL}/question
+```
+
+```json
+{
+  "method": "GET",
+  "hostname": "FIRESTORE_API_URL_HERE",
+  "path": `/question?id=${ID_HERE}`,
+  "headers": {
+  }
+}
+```
+### Example Response
+
+```json
+{
+    "post": {
+        "id": "91748714",
+        "title": "something",
+        "body" : "Ya bunu nasıl yapıyoruz ya?",
+        "answers": [
+            {
+                "1": { 
+                    "id": "19702594",
+                    "title": null,
+                    "body": "Soyle yapican: ...",
+                    "ownerUserId": "981249242",
+                    "ownerName": "Baris Manco",
+                    "score": 12,
+                    "likeCount": 5,
+                    "clapCount": 2,
+                    "confusedCount": 1,
+                    "eyvallahCount": 10
+                } 
+            },
+            {
+                "2": { 
+                    "id": "80124082",
+                    "title": null,
+                    "body": "Boyle yapican: ...",
+                    "ownerUserId": "097124242",
+                    "ownerName": "Kurtalan Ekspres",
+                    "score": 10,
+                    "likeCount": 2,
+                    "clapCount": 0,
+                    "confusedCount": 1,
+                    "eyvallahCount": 2
+                } 
+            }
+        ],
+        "ownerUserId": "981249242",
+        "ownerName": "Osman Isler",
+        "score": 34,
+        "answerCount": 7,
+        "tags": ["c"]
+    }    
+}
+
+```

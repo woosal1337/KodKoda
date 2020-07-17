@@ -1,10 +1,10 @@
 # API Documentation
 
-# Table of Contents
-1. [User](##User)
-2. [Questions](##Questions)
-3. [Question](##Question)
-4. [Post Question](##Post-Question)
+## Table of Contents
+1. [User](#user)
+2. [Questions](#questions)
+3. [Question](#question)
+4. [Post Question](#post-question)
 
 ## User
 
@@ -133,7 +133,7 @@ GET https://{FIRESTORE_API_URL}/question
 
 ```
 
-## Post-Question
+## Post Question
 
 For persisting a question a user asks.
 

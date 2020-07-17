@@ -6,7 +6,9 @@
 2. [Question](#question)
 3. [Post Question](#post-question)
 4. [Delete Question](#delete-question)
-4. [User](#user)
+5. [User](#user)
+6. [Vote](#vote)
+
 
 ## Questions
 
@@ -129,7 +131,7 @@ GET https://{FIRESTORE_API_URL}/question
 
 ## Post Question
 
-For persisting a question a user asks.
+Persists a user question.
 
 ### Example Request 
 
@@ -155,8 +157,6 @@ POST https://{FIRESTORE_API_URL}/post-question
 }
 ```
 ### Example Response
-
-Filter questions from the posts model based on the postTypeId. Initially, questions can be retrieved based on their scores (upvotes - downvotes). We can think of a better ranking down the line. @Cagri let me know if you have any ideas on how to id the posts, we can do a simple uuid v4 for now.
 
 ```json
 {
@@ -186,7 +186,7 @@ Filter questions from the posts model based on the postTypeId. Initially, questi
 ```
 ## Delete Question
 
-For persisting a question a user asks.
+Deletes a user question.
 
 ### Example Request 
 
@@ -199,11 +199,14 @@ DELETE https://{FIRESTORE_API_URL}/delete-question
 {
   "method": "POST",
   "hostname": "FIRESTORE_API_URL_HERE",
-  "path": `/question?id=${ID_HERE}`,
+  "path": "/delete-question",
   "headers": {
     "Accept": "application/json",
     "Content-Type": "application/json;charset=UTF-8"
   },
+  "data": {
+      "id": "1029842"
+  }
 }
 ```
 ### Example Response
@@ -255,4 +258,33 @@ GET https://{FIRESTORE_API_URL}/user
 }
 
 
+```
+
+## Vote
+
+Posts a user vote. Type is 1 for upvote 0 for downvote
+
+### Example Request 
+
+```
+POST https://{FIRESTORE_API_URL}/vote
+```
+
+```json
+{
+  "method": "POST",
+  "hostname": "FIRESTORE_API_URL_HERE",
+  "path": "/vote",
+  "headers":{},
+  "data": {
+      "postId": "1908249",
+      "type": 1 
+  }
+}
+```
+
+### Example Response
+
+```
+Code:200
 ```

@@ -160,27 +160,17 @@ POST https://{FIRESTORE_API_URL}/post-question
 
 ```json
 {
-    "posts": {
-        "1": {
-            "id": "91748714",
-            "title": "something",
-            "ownerUserId": "981249242",
-            "ownerName": "Osman Isler",
-            "score": 34,
-            "answerCount": 7,
-            "tags": ["c"]
-        },
-        "2": {
-            "id": "79402812",
-            "title": "something else",
-            "ownerUserId": "018742049",
-            "ownerName": "Mujde Ar",
-            "score": 28,
-            "answerCount": 9,
-            "tags": ["c", "python"]
-        },
-        ...
-    }
+    "post": {
+        "id": "91748714",
+        "title": "something",
+        "body" : "Ya bunu nasıl yapıyoruz ya?",
+        "answers": [],
+        "ownerUserId": "018742049",
+        "ownerName": "Osman Isler",
+        "score": 0,
+        "answerCount": 0,
+        "tags": ["c", "python"]
+    }    
 }
 
 ```

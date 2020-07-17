@@ -13,7 +13,6 @@ import Question from './Question';
 import { makeStyles } from '@material-ui/core/styles';
 import { questions, answers } from '../utils/fakeData'; 
 
-//import fetch from 'isomorphic-unfetch';
 
 const useStyles = makeStyles(theme => ({
   root: {

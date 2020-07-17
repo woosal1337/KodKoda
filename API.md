@@ -1,18 +1,12 @@
 # API Documentation
 
 ## Table of Contents
-1. [User](#user)
-2. [Questions](#questions)
-3. [Question](#question)
-4. [Post Question](#post-question)
 
-## User
-
-@Cagri: when user logins or signs up we should create a user based on our data model. We should at least return the user id. 
-
-### Example Request
-
-### Example Response
+1. [Questions](#questions)
+2. [Question](#question)
+3. [Post Question](#post-question)
+4. [Delete Question](#delete-question)
+4. [User](#user)
 
 ## Questions
 
@@ -153,14 +147,10 @@ POST https://{FIRESTORE_API_URL}/post-question
     "Content-Type": "application/json;charset=UTF-8"
   },
   "data": {
+    "userId": "018742049",
     "title": "something",
     "body" : "Ya bunu nasıl yapıyoruz ya?",
-    "ownerUserId": "018742049",
-    "ownerName": "Mujde Ar",
-    "score": 28,
-    "answerCount": 9,
     "tags": ["c", "python"]
-
   }
 }
 ```
@@ -192,5 +182,77 @@ Filter questions from the posts model based on the postTypeId. Initially, questi
         ...
     }
 }
+
+```
+## Delete Question
+
+For persisting a question a user asks.
+
+### Example Request 
+
+```
+POST  https://{FIRESTORE_API_URL}/delete-question
+DELETE https://{FIRESTORE_API_URL}/delete-question
+```
+
+```json
+{
+  "method": "POST",
+  "hostname": "FIRESTORE_API_URL_HERE",
+  "path": `/question?id=${ID_HERE}`,
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json;charset=UTF-8"
+  },
+}
+```
+### Example Response
+
+```
+Code:200
+```
+
+## User
+
+Retrieves all details re User.
+
+### Example Request 
+
+```
+GET https://{FIRESTORE_API_URL}/user
+```
+
+```json
+{
+  "method": "GET",
+  "hostname": "FIRESTORE_API_URL_HERE",
+  "path": `/user?id=${ID_HERE}`,
+  "headers": {
+  }
+}
+```
+### Example Response
+
+```json
+{
+    "user": {
+        "id": "71942892",
+        "reputation": 42,
+        "displayName" : "Osman İşmen",
+        "description": "C ile oyun motoru yazmayi seviyorum",
+        "photoUrl": "IMAGE_URL",
+        "questions": [
+            {"id": "91748714", "title":"Struct ile ilgili bir soru"}
+            {"id": "91748714", "title":"Segmentation sorunu ile karşılaşıyorum."}
+            {"id": "91748714", "title":"Loop calışmıyor"}
+        ],
+        "upVoted": [
+            {"id": "91748714", "title":"Mouse konum hesaplama"}
+            {"id": "91748714", "title":"p5js Sound Ekleme"}
+            {"id": "91748714", "title":"WebGL sonsuz loop"}
+        ]
+    }
+}
+
 
 ```

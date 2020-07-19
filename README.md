@@ -1,11 +1,20 @@
 # 418
 
-To run the client website
+To run the client website for development
 
 ```
 cd client
 npm install
 npm run dev
+```
+
+To run the client website for production
+
+```
+cd client
+npm install
+npm run build
+npm run start
 ```
 
 Learn [Next.js!](https://nextjs.org/learn/basics/create-nextjs-app)

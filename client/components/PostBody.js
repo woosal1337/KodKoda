@@ -1,23 +1,16 @@
 import React, { useState, useEffect }  from 'react';
-import { useRouter } from 'next/router';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import {Card, CardContent} from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Link from './Link';
-import Question from './Question';
 import  palette  from '../src/palette'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { questions, answers } from '../utils/fakeData'; 
-import fetch from 'isomorphic-unfetch';
+import { questions, answers } from '../utils/fakeData';
 
 const useStyles = makeStyles(theme => ({
   root: {

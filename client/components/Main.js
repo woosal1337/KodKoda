@@ -1,13 +1,8 @@
 import React, { useState, useEffect }  from 'react';
-import { useRouter } from 'next/router';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import {Card, CardContent} from '@material-ui/core';
-import Link from './Link';
 import Question from './Question';
 
 import { makeStyles } from '@material-ui/core/styles';

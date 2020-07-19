@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   questionContainer:{
   },
   questionTextContainer: {
-    marginTop:5
+    marginTop:12
   },
   questionTitle:{
       fontSize:18,
@@ -48,47 +48,49 @@ const useStyles = makeStyles(theme => ({
     padding: '0 10px',
   },
   buttons: {
-      marginTop:-6
+      marginLeft: -8,
+      marginRight: 8,
+      maxWidth:48,
+      maxHeight: 150,
   },
   voteButton: {
     color: theme.palette.text.secondary,
   },
+  voteCount:{
+  },
   voteMore: {
     fontSize: 40,
-    margin:-12
   },
   voteLess: {
     fontSize: 40,
-    margin:-12,
-    marginTop: -18
   },
   divider: {
     marginTop:20,
     marginBottom: 30,
-  }
+  },
 }))
 
 
 const Question = props => {
     const classes = useStyles();
-    const { q } = props
+    const { q, auth } = props
     const goToLanguage = () => {
     }
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>
             <Divider className={classes.divider}/>
-            <Grid container item direction="column" alignItems="left" justify="center" xs={1} className={classes.buttons}>
+                 
+            <Grid container item direction="column" alignItems="center" justify="center" xs={1} className={classes.buttons}>
                 <Grid item xs>
-                    <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
+                    <IconButton edge="start" className={classes.voteButton} size="small" aria-label="upvote">
                         <ExpandLessIcon className={classes.voteMore} />
                     </IconButton>
                 </Grid>
                 <Grid item xs>
-                    <IconButton edge="start" className={classes.voteButton} aria-label="menu">
-                        <ExpandMoreIcon className={classes.voteLess}  />
-                    </IconButton>
+                    <Typography className={classes.voteCount}>{q.voteCount}</Typography>
                 </Grid>
             </Grid>
+
             <Grid item xs={8} className={classes.questionTextContainer}>
                 <Grid container direction="column" >
                     <Grid item >
@@ -141,6 +143,20 @@ const Question = props => {
 '--background-start': '#FE6B8B',
 '--background-end': '#FF8E53',
 '--box-shadow': 'rgba(255, 105, 135, .3)',
+*/
+
+/*
+{
+    !auth ?
+    <>
+    <Typography className={classes.voteCount} align="center">{q.voteCount}</Typography>
+    <IconButton edge="start" className={classes.voteButton} size="small" aria-label="downvote">
+        <ExpandMoreIcon className={classes.voteLess}  />
+    </IconButton>
+    </>
+    :
+    <Typography className={classes.voteCount}>{q.voteCount}</Typography>
+}
 */
 
 //Main.getInitialProps = context => ({ response: context.query.response, token: context.query.token});

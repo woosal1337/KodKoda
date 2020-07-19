@@ -9,6 +9,15 @@ const theme = createMuiTheme({
   shape: {
     borderRadius: 14,
   },
+  overrides:{
+    MuiIconButton:{
+      root: {
+        '&:hover':{
+          color: 'white'
+        }
+      }
+    }
+  },
   palette,
   typography
 });

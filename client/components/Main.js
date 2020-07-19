@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Question from './Question';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { questions, answers } from '../utils/fakeData'; 
+import { questions } from '../utils/fakeData'; 
 
 
 const useStyles = makeStyles(theme => ({
@@ -64,7 +64,7 @@ const Main = props => {
             {questions.map((q, i) => {
               return (
                 <Grid key={i}  item>
-                  <Question q={q}/>
+                  <Question q={q} auth={props.auth}/>
                 </Grid>
               )
             })}

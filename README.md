@@ -2,9 +2,9 @@
 
 ## Check-ins
 
-22 Agustos Carsamba: https://us02web.zoom.us/j/89486959410
-26 Agustos Pazar: https://us02web.zoom.us/j/89049729787
-29 Agustos Carsamba: https://us02web.zoom.us/j/81457418008
+22 Agustos Carsamba: https://us02web.zoom.us/j/89486959410 <br/>
+26 Agustos Pazar: https://us02web.zoom.us/j/89049729787 <br/>
+29 Agustos Carsamba: https://us02web.zoom.us/j/81457418008 
 
 ## Frontend
 Learn [Next.js](https://nextjs.org/learn/basics/create-nextjs-app)

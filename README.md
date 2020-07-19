@@ -1,5 +1,13 @@
 # 418
 
+To run the client website
+
+```
+cd client
+npm install
+npm run dev
+```
+
 Data Model: 
 ![alt text](https://github.com/egeozin/418/blob/master/data-model.png "Data-Model")
 

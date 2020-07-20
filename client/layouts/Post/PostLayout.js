@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth:900
   },
   postGridContainer:{
-    marginTop:20
+    marginTop:60
   },
   questionsContainer: {
   }
@@ -40,8 +40,8 @@ const PostLayout = props => {
     const [loading, setLoading] = useState(false);
 
     return (
-      <Container maxWidth="sm" className={classes.postContainer}>
-        <Grid container spacing={4} className={classes.postGridContainer} >
+      <Container maxWidth="md" className={classes.postContainer}>
+        <Grid container className={classes.postGridContainer} >
           {children}
         </Grid>
       </Container>

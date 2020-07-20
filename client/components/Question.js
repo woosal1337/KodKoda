@@ -12,62 +12,62 @@ import { makeStyles } from '@material-ui/core/styles';
 import  palette  from '../src/palette'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: 'none',
-    background: '#212A4F'
-  },
-  flexGrow: {
-    flexGrow: 1
-  },
-  questionContainer:{
-  },
-  questionTextContainer: {
-    marginTop:12
-  },
-  questionTitle:{
-      fontSize:18,
-      fontWeight:600,
-      marginBottom:10,
-      '&:hover': {
-        textDecoration: 'underline'
-      }
-  },
-  question:{},
-  questionPoster: {},
-  questionPostedIn: {},
-  questionResponders: {},
-  languageButton: {
-    background: 'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
-    borderRadius: 3,
-    boxShadow: 'none',
-    border: 0,
-    fontSize:14,
-    fontWeight: 600,
-    color: 'white',
-    height: 24,
-    padding: '0 10px',
-  },
-  buttons: {
-      marginLeft: -8,
-      marginRight: 8,
-      maxWidth:48,
-      maxHeight: 150,
-  },
-  voteButton: {
-    color: theme.palette.text.secondary,
-  },
-  voteCount:{
-  },
-  voteMore: {
-    fontSize: 40,
-  },
-  voteLess: {
-    fontSize: 40,
-  },
-  divider: {
-    marginTop:20,
-    marginBottom: 30,
-  },
+    root: {
+        boxShadow: 'none',
+        background: '#212A4F'
+    },
+    flexGrow: {
+        flexGrow: 1
+    },
+    questionContainer:{
+    },
+    questionTextContainer: {
+        marginTop:12
+    },
+    questionTitle:{
+        fontSize:18,
+        fontWeight:600,
+        marginBottom:10,
+        '&:hover': {
+          textDecoration: 'underline'
+        }
+    },
+    question:{},
+    questionPoster: {},
+    questionPostedIn: {},
+    questionResponders: {},
+    languageButton: {
+        background: 'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
+        borderRadius: 3,
+        boxShadow: 'none',
+        border: 0,
+        fontSize:14,
+        fontWeight: 600,
+        color: 'white',
+        height: 24,
+        padding: '0 10px',
+    },
+    buttons: {
+        marginLeft: -8,
+        marginRight: 8,
+        maxWidth:48,
+        maxHeight: 150,
+    },
+    voteButton: {
+        color: theme.palette.text.secondary,
+    },
+    voteCount:{
+    },
+    voteMore: {
+        fontSize: 40,
+    },
+    voteLess: {
+        fontSize: 40,
+    },
+    divider: {
+        marginTop:20,
+        marginBottom: 30,
+    },
 }))
 
 

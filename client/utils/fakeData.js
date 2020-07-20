@@ -11,7 +11,19 @@ export const questions = [
 ]
 
 export const answers = [
-    "Bugün derste sorulan mouse imlecini takip eden obje için bir örnek yaptım. Derste bahsedildiği gibi burada asıl işi atan2() fonksiyonu üstleniyor.",
-    "Bilgisayardaki mp3'u editor’deki klasore yuklemek gerekiyor olabilir.",
-    "Bunun icin uc boyutlu primitive’ler kullanilabili. Bir de iki farkli animasyon arasinda geciyoruz sanki. Bir animasyon krem silindirlerlerden yapilma, digeri de lacivertlerden. Ikisinin arasinda/ortasinda da lacivert krem karelerden olusan tek bir sahne var gibi. Baglantida golgesiz 3d nesne yapmanin ornegi var: https://editor.p5js.org/vidianindhita/sketches/H13K5pF3Z"
+    { id:"191740014982", answers:[
+        "Bugün derste sorulan mouse imlecini takip eden obje için bir örnek yaptım. Derste bahsedildiği gibi burada asıl işi atan2() fonksiyonu üstleniyor.",
+        "Bilgisayardaki mp3'u editor’deki klasore yuklemek gerekiyor olabilir.",
+        "Bunun icin uc boyutlu primitive’ler kullanilabilir. Bir de iki farkli animasyon arasinda geciyoruz sanki. Bir animasyon krem silindirlerlerden yapilma, digeri de lacivertlerden. Ikisinin arasinda/ortasinda da lacivert krem karelerden olusan tek bir sahne var gibi. Baglantida golgesiz 3d nesne yapmanin ornegi var: https://editor.p5js.org/vidianindhita/sketches/H13K5pF3Z"
+    ]},
+    { id:"191740910240", answers:[
+        "Bugün derste sorulan mouse imlecini takip eden obje için bir örnek yaptım. Derste bahsedildiği gibi burada asıl işi atan2() fonksiyonu üstleniyor.",
+        "Bilgisayardaki mp3'u editor’deki klasore yuklemek gerekiyor olabilir.",
+        "Bunun icin uc boyutlu primitive’ler kullanilabilir. Bir de iki farkli animasyon arasinda geciyoruz sanki. Bir animasyon krem silindirlerlerden yapilma, digeri de lacivertlerden. Ikisinin arasinda/ortasinda da lacivert krem karelerden olusan tek bir sahne var gibi. Baglantida golgesiz 3d nesne yapmanin ornegi var: https://editor.p5js.org/vidianindhita/sketches/H13K5pF3Z"]
+    },
+    { id:"853908325923", answers:[
+        "Bugün derste sorulan mouse imlecini takip eden obje için bir örnek yaptım. Derste bahsedildiği gibi burada asıl işi atan2() fonksiyonu üstleniyor.",
+        "Bilgisayardaki mp3'u editor’deki klasore yuklemek gerekiyor olabilir.",
+        "Bunun icin uc boyutlu primitive’ler kullanilabilir. Bir de iki farkli animasyon arasinda geciyoruz sanki. Bir animasyon krem silindirlerlerden yapilma, digeri de lacivertlerden. Ikisinin arasinda/ortasinda da lacivert krem karelerden olusan tek bir sahne var gibi. Baglantida golgesiz 3d nesne yapmanin ornegi var: https://editor.p5js.org/vidianindhita/sketches/H13K5pF3Z"
+    ]},
 ]

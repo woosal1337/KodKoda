@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import  palette  from '../../src/palette'
 import Link from '../Link';
 import PostQuestion from './PostQuestion';
-import PostAnswers from './PostAnswer';
+import PostAnswers from './PostAnswers';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { questions, answers } from '../../utils/fakeData';
@@ -102,7 +102,7 @@ const PostBody = props => {
             <CircularProgress />
         )
     }
-    console.log(post)
+    console.log(post.as)
     return (
         <Grid>
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>

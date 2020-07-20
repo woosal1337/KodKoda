@@ -29,23 +29,23 @@ const useStyles = makeStyles(theme => ({
         lineHeight: '29px'
     },
     divider:{
-        marginTop:20,
         marginBottom:20,
+        backgroundColor: "#d7d7d7",
     },
     postContainer: {
     },
     postGridContainer:{
         marginTop:20
     },
-    questionContainer: {
-        minHeight: 200,
+    answersContainer: {
     },
-    leftColumnContainer: {
-        maxWidth:120,
+    answerContainer: {
+        minHeight:120
     },
-    questionText: {
+    answerPoster: {},
+    answerText: {
         marginTop:5,
-        fontSize: 18,
+        fontSize: 16,
         lineHeight: 1.5
     },
     buttons: {
@@ -87,7 +87,7 @@ const PostAnswer = props => {
 
     return (
         <>
-            <Grid container direction="row" spacing={1} className={classes.questionContainer}>
+            <Grid container direction="row" spacing={1} className={classes.answersContainer}>
                 <Grid item direction="column" alignItems="left" xs={3} md={1} className={classes.buttons}>
                     <Grid item >
                         <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
@@ -98,26 +98,26 @@ const PostAnswer = props => {
                         <Typography className={classes.voteCount}>{data.voteCount}</Typography>
                     </Grid>
                 </Grid>
-                <Grid item xs={9} md={11} >
-                    <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
+                <Grid item xs={9} md={9} >
+                    <Divider className={classes.divider}/>
+                    <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
                         <Grid item >
-                            <Typography variant="body1" component="body1" className={classes.questionText}>
+                            <Typography variant="body1" component="body1" className={classes.answerText}>
                                 {data.text.charAt(0).toUpperCase() + data.text.slice(1)}
                             </Typography>
                         </Grid>
                         <Grid item >
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item>
-                                    <Link href="/user/[id]/" as={`/user/${data.userId}`}>
-                                        <Typography className={classes.questionPoster}>
-                                            @{data.name}
-                                        </Typography>
-                                    </Link>
-                                </Grid>
+                            <Grid item>
+                                <Link href="/user/[id]/" as={`/user/${data.userId}`}>
+                                    <Typography className={classes.answerPoster}>
+                                        @{data.name}
+                                    </Typography>
+                                </Link>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
+                <Grid item xs={9} md={2} ></Grid>
             </Grid>
         </>
     );

@@ -40,7 +40,8 @@ const useStyles = makeStyles(theme => ({
     answersContainer: {
     },
     answerContainer: {
-        minHeight:120
+        minHeight:120,
+        //maxWidth:300
     },
     answerPoster: {},
     answerText: {
@@ -87,8 +88,9 @@ const PostAnswer = props => {
 
     return (
         <>
+            <Divider className={classes.divider}/>
             <Grid container direction="row" spacing={1} className={classes.answersContainer}>
-                <Grid item direction="column" alignItems="left" xs={3} md={1} className={classes.buttons}>
+                <Grid item direction="column" alignItems="left" xs={1} md={1} className={classes.buttons}>
                     <Grid item >
                         <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
                             <ExpandLessIcon className={classes.voteMore} />
@@ -98,8 +100,7 @@ const PostAnswer = props => {
                         <Typography className={classes.voteCount}>{data.voteCount}</Typography>
                     </Grid>
                 </Grid>
-                <Grid item xs={9} md={9} >
-                    <Divider className={classes.divider}/>
+                <Grid item xs={10} md={10} >
                     <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
                         <Grid item >
                             <Typography variant="body1" component="body1" className={classes.answerText}>
@@ -117,7 +118,6 @@ const PostAnswer = props => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={9} md={2} ></Grid>
             </Grid>
         </>
     );

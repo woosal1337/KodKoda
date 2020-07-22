@@ -73,11 +73,11 @@ const Footer = props => {
           </Grid>
           <Grid container item md={6} xs={12} direction="row" align="center" justify="center">
             <Grid item>
-              <Link href={`/gizlilik-sozlesmesi`} >
+              <Link href={`/privacy-policy`} as={`/gizlilik-sozlesmesi`} >
                 <MuiLink className={classes.footerLink}>Gizlilik Sözleşmesi</MuiLink>
               </Link>
               <Link href={`/contact`} as={`/ulasin`} >
-                <MuiLink className={classes.footerLink}>About Us</MuiLink>
+                <MuiLink className={classes.footerLink}>Hakkımizda</MuiLink>
               </Link>
             </Grid>
           </Grid>

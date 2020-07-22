@@ -11,7 +11,6 @@ import  palette  from '../../src/palette'
 import Link from '../Link';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { questions, answers } from '../../utils/fakeData';
 
 const useStyles = makeStyles(theme => ({
     root: {

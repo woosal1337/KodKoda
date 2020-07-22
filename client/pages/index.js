@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import Bar from '../components/Bar'
 import Main from '../components/Main'
+import Footer from '../components/Footer'
 import { useUser } from '../utils/auth/useUser'
 
 const fetcher = (url, token) =>
@@ -21,6 +22,7 @@ const Index = () => {
       <>
       <Bar auth={false} authPage={false}/>
       <Main auth={false} />
+      <Footer />
       </>
     )
   } 

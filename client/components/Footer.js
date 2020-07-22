@@ -77,7 +77,7 @@ const Footer = props => {
                 <MuiLink className={classes.footerLink}>Gizlilik Sözleşmesi</MuiLink>
               </Link>
               <Link href={`/contact`} as={`/ulasin`} >
-                <MuiLink className={classes.footerLink}>Hakkımizda</MuiLink>
+                <MuiLink className={classes.footerLink}>Hakkımızda</MuiLink>
               </Link>
             </Grid>
           </Grid>

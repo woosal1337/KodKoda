@@ -102,7 +102,6 @@ const PostBody = props => {
             <CircularProgress />
         )
     }
-    console.log(post.as)
     return (
         <Grid>
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
@@ -116,6 +115,5 @@ const PostBody = props => {
         </Grid>
     );
 }
-
 
 export default PostBody;

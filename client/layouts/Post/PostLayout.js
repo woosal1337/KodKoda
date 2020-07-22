@@ -1,4 +1,6 @@
 import React, { useState, useEffect }  from 'react';
+import Bar from '../../components/Bar'
+import Footer from '../../components/Footer'
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
@@ -40,11 +42,15 @@ const PostLayout = props => {
     const [loading, setLoading] = useState(false);
 
     return (
+      <>
+      <Bar />
       <Container maxWidth="md" className={classes.postContainer}>
         <Grid container className={classes.postGridContainer} >
           {children}
         </Grid>
       </Container>
+      <Footer />
+      </>
     );
 }
 

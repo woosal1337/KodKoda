@@ -4,6 +4,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { makeStyles } from '@material-ui/core/styles';
 import PostAnswer from './PostAnswer';
+import containsUrl from '../../utils/utilFunctions'
 
 //import fetch from 'isomorphic-unfetch';
 

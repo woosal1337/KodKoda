@@ -9,6 +9,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import  palette  from '../../src/palette'
 import Link from '../Link';
+import Linkify from 'react-linkify';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -103,7 +104,9 @@ const PostAnswer = props => {
                     <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
                         <Grid item >
                             <Typography variant="body1" component="body1" className={classes.answerText}>
-                                {data.text.charAt(0).toUpperCase() + data.text.slice(1)}
+                                <Linkify properties={{target: '_blank', style: {color: 'white', textDecoration: 'underline', textDecorationColor: 'blue'}}} > 
+                                    {data.text.charAt(0).toUpperCase() + data.text.slice(1)}
+                                </Linkify> 
                             </Typography>
                         </Grid>
                         <Grid item >

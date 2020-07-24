@@ -2,7 +2,7 @@ import React from "react";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Grid from '@material-ui/core/Grid';
-import Link from './Link';
+import Link from '../Link';
 import MuiLink from "@material-ui/core/Link";
 import { makeStyles } from '@material-ui/core/styles';
 const { SocialIcon } = require('react-social-icons');

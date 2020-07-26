@@ -30,6 +30,14 @@ const addUsersToDb = (u, userIDs) => {
         description: "",
         creationDate: firebase.firestore.FieldValue.serverTimestamp(),
         lastAccessDate: firebase.firestore.FieldValue.serverTimestamp(),
+        claps:0,
+        confuseds: 0,
+        eyvallahs: 0,
+        likes: 0,
+        location: "",
+        photoImageURL: "",
+        reputation: 0,
+        upvotes: [], 
     }).then((userRef) => {
         userIDs.push(userRef.id)
     }).catch((err) => {
@@ -93,15 +101,7 @@ const addPosts = async (userIds) => {
 
 const result = addUsers().then(userIds => {
     console.log("users added!")
+    return true
     //addPosts(userIds)
 })
 
-
-
-
-/*
-postsRef.doc("LA").set({
-    name: "Los Angeles", state: "CA", country: "USA",
-    capital: false, population: 3900000,
-    regions: ["west_coast", "socal"] });
-*/

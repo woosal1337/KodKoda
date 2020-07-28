@@ -106,7 +106,7 @@ const PostQuestion = props => {
                     <Grid item >
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item>
-                                <Link href="/user/[id]/" as={`/user/${data.userId}`}>
+                                <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.questionPoster}>
                                         @{data.ownerName}
                                     </Typography>

@@ -111,7 +111,7 @@ const PostAnswer = props => {
                         </Grid>
                         <Grid item >
                             <Grid item>
-                                <Link href="/user/[id]/" as={`/user/${data.userId}`}>
+                                <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.answerPoster}>
                                         @{data.ownerName}
                                     </Typography>

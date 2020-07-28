@@ -113,7 +113,7 @@ const Question = props => {
                                     onClick={props.goToLanguage}
                                     size="small"
                                     className={classes.languageButton}
-                                    style= {{ 'background': palette.languages[q.language] }}
+                                    style= {{ 'background': palette.languages[q.data.language] }}
                                 >
                                     {q.data.language}
                                 </Button>

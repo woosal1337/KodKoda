@@ -20,7 +20,6 @@ db.collection("posts").get().then((querySnapshot) => {
 });
 */
 
-
 var usersRef = db.collection("users");
 
 const addUsersToDb = (u, userIDs) => {

@@ -2,13 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import  palette  from '../../src/palette'
-import Link from '../Link';
 import PostQuestion from './PostQuestion';
 import PostAnswers from './PostAnswers';
 

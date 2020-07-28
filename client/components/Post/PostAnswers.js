@@ -23,7 +23,7 @@ const PostAnswers = props => {
             <Grid item xs={3} md={1} ></Grid>
             <Grid item container xs={12} md={9} >
                 <Grid container direction="column" wrap="nowrap" spacing={3} className={classes.answersContainer}>
-                  {data.answers.map((e, i) => {
+                  {data.map((e, i) => {
                       return (
                           <Grid key={i} item>
                             <PostAnswer data={e}/>

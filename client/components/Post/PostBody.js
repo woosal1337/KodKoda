@@ -86,13 +86,13 @@ const PostBody = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const [post, setPost] = useState({});
-
+    const {id, data} = props
     useEffect(() => {
         setLoading(true)
         console.log(props.id)
         setPost({
-            qs: questions.filter(obj => { return obj.id === props.id })[0],
-            as: answers.filter(obj => { return obj.id === props.id })[0]
+            qs: data.q,
+            as: data.a
         })
         setLoading(false)
     }, [props]);

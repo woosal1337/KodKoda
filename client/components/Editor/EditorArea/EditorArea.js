@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
-import palette  from '../../src/palette'
-import Link from '../Link';
+import CreateIcon from '@material-ui/icons/Create';
+import Link from '../../Link';
 import BetterEditor from './BetterEditor'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -70,12 +70,10 @@ const EditorArea = ()=> {
         <Grid container direction="row" spacing={1} >
             <Grid item direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
-                    <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
-                        <ExpandLessIcon className={classes.voteMore} />
-                    </IconButton>
+                    <CreateIcon className={classes.voteMore} />
                 </Grid>
                 <Grid item >
-                    <Typography className={classes.voteCount}>{data.voteCount}</Typography>
+                    <Typography className={classes.voteCount}></Typography>
                 </Grid>
             </Grid>
             <Grid item xs={12} md={9} >

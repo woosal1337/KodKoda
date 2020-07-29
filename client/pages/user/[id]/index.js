@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import PostLayout from '../../../layouts/Post/PostLayout'
-import PostBody from '../../../components/Post/PostBody'
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import useSWR from 'swr'
 
 const fetcher = async (...args) => {
@@ -14,16 +14,20 @@ function Post  () {
   const router = useRouter()
   const { id } = router.query
   console.log(id)
-  const {data} = useSWR(`/api/soru/${id}`,fetcher)
+  const {data} = useSWR(`/api/user/${id}`,fetcher)
   if (!data){
     return 'Loading...'
   }
   console.log(data);
 ;  return (
+    //Just for testing purposes. C.Z.
+    //Add user component.
     <>
-      <PostLayout >
-        <PostBody id={id} data={data}/>
-      </PostLayout>
+        <Grid>
+            <Typography variant="h3" component="h3" gutterBottom>
+              {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
+            </Typography>
+        </Grid>
     </>
   )
 }

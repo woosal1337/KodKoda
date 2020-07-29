@@ -11,22 +11,21 @@ const fetcher = (url, token) =>
 
 const Index = () => {
   const { user, logout } = useUser();
-  const { data, error } = useSWR(
-    user ? ["/api/getFood", user.token] : null,
-    fetcher
-  );
-
+  const { data, error } = useSWR("/api/main",fetcher);
+  if (!data){
+    return 'Loading...'
+  }
   if (!user) {
     return (
       <Layout user={user} auth={false} authPage={false} >
-        <Main auth={false} />
+        <Main auth={false} data={data}/>
       </Layout>
     );
   }
 
   return (
     <Layout user={user} auth={true} logOut={logout} authPage={false}>
-      <Main auth={true} />
+      <Main auth={true} data={data}/>
     </Layout>
   );
 };

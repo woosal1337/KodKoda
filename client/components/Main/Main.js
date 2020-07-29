@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 const Main = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-
+  const { data, auth } = props
+  console.log(props)
   /*
     useEffect(() => {
       setLoading(true)
@@ -64,7 +65,7 @@ const Main = (props) => {
             spacing={1}
             className={classes.questionsContainer}
           >
-            {questions.map((q, i) => {
+            {data.map((q, i) => {
               return (
                 <Grid key={i} item>
                   <Question q={q} auth={props.auth} />

@@ -102,15 +102,15 @@ const PostAnswer = props => {
                         <Grid item >
                             <Typography variant="body1" component="body1" className={classes.answerText}>
                                 <Linkify properties={{target: '_blank', style: {color: 'white', textDecoration: 'underline', textDecorationColor: 'blue'}}} > 
-                                    {data.text.charAt(0).toUpperCase() + data.text.slice(1)}
+                                    {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                                 </Linkify> 
                             </Typography>
                         </Grid>
                         <Grid item >
                             <Grid item>
-                                <Link href="/user/[id]/" as={`/user/${data.userId}`}>
+                                <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.answerPoster}>
-                                        @{data.name}
+                                        @{data.ownerName}
                                     </Typography>
                                 </Link>
                             </Grid>

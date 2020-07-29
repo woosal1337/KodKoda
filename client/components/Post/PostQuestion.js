@@ -100,15 +100,15 @@ const PostQuestion = props => {
                 <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
                     <Grid item >
                         <Typography variant="body1" component="body1" className={classes.questionText}>
-                            {data.text.charAt(0).toUpperCase() + data.text.slice(1)}
+                            {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                         </Typography>
                     </Grid>
                     <Grid item >
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item>
-                                <Link href="/user/[id]/" as={`/user/${data.userId}`}>
+                                <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.questionPoster}>
-                                        @{data.name}
+                                        @{data.ownerName}
                                     </Typography>
                                 </Link>
                             </Grid>
@@ -130,7 +130,7 @@ const PostQuestion = props => {
             <Grid item xs={12} md={2} className={classes.leftColumnContainer}>
                 <Grid container direction="column" >
                     <Grid item>
-                        <Typography className={classes.questionResponders}>{data.responses} Cevap</Typography>
+                        <Typography className={classes.questionResponders}>{data.answerCount} Cevap</Typography>
                     </Grid>
                 </Grid>
             </Grid>

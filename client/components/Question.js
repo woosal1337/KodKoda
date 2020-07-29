@@ -87,7 +87,7 @@ const Question = props => {
                     </IconButton>
                 </Grid>
                 <Grid item xs>
-                    <Typography className={classes.voteCount}>{q.voteCount}</Typography>
+                    <Typography className={classes.voteCount}>{q.data.voteCount}</Typography>
                 </Grid>
             </Grid>
 
@@ -96,7 +96,7 @@ const Question = props => {
                     <Grid item >
                         <Link href="/soru/[id]/" as={`/soru/${q.id}`} style={{ textDecoration: 'none' }}>
                             <Typography variant="h5" component="h5" className={classes.questionTitle}>
-                                {q.title.charAt(0).toUpperCase() + q.title.slice(1)}
+                                {q.data.title.charAt(0).toUpperCase() + q.data.title.slice(1)}
                             </Typography>
                         </Link>
                     </Grid>
@@ -104,7 +104,7 @@ const Question = props => {
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item>
                                 <Typography className={classes.questionPoster}>
-                                    {q.name}
+                                    {q.data.ownerName}
                                 </Typography>
                             </Grid>
                             <Grid item>
@@ -113,14 +113,14 @@ const Question = props => {
                                     onClick={props.goToLanguage}
                                     size="small"
                                     className={classes.languageButton}
-                                    style= {{ 'background': palette.languages[q.language] }}
+                                    style= {{ 'background': palette.languages[q.data.language] }}
                                 >
-                                    {q.language}
+                                    {q.data.language}
                                 </Button>
                             </Grid>
                             <Grid item>
                                 <Typography className={classes.questionResponders}>
-                                    {q.responses} cevap
+                                    {q.data.answerCount} cevap
                                 </Typography>
                             </Grid>
                         </Grid>

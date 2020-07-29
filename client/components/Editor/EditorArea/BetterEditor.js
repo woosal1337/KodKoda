@@ -1,6 +1,4 @@
 import React, { useState, useEffect }  from 'react';
-import Typography from '@material-ui/core/Typography';
-import Link from '../../Link';
 import MUIRichTextEditor from 'mui-rte'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,7 +23,7 @@ const BetterEditor = () => {
         )
     }
     return (
-        <MUIRichTextEditor label="Start typing..." className={classes.root}  />
+        <MUIRichTextEditor label="Start typing..." className={classes.root} controls={["title", "bold", "undo", "redo", "link", "bulletList", "quote", "code", "clear"]} />
     );
 }
 

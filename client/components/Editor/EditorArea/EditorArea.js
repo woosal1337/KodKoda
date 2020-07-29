@@ -67,7 +67,7 @@ const EditorArea = ()=> {
     const classes = useStyles();
 
     return (
-        <Grid container direction="row" spacing={1} >
+        <Grid container direction="row" spacing={1} wrap="nowrap" >
             <Grid item direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
                     <CreateIcon className={classes.voteMore} />

@@ -14,6 +14,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: {
         flexGrow: 1
     },
+    editorMainContainer: {
+    },  
     title: {
         fontSize: 36,
         fontFamily: 'Hind, sans-serif',
@@ -36,7 +38,7 @@ const Editor = () => {
         )
     }
     return (
-        <Grid>
+        <Grid className={classes.editorMainContainer} xs={12}>
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
               Soru Taslağı
             </Typography>

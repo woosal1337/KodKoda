@@ -72,7 +72,8 @@ export default {
   background: {
     //default: "#153647",
     default: "#222947",
-    paper: "#333d69" //%5 lighter of above
+    paper: "#333d69", //%5 lighter of above
+    codeBlock: "#4C5B9C" //%15 lighter of above
   },
   icon: colors.blueGrey[600],
   divider: "#fefefe"

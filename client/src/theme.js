@@ -11,7 +11,6 @@ const theme = createMuiTheme({
   overrides: {
     MUIRichTextEditor: {
       root: {
-        marginTop: 20,
         minHeight: 150,
         color: "#fefefe",
       },

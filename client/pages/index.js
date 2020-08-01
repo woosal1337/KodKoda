@@ -18,7 +18,7 @@ const Index = () => {
   if (!user) {
     return (
       <Layout user={user} auth={false} authPage={false} >
-        <Main auth={false} data={data} userId={user.id}/>
+        <Main auth={false} data={data} />
       </Layout>
     );
   }

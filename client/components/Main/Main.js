@@ -37,17 +37,19 @@ const Main = (props) => {
   const { data, auth, userId } = props
 
   async function handleUpVote(event) {
-    event.preventDefault()
-    // mutate current data to optimistically update the UI
-    // the fetch below could fail, in that case the UI will
-    // be in an incorrect state
-    //mutate('/api/soru/upvote', [...data, text], false)
-    // then we send the request to the API and let mutate
-    // update the data with the API response
-    mutate('/api/soru/upvote', await fetch('/api/soru/upvote', {
-      method: 'POST',
-      body: JSON.stringify({ userId: userId })
-    }))
+    if (userId) {
+      event.preventDefault()
+      // mutate current data to optimistically update the UI
+      // the fetch below could fail, in that case the UI will
+      // be in an incorrect state
+      //mutate('/api/soru/upvote', [...data, text], false)
+      // then we send the request to the API and let mutate
+      // update the data with the API response
+      mutate('/api/soru/upvote', await fetch('/api/soru/upvote', {
+        method: 'POST',
+        body: JSON.stringify({ userId: userId })
+      }))
+    } 
   }
   
   return (

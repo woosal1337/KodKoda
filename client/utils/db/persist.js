@@ -12,13 +12,6 @@ firebase.initializeApp({
   });
   
 const db = firebase.firestore();
-/*
-db.collection("posts").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-    });
-});
-*/
 
 var usersRef = db.collection("users");
 

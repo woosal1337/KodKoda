@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
-import { questions } from "../../utils/fakeData";
+import { mutate } from 'swr'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,18 +33,23 @@ const useStyles = makeStyles((theme) => ({
 const Main = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-  const { data, auth } = props
-  console.log(props)
-  /*
-    useEffect(() => {
-      setLoading(true)
-      fetch('/questions')
-        .then( res => res.json() )
-        .then( questions => console.log(questions) )
-    }, []);
 
-    */
+  const { data, auth, userId } = props
 
+  async function handleUpVote(event) {
+    event.preventDefault()
+    // mutate current data to optimistically update the UI
+    // the fetch below could fail, in that case the UI will
+    // be in an incorrect state
+    //mutate('/api/soru/upvote', [...data, text], false)
+    // then we send the request to the API and let mutate
+    // update the data with the API response
+    mutate('/api/soru/upvote', await fetch('/api/soru/upvote', {
+      method: 'POST',
+      body: JSON.stringify({ userId: userId })
+    }))
+  }
+  
   return (
     <Container maxWidth="md" className={classes.mainContainer}>
       <Grid container spacing={4} className={classes.mainGridContainer}>
@@ -68,7 +73,7 @@ const Main = (props) => {
             {data.map((q, i) => {
               return (
                 <Grid key={i} item>
-                  <Question q={q} auth={props.auth} />
+                  <Question q={q} auth={auth} handleUpVote={handleUpVote} />
                 </Grid>
               );
             })}

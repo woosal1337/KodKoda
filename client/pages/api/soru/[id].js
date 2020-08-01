@@ -1,10 +1,4 @@
 import firebase from '../../../utils/db/firebase_db'
-import useSWR from 'swr'
-import PostLayout from '../../../layouts/Post/PostLayout'
-import PostBody from '../../../components/Post/PostBody'
-
-
-console.log(firebase)
 
 export default (req, res) => {
   console.log(req.query.id);
@@ -19,7 +13,7 @@ export default (req, res) => {
         .where('__name__', 'in' ,responses)
         .get()
         .then((querySnapshot) => {
-          console.log(querySnapshot);
+          //console.log(querySnapshot);
           var answers = querySnapshot.docs.map((doc) => doc.data());
           res.json({q:doc.data(),a:answers});
 

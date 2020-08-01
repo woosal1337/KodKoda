@@ -18,14 +18,14 @@ const Index = () => {
   if (!user) {
     return (
       <Layout user={user} auth={false} authPage={false} >
-        <Main auth={false} data={data}/>
+        <Main auth={false} data={data} userId={user.id}/>
       </Layout>
     );
   }
 
   return (
     <Layout user={user} auth={true} logOut={logout} authPage={false}>
-      <Main auth={true} data={data}/>
+      <Main auth={true} userId={user.id} data={data}/>
     </Layout>
   );
 };

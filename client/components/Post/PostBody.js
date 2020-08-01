@@ -79,8 +79,10 @@ const useStyles = makeStyles(theme => ({
 const PostBody = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
+    const [upvoted, setUpvoted] = useState(false);
     const [post, setPost] = useState({});
     const {id, data} = props
+    
     useEffect(() => {
         setLoading(true)
         console.log(props.id)
@@ -89,7 +91,7 @@ const PostBody = props => {
             as: data.a
         })
         setLoading(false)
-    }, [props]);
+    }, []);
     
     if ( !post.qs || !Object.keys(post.qs).length) {
         return (

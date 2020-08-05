@@ -1,6 +1,8 @@
 import React, { useState, useEffect  } from "react";
+import useSWR from "swr";
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { mutate } from 'swr'
 
 const useStyles = makeStyles((theme) => ({
@@ -30,11 +32,19 @@ const useStyles = makeStyles((theme) => ({
   questionsContainer: {},
 }));
 
+const fetcher = (url, token) =>
+  fetch(url, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json", token }),
+    credentials: "same-origin",
+  }).then((res) => res.json());
+
+
 const Main = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-
-  const { data, auth, userId } = props
+  const { data, error } = useSWR("/api/main",fetcher);
+  const { auth, userId } = props
 
   async function handleUpVote(event) {
     if (userId) {
@@ -47,7 +57,7 @@ const Main = (props) => {
       // update the data with the API response
       mutate('/api/soru/upvote', await fetch('/api/soru/upvote', {
         method: 'POST',
-        body: JSON.stringify({ userId: userId })
+        body: JSON.stringify({ userId: userId, postId: postId })
       }))
     } 
   }
@@ -72,13 +82,17 @@ const Main = (props) => {
             spacing={1}
             className={classes.questionsContainer}
           >
-            {data.map((q, i) => {
-              return (
-                <Grid key={i} item>
-                  <Question q={q} auth={auth} handleUpVote={handleUpVote} />
-                </Grid>
-              );
-            })}
+            { !data ?
+              <CircularProgress />
+              :
+              data.map((q, i) => {
+                return (
+                  <Grid key={i} item>
+                    <Question q={q} auth={auth} handleUpVote={handleUpVote} />
+                  </Grid>
+                );
+              })
+            }
           </Grid>
         </Grid>
       </Grid>

@@ -11,21 +11,17 @@ const fetcher = (url, token) =>
 
 const Index = () => {
   const { user, logout } = useUser();
-  const { data, error } = useSWR("/api/main",fetcher);
-  if (!data){
-    return 'Loading...'
-  }
   if (!user) {
     return (
       <Layout user={user} auth={false} authPage={false} >
-        <Main auth={false} data={data} />
+        <Main auth={false} />
       </Layout>
     );
   }
 
   return (
     <Layout user={user} auth={true} logOut={logout} authPage={false}>
-      <Main auth={true} userId={user.id} data={data}/>
+      <Main auth={true} userId={user.id} />
     </Layout>
   );
 };

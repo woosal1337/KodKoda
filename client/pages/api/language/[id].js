@@ -1,10 +1,7 @@
-import firebase from '../../../utils/db/firebase_db'
-import useSWR from 'swr'
-
-console.log(firebase)
+import db from '../../../utils/db/firebase_db'
 
 export default (req, res) => {
-  firebase
+  db
   .collection("posts")
   .where("language", "==", req.query.id)
   .where("postType", "==", 1)

@@ -1,8 +1,8 @@
-import firebase from '../../../utils/db/firebase_db'
+import db from '../../../utils/db/firebase_db'
 
 export default (req, res) => {
     return new Promise((resolve, reject) => {
-        firebase
+        db
             .collection('users')
             .doc(req.query.id)
             .get()

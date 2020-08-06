@@ -8,7 +8,7 @@ export default (req, res) => {
       .get()
       .then((doc) => {
         const responses = doc.data().responses;
-        firebase 
+        db 
           .collection('posts')
           .where('__name__', 'in' ,responses)
           .get()

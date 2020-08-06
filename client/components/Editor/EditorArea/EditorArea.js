@@ -53,6 +53,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -6,
     marginLeft: 4,
   },
+  postButton: {
+    background: theme.palette.secondary.main, //'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
+    borderRadius: 3,
+    boxShadow: 'none',
+    border: 0,
+    fontSize:20,
+    fontWeight: 600,
+    color: 'white',
+    height: 24,
+    padding: 20,
+  },
+  postButtonGrid: {
+    marginTop:20
+  },    
   languageButton: {
     background:
       "linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)",
@@ -61,9 +75,11 @@ const useStyles = makeStyles((theme) => ({
     border: 0,
     fontSize: 14,
     fontWeight: 600,
-    color: "white",
     height: 24,
     padding: "0 10px",
+  },
+  formattingPopover: {
+    padding: 10
   },
   typography: {
     padding: theme.spacing(1),
@@ -100,6 +116,12 @@ const EditorArea = () => {
     setAnchorEl(null);
   };
 
+  const postQ = (event) => {
+      event.preventDefault()
+      //await postQuestion
+      console.log("question posted!!")
+  }
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
@@ -124,11 +146,20 @@ const EditorArea = () => {
         <Grid
           container
           direction="column"
-          justify={"space-between"}
           className={classes.editorContainer}
         >
           <Grid item>
             <BetterEditor />
+          </Grid>
+          <Grid item align="right" className={classes.postButtonGrid}>
+            <Button
+                variant="contained"
+                onClick={(e) => postQ(e)}
+                size="large"
+                className={classes.postButton}
+            >
+                Paylaş
+            </Button>
           </Grid>
         </Grid>
       </Grid>
@@ -158,26 +189,28 @@ const EditorArea = () => {
                 horizontal: "center",
               }}
             >
-              <Typography className={classes.typography}>
-                Kod parçaları için{" "}
-                <span className={classes.bold}>
-                  {"<"}
-                  {" >"}
-                </span>{" "}
-                kullanabilirsiniz.
-              </Typography>
-              <Typography className={classes.typography}>
-                Vurgu yapmak istediğiniz kelimeler için{" "}
-                <span className={classes.bold}>B </span>
-                kullanabilirsiniz.
-              </Typography>
-              <Typography className={classes.typography}>
-                Listeleme yapmak için
-                <span className={`${classes.bold} ${classes.listIcon}`}>
-                  <ListIcon />
-                </span>
-                kullanabilirsiniz.
-              </Typography>
+            <div className={classes.formattingPopover}>
+                <Typography className={classes.typography}>
+                  Kod parçaları için{" "}
+                  <span className={classes.bold}>
+                    {"<"}
+                    {" >"}
+                  </span>{" "}
+                  kullanabilirsiniz.
+                </Typography>
+                <Typography className={classes.typography}>
+                  Vurgu yapmak istediğiniz kelimeler için{" "}
+                  <span className={classes.bold}>B </span>
+                  kullanabilirsiniz.
+                </Typography>
+                <Typography className={classes.typography}>
+                  Listeleme yapmak için
+                  <span className={`${classes.bold} ${classes.listIcon}`}>
+                    <ListIcon />
+                  </span>
+                  kullanabilirsiniz.
+                </Typography>
+              </div>
             </Popover>
           </Grid>
         </Grid>

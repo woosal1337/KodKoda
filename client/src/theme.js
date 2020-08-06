@@ -11,18 +11,20 @@ const theme = createMuiTheme({
   overrides: {
     MUIRichTextEditor: {
       root: {
-        minHeight: 150,
-        color: "#fefefe",
+        color: palette.text.primary,
       },
       container: {
         margin: 0,
         padding: 0,
+        borderRadius: 2,
         backgroundColor: "#333d69",
         toolbar: {},
       },
       editor: {
-        height: 200,
-        padding: 0,
+        //height: 200,
+        minHeight: 200,
+        padding: 10,
+        lineHeight: 1.5,
         backgroundColor: "#333d69",
         borderBottom: "1px solid gray",
         fontSize: 18,
@@ -32,7 +34,8 @@ const theme = createMuiTheme({
         margin: 0,
         padding: 10,
         '& div[class^="CodeBlock-root-"]': {
-          color: "red",
+          color: palette.text.primary,
+          borderRadius: 2,
           backgroundColor: "#4C5B9C",
         },
       },

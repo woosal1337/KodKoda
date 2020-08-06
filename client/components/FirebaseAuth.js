@@ -9,6 +9,13 @@ import initFirebase from '../utils/auth/initFirebase'
 // Init the Firebase app.
 initFirebase()
 
+const createUser = (email, uid) => {
+  fetch('/api/user/create', {
+    method: 'POST',
+    body: JSON.stringify({ email: email, userId: uid })
+  }).then((res) => res.json());
+}
+
 const firebaseAuthConfig = {
   signInFlow: 'popup',
   // Auth providers
@@ -31,6 +38,7 @@ const firebaseAuthConfig = {
         email,
         token: xa,
       }
+      await createUser(email, uid)
       cookie.set('auth', userData, {
         expires: 1,
       })

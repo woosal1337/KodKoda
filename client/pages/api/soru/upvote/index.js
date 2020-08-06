@@ -1,32 +1,40 @@
-import firebase from '../../../../utils/db/firebase_db'
+import db from '../../../../utils/db/firebase_db'
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
 
 export default (req, res) => {
-    console.log(req.body);
-    /*
-    firebase
-      .collection('posts')
-      .doc(req.query.id)
-      .update({
-          voteCount: firebase.firestore.FieldValue.increment(1)
-      })
-      .then((doc) => {
-        const responses = doc.data().responses;
-        firebase 
-          .collection('posts')
-          .where('__name__', 'in' ,responses)
-          .get()
-          .then((querySnapshot) => {
-            //console.log(querySnapshot);
-            var answers = querySnapshot.docs.map((doc) => doc.data());
-            res.json({q:doc.data(),a:answers});
-  
+    const postInfo = JSON.parse(req.body)
+    return new Promise((resolve, reject) => {
+      db
+        .collection('posts')
+        .doc(postInfo.postId)
+        .update({
+            voteCount: firebase.firestore.FieldValue.increment(1)
+        })
+        .then((doc) => {
+          const data = doc.data();
+          db
+            .collection('users')
+            .doc(postInfo.userId)
+            .update({
+              upvotes: firebase.firestore.FieldValue.arrayUnion(req.body.postId)
+            })
+            .then((doc) => {
+              res.json({status:"success"})
+              resolve()
             })
             .catch((error) => {
               res.json({ error });
-            });
-      })
-      .catch((error) => {
-        res.json({ error });
-      });
-    */
+              res.status(405).end();
+              resolve()
+            })
+        })
+        .catch((error) => {
+          res.json({ error });
+          res.status(405).end();
+          resolve();
+        });
+
+    })
 };

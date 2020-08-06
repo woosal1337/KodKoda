@@ -85,7 +85,7 @@ const Question = props => {
                  
             <Grid container item direction="column" alignItems="center" justify="center" xs={1} className={classes.buttons}>
                 <Grid item xs>
-                    <IconButton onClick={(e) => { if (!upvoted) { props.handleUpVote(e); setUpvoted(true)} }} edge="start" className={classes.voteButton} size="small" aria-label="upvote">
+                    <IconButton onClick={(e) => { if (!upvoted) { props.handleUpVote(e, props.index, q.id); setUpvoted(true)} }} edge="start" className={classes.voteButton} size="small" aria-label="upvote">
                         <ExpandLessIcon className={classes.voteMore} />
                     </IconButton>
                 </Grid>

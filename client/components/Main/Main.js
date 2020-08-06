@@ -1,7 +1,8 @@
 import React, { useState, useEffect  } from "react";
+import useSWR, {mutate} from "swr";
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
-import { mutate } from 'swr'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,27 +31,40 @@ const useStyles = makeStyles((theme) => ({
   questionsContainer: {},
 }));
 
+const fetcher = (url, token) =>
+  fetch(url, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json", token }),
+    credentials: "same-origin",
+  }).then((res) => res.json());
+
+const updateVote = (userid, postid) => { 
+  console.log(userid, postid)
+  fetch('/api/soru/upvote', {
+    method: 'POST',
+    body: JSON.stringify({ userId: userid, postId: postid })
+  }).then((res) => res.json());
+}
+
+
 const Main = (props) => {
   const classes = useStyles();
-  const [loading, setLoading] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const { data, error } = useSWR("/api/main", fetcher);
+  const { auth, userId } = props
 
-  const { data, auth, userId } = props
-
-  async function handleUpVote(event) {
+  async function handleUpVote(event, idx, postId) {
     if (userId) {
       event.preventDefault()
-      // mutate current data to optimistically update the UI
-      // the fetch below could fail, in that case the UI will
-      // be in an incorrect state
-      //mutate('/api/soru/upvote', [...data, text], false)
-      // then we send the request to the API and let mutate
-      // update the data with the API response
-      mutate('/api/soru/upvote', await fetch('/api/soru/upvote', {
-        method: 'POST',
-        body: JSON.stringify({ userId: userId })
-      }))
+      // send a request to the API to update the data
+      await updateVote(userId, postId)
+      // update the local data immediately and revalidate (refetch)
+      // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+      data[idx].data= {...data[idx].data, voteCount: data[idx].data.voteCount + 1}
+      mutate('/api/main', data)
     } 
   }
+
   
   return (
     <Container maxWidth="md" className={classes.mainContainer}>
@@ -72,13 +86,17 @@ const Main = (props) => {
             spacing={1}
             className={classes.questionsContainer}
           >
-            {data.map((q, i) => {
-              return (
-                <Grid key={i} item>
-                  <Question q={q} auth={auth} handleUpVote={handleUpVote} />
-                </Grid>
-              );
-            })}
+            { !data ?
+              <CircularProgress />
+              :
+              data.map((q, i) => {
+                return (
+                  <Grid key={i} item>
+                    <Question q={q} auth={auth} index={i} handleUpVote={handleUpVote} />
+                  </Grid>
+                );
+              })
+            }
           </Grid>
         </Grid>
       </Grid>

@@ -1,13 +1,6 @@
-import useSWR from "swr";
 import { useUser } from "../utils/auth/useUser";
 import { Layout , Main} from "../components";
 
-const fetcher = (url, token) =>
-  fetch(url, {
-    method: "GET",
-    headers: new Headers({ "Content-Type": "application/json", token }),
-    credentials: "same-origin",
-  }).then((res) => res.json());
 
 const Index = () => {
   const { user, logout } = useUser();

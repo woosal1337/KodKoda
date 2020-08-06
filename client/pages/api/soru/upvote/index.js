@@ -6,6 +6,8 @@ require("firebase/firestore");
 export default (req, res) => {
     const postInfo = JSON.parse(req.body)
     return new Promise((resolve, reject) => {
+      // TODO: check if user is upvoted then update posts
+      // e.g.: db.collection("Fruits").whereField("vitamins", arrayContains: "B6")
       db
         .collection('posts')
         .doc(postInfo.postId)

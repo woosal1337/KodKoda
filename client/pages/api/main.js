@@ -1,9 +1,8 @@
-import firebase from '../../utils/db/firebase_db'
-import useSWR from 'swr'
+import db from '../../utils/db/firebase_db'
 
 export default (req, res) => {
   return new Promise((resolve, reject) => {
-    firebase
+    db
     .collection("posts")
     .where("postType", "==", 1)
     .limit(10)

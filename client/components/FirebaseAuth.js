@@ -29,7 +29,7 @@ const firebaseAuthConfig = {
   signInSuccessUrl: '/',
   credentialHelper: 'none',
   callbacks: {
-    signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
+    signInSuccessWithAuthResult: async ({ user, additionalUserInfo }, redirectUrl) => {
       // xa is the access token, which can be retrieved through
       // firebase.auth().currentUser.getIdToken()
       const { uid, email, xa } = user
@@ -38,7 +38,9 @@ const firebaseAuthConfig = {
         email,
         token: xa,
       }
-      await createUser(email, uid)
+      if (additionalUserInfo.isNewUser) {
+        await createUser(email, uid)
+      }
       cookie.set('auth', userData, {
         expires: 1,
       })

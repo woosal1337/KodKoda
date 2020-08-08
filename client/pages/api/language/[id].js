@@ -7,7 +7,6 @@ export default (req, res) => {
   .where("postType", "==", 1)
   .limit(10)
   .get().then((querySnapshot) => {
-    console.log(querySnapshot);
     var docs = querySnapshot.docs.map((doc) => ({id:doc.id, data:doc.data()}));
     res.json(docs);
     })

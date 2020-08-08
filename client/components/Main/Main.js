@@ -38,30 +38,31 @@ const fetcher = (url, token) =>
     credentials: "same-origin",
   }).then((res) => res.json());
 
-const updateVote = (userid, postid) => { 
-  console.log(userid, postid)
+const updateVote = (userid, postid) => 
   fetch('/api/soru/upvote', {
     method: 'POST',
     body: JSON.stringify({ userId: userid, postId: postid })
   }).then((res) => res.json());
-}
 
 
 const Main = (props) => {
   const classes = useStyles();
   const [ loading, setLoading ] = useState(false);
-  const { data, error } = useSWR("/api/main", fetcher);
+  const { data, error, mutate } = useSWR("/api/main", fetcher);
   const { auth, userId } = props
 
   async function handleUpVote(event, idx, postId) {
     if (userId) {
       event.preventDefault()
-      // send a request to the API to update the data
-      await updateVote(userId, postId)
-      // update the local data immediately and revalidate (refetch)
+      const newData = {id: data[idx].id, data:{...data[idx].data, voteCount: data[idx].data.voteCount + 1}}
+      // update the local data immediately
       // NOTE: key is not required when using useSWR's mutate as it's pre-bound
-      data[idx].data= {...data[idx].data, voteCount: data[idx].data.voteCount + 1}
-      mutate('/api/main', data)
+      mutate(async data => { 
+        const { docExists, error } = await updateVote(userId, postId)
+        if (!docExists) {
+          return data.map((d, i) => {return (i == idx) ? newData : d})
+        }
+      }, false)
     } 
   }
 

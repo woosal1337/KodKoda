@@ -13,17 +13,19 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const BetterEditor = () => {
+const BetterEditor = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
+    const { forwardRef, handleSave } = props;
     
     if ( loading ) {
         return (
             <CircularProgress />
         )
     }
+
     return (
-        <MUIRichTextEditor label="Start typing..." className={classes.root} controls={["title", "bold", "undo", "redo", "link", "bulletList", "quote", "code", "clear"]} />
+        <MUIRichTextEditor label="Start typing..." ref={forwardRef} onSave={handleSave} className={classes.root} controls={["title", "bold", "undo", "redo", "link", "bulletList", "quote", "code", "clear"]} />
     );
 }
 

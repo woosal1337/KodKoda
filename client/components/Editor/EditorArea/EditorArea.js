@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Popover from "@material-ui/core/Popover";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -105,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
 
 const EditorArea = () => {
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const editorRef = useRef(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -116,9 +116,14 @@ const EditorArea = () => {
     setAnchorEl(null);
   };
 
+  const onSave = data => {
+      console.log(data) 
+  }
+
   const postQ = (event) => {
       event.preventDefault()
       //await postQuestion
+      editorRef.current?.save()
       console.log("question posted!!")
   }
 
@@ -149,7 +154,7 @@ const EditorArea = () => {
           className={classes.editorContainer}
         >
           <Grid item>
-            <BetterEditor />
+            <BetterEditor forwardRef={editorRef} handleSave={onSave} />
           </Grid>
           <Grid item align="right" className={classes.postButtonGrid}>
             <Button

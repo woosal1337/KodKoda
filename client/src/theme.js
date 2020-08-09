@@ -36,6 +36,7 @@ const theme = createMuiTheme({
         '& div[class^="CodeBlock-root-"]': {
           color: palette.text.primary,
           borderRadius: 2,
+          lineHeight:1,
           backgroundColor: "#4C5B9C",
         },
       },

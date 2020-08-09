@@ -14,7 +14,7 @@ function Post  () {
   const { user, logout } = useUser();
   const { id } = router.query
   console.log(id)
-  const {data} = useSWR(`/api/language/${id}`,fetcher)
+  const { data } = useSWR(`/api/language/${id}`,fetcher)
   if (!data){
     return 'Loading...'
   }

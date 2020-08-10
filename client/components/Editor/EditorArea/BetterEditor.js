@@ -17,6 +17,10 @@ const BetterEditor = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const { forwardRef, handleSave } = props;
+
+    const onChange = editorState => {
+        props.handleChange('body', editorState)
+    }
     
     if ( loading ) {
         return (
@@ -25,7 +29,7 @@ const BetterEditor = props => {
     }
 
     return (
-        <MUIRichTextEditor label="Start typing..." ref={forwardRef} onSave={handleSave} className={classes.root} controls={["title", "bold", "undo", "redo", "link", "bulletList", "quote", "code", "clear"]} />
+        <MUIRichTextEditor label="Buraya sorunuzu yazın..." ref={forwardRef} onChange={onChange} className={classes.root} controls={["title", "bold", "undo", "redo", "link", "bulletList", "quote", "code", "clear"]} />
     );
 }
 

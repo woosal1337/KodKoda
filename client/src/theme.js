@@ -29,6 +29,10 @@ const theme = createMuiTheme({
         borderBottom: "1px solid gray",
         fontSize: 18,
       },
+      placeHolder: {
+        color: palette.text.secondary,
+        fontSize:18
+      },
       editorContainer: {
         height: "100%",
         margin: 0,

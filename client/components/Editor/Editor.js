@@ -1,4 +1,5 @@
 import React, { useState, useEffect }  from 'react';
+import { useUser } from "../../utils/auth/useUser";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -30,9 +31,9 @@ const useStyles = makeStyles(theme => ({
 
 const Editor = () => {
     const classes = useStyles();
-    const [loading, setLoading] = useState(false);
+    const { user, logout } = useUser();
     
-    if ( loading ) {
+    if ( !user ) {
         return (
             <CircularProgress />
         )
@@ -44,7 +45,7 @@ const Editor = () => {
             </Typography>
             <Divider className={classes.divider} />
             <Grid container direction="column" wrap="nowrap" >
-                <EditorArea  />
+                <EditorArea userId={user.id} />
             </Grid>
         </Grid>
     );

@@ -4,18 +4,19 @@ const firebase = require("firebase");
 require("firebase/firestore");
 
 export default (req, res) => {
-    const postData = JSON.parse(req.body)
+    const qData = JSON.parse(req.body)
+    // ADD SERVER-SIDE VALIDATIONS 
     return new Promise((resolve, reject) => {
         const postsRef = db.collection('posts')
         postsRef
             .add({
-                title: postData.title,
-                body: postData.text,
-                tags: postData.language,
+                title: qData.title,
+                body: qData.body,
+                tags: "",
                 postType: 1,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),
-                answerCount: 3,
-                ownerUserId: postData.userid,
+                answerCount: 0,
+                ownerUserId: qData.userId,
                 ownerName: "", 
                 votes: 0
             })

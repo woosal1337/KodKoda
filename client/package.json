@@ -16,7 +16,7 @@
     "dotenv": "^8.2.0",
     "draft-js": "^0.11.6",
     "firebase": "^7.16.1",
-    "formik": "^1.5.8",
+    "formik": "^2.1.5",
     "graphql": "^14.6.0",
     "history": "^4.9.0",
     "js-cookie": "2.2.1",
@@ -36,6 +36,7 @@
     "react-router-dom": "^5.0.1",
     "react-social-icons": "^4.1.0",
     "swr": "0.2.2",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "yup": "^0.29.3"
   }
 }

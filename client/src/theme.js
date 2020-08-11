@@ -31,7 +31,7 @@ const theme = createMuiTheme({
       },
       placeHolder: {
         color: palette.text.secondary,
-        fontSize:18
+        fontSize: 18,
       },
       editorContainer: {
         height: "100%",
@@ -40,8 +40,11 @@ const theme = createMuiTheme({
         '& div[class^="CodeBlock-root-"]': {
           color: palette.text.primary,
           borderRadius: 2,
-          lineHeight:1,
+          lineHeight: 1,
           backgroundColor: "#4C5B9C",
+        },
+        '& div[class^="Blockquote-root-"]': {
+          color: palette.text.primary,
         },
       },
       toolbar: {

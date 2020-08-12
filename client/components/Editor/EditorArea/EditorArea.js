@@ -1,4 +1,4 @@
-import React, { useRef,  } from "react";
+import React, { useRef } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -12,6 +12,7 @@ import { editorValidations } from "../../../utils/form";
 
 import BetterEditor from "./BetterEditor";
 import FormatPopover from "./FormatPopover";
+import Tags from "./LanguageSelector";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -56,17 +57,17 @@ const useStyles = makeStyles((theme) => ({
   postButton: {
     //background: theme.palette.secondary.main, //'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
     borderRadius: 3,
-    boxShadow: 'none',
+    boxShadow: "none",
     border: 0,
-    fontSize:20,
+    fontSize: 20,
     fontWeight: 600,
-    color: 'white',
+    color: "white",
     height: 24,
     padding: 20,
   },
   postButtonGrid: {
-    marginTop:20
-  },    
+    marginTop: 20,
+  },
   languageButton: {
     background:
       "linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)",
@@ -78,34 +79,34 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
     padding: "0 10px",
   },
-  textFieldItem:{
-    marginBottom: 20
+  textFieldItem: {
+    marginBottom: 20,
   },
 }));
 
-const EditorArea = props => {
+const EditorArea = (props) => {
   const classes = useStyles();
   const editorRef = useRef(null);
 
   const onEditorSubmit = (values) => {
     const qData = {
-        title: values.title,
-        body: convertToRaw(values.body.getCurrentContent()),
-        userId: props.userId
-    }
+      title: values.title,
+      body: convertToRaw(values.body.getCurrentContent()),
+      userId: props.userId,
+    };
     // ADD CLIENT VALIDATIONS HERE WITH YUP
-    fetch('/api/soru/post', {
-        method: 'POST',
-        body: JSON.stringify(qData)
-      }).then((res) => res.json());
-  }
+    fetch("/api/soru/post", {
+      method: "POST",
+      body: JSON.stringify(qData),
+    }).then((res) => res.json());
+  };
   const formik = useFormik({
     initialValues: {
-        title: "",
-        body: new EditorState.createEmpty()
+      title: "",
+      body: new EditorState.createEmpty(),
     },
     validate: editorValidations,
-    onSubmit: onEditorSubmit
+    onSubmit: onEditorSubmit,
   });
 
   return (
@@ -127,39 +128,45 @@ const EditorArea = props => {
       </Grid>
       <Grid item xs={12} md={9}>
         <form onSubmit={formik.handleSubmit}>
-            <Grid
-              container
-              direction="column"
-              className={classes.editorContainer}
-            >
-              <Grid item className={classes.textFieldItem}>
-                  <TextField 
-                    id="title"
-                    name="title"
-                    color="secondary"
-                    value={formik.values.title}
-                    placeholder={"Buraya başlığınızı yazın .."}
-                    onChange={formik.handleChange}
-                    inputProps={{style:{fontSize:20}}}
-                    fullWidth
-                  />
-                  {formik.errors.title ? <div>{formik.errors.title}</div> : null}
-              </Grid>
-              <Grid item>
-                <BetterEditor forwardRef={editorRef} handleChange={formik.setFieldValue} />
-              </Grid>
-              <Grid item align="right" className={classes.postButtonGrid}>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    className={classes.postButton}
-                >
-                    Paylaş
-                </Button>
-              </Grid>
+          <Grid
+            container
+            direction="column"
+            className={classes.editorContainer}
+          >
+            <Grid item className={classes.textFieldItem}>
+              <TextField
+                id="title"
+                name="title"
+                color="secondary"
+                value={formik.values.title}
+                placeholder={"Buraya başlığınızı yazın .."}
+                onChange={formik.handleChange}
+                inputProps={{ style: { fontSize: 20 } }}
+                fullWidth
+              />
+              {formik.errors.title ? <div>{formik.errors.title}</div> : null}
             </Grid>
+            <Grid item>
+              <BetterEditor
+                forwardRef={editorRef}
+                handleChange={formik.setFieldValue}
+              />
+            </Grid>
+            <Grid>
+              <Tags />
+            </Grid>
+            <Grid item align="right" className={classes.postButtonGrid}>
+              <Button
+                type="submit"
+                variant="contained"
+                size="large"
+                color="secondary"
+                className={classes.postButton}
+              >
+                Paylaş
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </Grid>
       <Grid item xs={12} md={2} className={classes.leftColumnContainer}>

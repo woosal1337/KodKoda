@@ -44,7 +44,8 @@ const useStyles = makeStyles(theme => ({
     questionText: {
         marginTop:5,
         fontSize: 18,
-        lineHeight: 1.5
+        lineHeight: 1.5,
+        minWidth: 800
     },
     buttons: {
         marginTop:-6,
@@ -99,7 +100,12 @@ const PostQuestion = props => {
                 <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
                     <Grid item >
                         <Typography variant="body1" component="body" className={classes.questionText}>
-                            {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                            {
+                                data.body.blocks ? 
+                                    "This is a placeholder and should work smoothly."
+                                    :
+                                    data.body.charAt(0).toUpperCase() + data.body.slice(1)
+                            }
                         </Typography>
                     </Grid>
                     <Grid item >

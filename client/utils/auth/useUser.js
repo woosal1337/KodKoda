@@ -28,7 +28,9 @@ const useUser = () => {
   useEffect(() => {
     const cookie = cookies.get('auth')
     if (!cookie) {
-      router.push('/')
+      // TODO: We can check and allow routing when router.pathname contains "/soru" or "/", 
+      // redirect to "/", otherwise.
+      //router.push('/')
       return
     }
     setUser(JSON.parse(cookie))

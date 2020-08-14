@@ -78,11 +78,7 @@ const useStyles = makeStyles(theme => ({
 
 const PostBody = props => {
     const classes = useStyles();
-    const [loading, setLoading] = useState(false);
-    const [upvoted, setUpvoted] = useState(false);
-    const [post, setPost] = useState({});
     const {id, data} = props
-
     return (
         <Grid>
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>

@@ -12,13 +12,16 @@ export default (req, res) => {
             .add({
                 title: qData.title,
                 body: qData.body,
-                tags: "",
+                tags: [],
+                language: "c",
+                likeCount: 0,
+                responses:[],
                 postType: 1,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),
                 answerCount: 0,
                 ownerUserId: qData.userId,
                 ownerName: "", 
-                votes: 0
+                voteCount: 0
             })
             .then((doc) => {
                 const data = doc.data();

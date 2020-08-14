@@ -13,9 +13,9 @@ const fetcher = async (...args) => {
 
 function Post  () {
   const router = useRouter()
-  const { user, logout } = useUser();
   const { id } = router.query
-  const { data } = useSWR(`/api/soru/${id}`,fetcher)
+  const { user, logout } = useUser();
+  const { data } = useSWR(`/api/soru/${id}`, fetcher)
 
   return (
     <>
@@ -23,7 +23,7 @@ function Post  () {
         { !data ? 
           <CircularProgress />
           :
-          <PostBody id={id}  data={data}/>
+          <PostBody id={id} userId={user ? user.id : null} data={data}/>
         }
       </PostLayout>
     </>

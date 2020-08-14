@@ -8,12 +8,14 @@ export default (req, res) => {
       .get()
       .then((doc) => {
         const responses = doc.data().responses;
-        db 
+        if (responses.length) {
+          db 
           .collection('posts')
           .where('__name__', 'in' ,responses)
           .get()
           .then((querySnapshot) => {
               var answers = querySnapshot.docs.map((doc) => doc.data());
+              console.log(doc.data());
               res.json({q:doc.data(),a:answers});
               resolve()
             })
@@ -21,6 +23,10 @@ export default (req, res) => {
               res.json({ error });
               resolve()
             });
+        } else { 
+          res.json({q:doc.data(),a:[]});
+          resolve()
+        }
       })
       .catch((error) => {
         res.json({ error });

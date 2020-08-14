@@ -85,7 +85,7 @@ const PostQuestion = props => {
 
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>
-            <Grid item direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
+            <Grid item container direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
                     <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
                         <ExpandLessIcon className={classes.voteMore} />
@@ -98,7 +98,7 @@ const PostQuestion = props => {
             <Grid item xs={12} md={9} >
                 <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
                     <Grid item >
-                        <Typography variant="body1" component="body1" className={classes.questionText}>
+                        <Typography variant="body1" component="body" className={classes.questionText}>
                             {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                         </Typography>
                     </Grid>

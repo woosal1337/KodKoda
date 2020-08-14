@@ -34,7 +34,7 @@ const PostAnswers = props => {
                   }
                 </Grid>
             </Grid>
-            <Grid item xs={0} md={2} ></Grid>
+            <Grid item xs md={2} ></Grid>
         </Grid>
     );
 }

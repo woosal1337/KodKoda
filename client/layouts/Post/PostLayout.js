@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 const PostLayout = (props) => {
   const classes = useStyles();
-  const { children } = props;
+  const {children, auth, logOut, authPage } = props;
   const [loading, setLoading] = useState(false);
 
   return (
-    <Layout>
+    <Layout auth={auth} logOut={logOut} authPage={authPage} >
       <Container maxWidth="md" className={classes.postContainer}>
         <Grid container className={classes.postGridContainer}>
           {children}

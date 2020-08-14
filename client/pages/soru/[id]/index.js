@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useUser } from "../../../utils/auth/useUser";
 import Link from 'next/link'
 import PostLayout from '../../../layouts/Post/PostLayout'
 import PostBody from '../../../components/Post/PostBody'
@@ -12,16 +13,17 @@ const fetcher = async (...args) => {
 
 function Post  () {
   const router = useRouter()
+  const { user, logout } = useUser();
   const { id } = router.query
-  const {data} = useSWR(`/api/soru/${id}`,fetcher)
+  const { data } = useSWR(`/api/soru/${id}`,fetcher)
 
   return (
     <>
-      <PostLayout >
+      <PostLayout auth={user ? true : false} logOut={logout} authPage={false} >
         { !data ? 
           <CircularProgress />
           :
-          <PostBody id={id} data={data}/>
+          <PostBody id={id}  data={data}/>
         }
       </PostLayout>
     </>

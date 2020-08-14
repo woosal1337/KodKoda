@@ -87,7 +87,7 @@ const PostAnswer = props => {
         <>
             <Divider className={classes.divider}/>
             <Grid container direction="row" spacing={1} className={classes.answersContainer}>
-                <Grid item direction="column" alignItems="left" xs={1} md={1} className={classes.buttons}>
+                <Grid item container direction="column" alignItems="left" xs={1} md={1} className={classes.buttons}>
                     <Grid item >
                         <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
                             <ExpandLessIcon className={classes.voteMore} />
@@ -100,7 +100,7 @@ const PostAnswer = props => {
                 <Grid item xs={10} md={10} >
                     <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
                         <Grid item >
-                            <Typography variant="body1" component="body1" className={classes.answerText}>
+                            <Typography variant="body1" component="body" className={classes.answerText}>
                                 <Linkify properties={{target: '_blank', style: {color: 'white', textDecoration: 'underline', textDecorationColor: 'blue'}}} > 
                                     {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                                 </Linkify> 

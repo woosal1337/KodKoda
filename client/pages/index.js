@@ -14,17 +14,9 @@ const Index = () => {
   const { user, logout } = useUser();
   const { data, error, mutate } = useSWR("/api/main", fetcher);
 
-  if (!user) {
-    return (
-      <Layout user={user} auth={false} authPage={false} >
-        <Main auth={false} data={data} mutateFunc={mutate} />
-      </Layout>
-    );
-  }
-
   return (
-    <Layout user={user} auth={true} logOut={logout} authPage={false}>
-      <Main auth={true} userId={user.id} data={data} mutateFunc={mutate} />
+    <Layout user={user ? user : null} auth={user ? true : false} logOut={logout} authPage={false}>
+      <Main auth={user ? true : false} userId={user ? user.id : null} data={data} mutateFunc={mutate} />
     </Layout>
   );
 };

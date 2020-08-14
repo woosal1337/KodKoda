@@ -82,31 +82,16 @@ const PostBody = props => {
     const [upvoted, setUpvoted] = useState(false);
     const [post, setPost] = useState({});
     const {id, data} = props
-    
-    useEffect(() => {
-        setLoading(true)
-        console.log(props.id)
-        setPost({
-            qs: data.q,
-            as: data.a
-        })
-        setLoading(false)
-    }, []);
-    
-    if ( !post.qs || !Object.keys(post.qs).length) {
-        return (
-            <CircularProgress />
-        )
-    }
+
     return (
         <Grid>
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
-              {post.qs.title.charAt(0).toUpperCase() + post.qs.title.slice(1)}
+              {data.q.title.charAt(0).toUpperCase() + data.q.title.slice(1)}
             </Typography>
             <Divider className={classes.divider} />
             <Grid container direction="column" wrap="nowrap" >
-                <PostQuestion data={post.qs} />
-                <PostAnswers data={post.as} />
+                <PostQuestion data={data.q} />
+                <PostAnswers data={data.a} />
             </Grid>
         </Grid>
     );

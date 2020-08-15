@@ -9,10 +9,10 @@ import initFirebase from '../utils/auth/initFirebase'
 // Init the Firebase app.
 initFirebase()
 
-const createUser = (email, uid) => {
+const createUser = (email, uid, uname) => {
   fetch('/api/user/create', {
     method: 'POST',
-    body: JSON.stringify({ email: email, userId: uid })
+    body: JSON.stringify({ email: email, userId: uid , username: uname })
   }).then((res) => res.json());
 }
 
@@ -33,8 +33,13 @@ const firebaseAuthConfig = {
       // xa is the access token, which can be retrieved through
       // firebase.auth().currentUser.getIdToken()
       const { uid, email, xa } = user
+
+      // create random username
+      const uname = "user-" + Math.floor(Math.random() * 1000000);
+
       const userData = {
         id: uid,
+        username: uname,
         email,
         token: xa,
       }

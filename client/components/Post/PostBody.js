@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         lineHeight: '29px'
     },
     divider:{
-        marginTop:20,
+        marginTop:10,
         marginBottom:20,
     },
     postContainer: {
@@ -80,12 +80,12 @@ const PostBody = props => {
     const classes = useStyles();
     const {id, data} = props
     return (
-        <Grid>
+        <Grid container alignItems="stretch">
             <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
               {data.q.title.charAt(0).toUpperCase() + data.q.title.slice(1)}
             </Typography>
-            <Divider className={classes.divider} />
             <Grid container direction="column" wrap="nowrap" >
+                <Divider className={classes.divider} />
                 <PostQuestion data={data.q} />
                 <PostAnswers data={data.a} />
             </Grid>

@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import  palette  from '../../src/palette'
 import Link from '../Link';
+import MUIRichTextEditor from 'mui-rte';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { questions, answers } from '../../utils/fakeData';
@@ -37,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
     questionContainer: {
         minHeight: 200,
+        width: '100%'
     },
     leftColumnContainer: {
         maxWidth:120,
@@ -45,7 +47,7 @@ const useStyles = makeStyles(theme => ({
         marginTop:5,
         fontSize: 18,
         lineHeight: 1.5,
-        minWidth: 800
+        //minWidth: 800
     },
     buttons: {
         marginTop:-6,
@@ -85,7 +87,7 @@ const PostQuestion = props => {
     const { data } = props
 
     return (
-        <Grid container direction="row" spacing={1} className={classes.questionContainer}>
+        <Grid container alignItems="stretch" direction="row" spacing={1} className={classes.questionContainer}>
             <Grid item container direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
                     <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
@@ -97,16 +99,9 @@ const PostQuestion = props => {
                 </Grid>
             </Grid>
             <Grid item xs={12} md={9} >
-                <Grid container direction="column" justify={"space-between"} className={classes.questionContainer}>
+                <Grid container  direction="column" justify="space-between" >
                     <Grid item >
-                        <Typography variant="body1" component="body" className={classes.questionText}>
-                            {
-                                data.body.blocks ? 
-                                    "This is a placeholder and should work smoothly."
-                                    :
-                                    data.body.charAt(0).toUpperCase() + data.body.slice(1)
-                            }
-                        </Typography>
+                        <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
                     </Grid>
                     <Grid item >
                         <Grid container direction="row" alignItems="center" spacing={2}>
@@ -139,10 +134,22 @@ const PostQuestion = props => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Grid> 
 
     );
 }
+
+/*
+{ data.body.blocks ? 
+    <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
+    :
+    <>
+        <Typography variant="body1" component="body" className={classes.questionText}>
+            data.body.charAt(0).toUpperCase() + data.body.slice(1)
+        </Typography>
+    </>
+}
+*/
 
 
 export default PostQuestion;

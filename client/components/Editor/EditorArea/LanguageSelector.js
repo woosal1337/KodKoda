@@ -54,9 +54,9 @@ const LanguageSelector = () => {
         renderInput={(params) => (
           <TextField
             {...params}
-            variant="outlined"
             label="Programlama Dilleri"
             placeholder="Dil Seçiniz"
+            color="secondary"
           />
         )}
       />

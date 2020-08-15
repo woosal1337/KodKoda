@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useRef }  from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -9,12 +9,22 @@ import  palette  from '../../src/palette'
 import Link from '../Link';
 import MUIRichTextEditor from 'mui-rte';
 
+import GenericEditor from "../Editor/EditorArea/GenericEditor";
+import { useFormik } from "formik";
+import { EditorState, convertToRaw } from "draft-js";
+import { responseEditorValidations } from "../../utils/form";
+
 import { makeStyles } from '@material-ui/core/styles';
 import { questions, answers } from '../../utils/fakeData';
 
 const useStyles = makeStyles(theme => ({
     root: {
         boxShadow: 'none',
+    },
+    MUIRichTextEditor: {
+      root: {
+        color: 'red',
+      },
     },
     flexGrow: {
         flexGrow: 1
@@ -39,6 +49,9 @@ const useStyles = makeStyles(theme => ({
     questionContainer: {
         minHeight: 200,
         width: '100%'
+    },
+    nameLanguage:{
+        marginTop:10
     },
     leftColumnContainer: {
         maxWidth:120,
@@ -67,6 +80,23 @@ const useStyles = makeStyles(theme => ({
         margin:-12,
         marginTop: -18
     },
+    responseEditorContainer:{
+        marginTop:20
+    },
+    postButtonGrid: {
+        marginTop: 20,
+    },
+    postButton: {
+        //background: theme.palette.secondary.main, //'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
+        borderRadius: 3,
+        boxShadow: "none",
+        border: 0,
+        fontSize: 20,
+        fontWeight: 600,
+        color: "white",
+        height: 24,
+        padding: 20,
+    },
     languageButton: {
         background: 'linear-gradient(45deg, var(--background-start) 30%, var(--background-end) 90%)',
         borderRadius: 3,
@@ -86,6 +116,31 @@ const PostQuestion = props => {
     const [loading, setLoading] = useState(false);
     const { data } = props
 
+    const onEditorSubmit = (values) => {
+        const qData = {
+          body: convertToRaw(values.body.getCurrentContent()),
+          userId: props.userId,
+        };
+        console.log(qData)
+        // ADD CLIENT VALIDATIONS HERE WITH YUP
+        /*
+        fetch("/api/soru/post", {
+          method: "POST",
+          body: JSON.stringify(qData),
+        }).then((res) => res.json());
+        */
+    };
+
+    const editorRef = useRef(null);
+    const formik = useFormik({
+        initialValues: {
+          title: "",
+          body: new EditorState.createEmpty(),
+        },
+        validate: responseEditorValidations,
+        onSubmit: onEditorSubmit,
+    });
+
     return (
         <Grid container alignItems="stretch" direction="row" spacing={1} className={classes.questionContainer}>
             <Grid item container direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
@@ -101,9 +156,15 @@ const PostQuestion = props => {
             <Grid item xs={12} md={9} >
                 <Grid container  direction="column" justify="space-between" >
                     <Grid item >
-                        <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
+                        { data.body.blocks ? 
+                            <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
+                            :
+                            <Typography variant="body1" component="body" className={classes.questionText}>
+                               {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                            </Typography>
+                        }
                     </Grid>
-                    <Grid item >
+                    <Grid item className={classes.nameLanguage}>
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item>
                                 <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
@@ -125,6 +186,28 @@ const PostQuestion = props => {
                             </Grid>
                         </Grid>
                     </Grid>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Grid item className={classes.responseEditorContainer}>
+                            
+                                <GenericEditor
+                                    forwardRef={editorRef}
+                                    label={"Buraya cevabınızı yazın..."}
+                                    handleChange={formik.setFieldValue}
+                                />
+                            
+                        </Grid>
+                        <Grid item align="right" className={classes.postButtonGrid}>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              size="large"
+                              color="secondary"
+                              className={classes.postButton}
+                            >
+                              Paylaş
+                            </Button>
+                        </Grid>
+                    </form>
                 </Grid>
             </Grid>
             <Grid item xs={12} md={2} className={classes.leftColumnContainer}>
@@ -138,18 +221,6 @@ const PostQuestion = props => {
 
     );
 }
-
-/*
-{ data.body.blocks ? 
-    <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
-    :
-    <>
-        <Typography variant="body1" component="body" className={classes.questionText}>
-            data.body.charAt(0).toUpperCase() + data.body.slice(1)
-        </Typography>
-    </>
-}
-*/
 
 
 export default PostQuestion;

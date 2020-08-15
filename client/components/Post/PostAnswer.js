@@ -101,9 +101,7 @@ const PostAnswer = props => {
                     <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
                         <Grid item >
                             <Typography variant="body1" component="body" className={classes.answerText}>
-                                <Linkify properties={{target: '_blank', style: {color: 'white', textDecoration: 'underline', textDecorationColor: 'blue'}}} > 
-                                    {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
-                                </Linkify> 
+                                {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                             </Typography>
                         </Grid>
                         <Grid item >

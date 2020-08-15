@@ -10,7 +10,7 @@ export default (req, res) => {
         .collection('users')
         .doc(userInfo.userId)
         .set({
-            username: "",
+            username: userInfo.username,
             name: "",
             email: userInfo.email,
             description: "",

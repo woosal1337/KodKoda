@@ -27,7 +27,7 @@ const theme = createMuiTheme({
       },
       editor: {
         //height: 200,
-        minHeight: 200,
+        minHeight: 150,
         padding: 10,
         lineHeight: 1.5,
         backgroundColor: palette.background.default,

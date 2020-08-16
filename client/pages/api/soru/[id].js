@@ -11,17 +11,17 @@ export default (req, res) => {
         if (responses.length) {
           db 
           .collection('posts')
-          .where('__name__', 'in' ,responses)
+          .where('__name__', 'in' , responses)
           .get()
           .then((querySnapshot) => {
               var answers = querySnapshot.docs.map((doc) => doc.data());
-              res.json({q:doc.data(),a:answers});
+              res.json({q:doc.data(), a:answers, id: req.query.id});
               resolve()
-            })
-            .catch((error) => {
-              res.json({ error });
-              resolve()
-            });
+          })
+          .catch((error) => {
+            res.json({ error });
+            resolve()
+          });
         } else { 
           res.json({q:doc.data(),a:[]});
           resolve()

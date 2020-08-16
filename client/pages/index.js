@@ -1,6 +1,6 @@
 import { useUser } from "../utils/auth/useUser";
 import { Layout , Main} from "../components";
-import useSWR, {mutate} from "swr";
+import useSWR from "swr";
 
 const fetcher = (url, token) =>
   fetch(url, {

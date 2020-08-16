@@ -31,6 +31,10 @@ const useUser = () => {
       // TODO: We can check and allow routing when router.pathname contains "/soru" or "/", 
       // redirect to "/", otherwise.
       //router.push('/')
+      if (router.pathname.includes('/user')) {
+        router.push('/')
+        return
+      }
       return
     }
     setUser(JSON.parse(cookie))

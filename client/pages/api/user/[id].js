@@ -7,7 +7,7 @@ export default (req, res) => {
             .doc(req.query.id)
             .get()
             .then((doc) => {
-                res.json(doc.data());
+                res.json({...doc.data(), id: req.query.id});
                 resolve()
             })
             .catch((error) => {

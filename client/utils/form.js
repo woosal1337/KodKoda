@@ -10,3 +10,10 @@ export const editorValidations = values => {
 
   return errors;
 };
+
+export const responseEditorValidations = values => {
+  let errors = {};
+  if (!values.body) errors.body = "Required";
+  //if (!values.language) errors.language = "Required";
+  return errors;
+};

@@ -15,7 +15,6 @@ export default (req, res) => {
           .get()
           .then((querySnapshot) => {
               var answers = querySnapshot.docs.map((doc) => doc.data());
-              console.log(doc.data());
               res.json({q:doc.data(),a:answers});
               resolve()
             })

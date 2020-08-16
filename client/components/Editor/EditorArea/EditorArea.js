@@ -100,6 +100,7 @@ const EditorArea = (props) => {
       body: JSON.stringify(qData),
     }).then((res) => res.json());
   };
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -141,7 +142,7 @@ const EditorArea = (props) => {
                 value={formik.values.title}
                 placeholder={"Buraya başlığınızı yazın .."}
                 onChange={formik.handleChange}
-                inputProps={{ style: { fontSize: 20 } }}
+                inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
               {formik.errors.title ? <div>{formik.errors.title}</div> : null}
@@ -149,6 +150,7 @@ const EditorArea = (props) => {
             <Grid item>
               <BetterEditor
                 forwardRef={editorRef}
+                label={"Buraya sorunuzu yazın..."}
                 handleChange={formik.setFieldValue}
               />
             </Grid>

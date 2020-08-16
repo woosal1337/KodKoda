@@ -9,6 +9,11 @@ const theme = createMuiTheme({
     borderRadius: 14,
   },
   overrides: {
+    MuiButton: {
+      root: {
+        borderRadius: 2,
+      }, 
+    }, 
     MUIRichTextEditor: {
       root: {
         color: palette.text.primary,
@@ -17,7 +22,7 @@ const theme = createMuiTheme({
         margin: 0,
         padding: 0,
         borderRadius: 2,
-        backgroundColor: "#333d69",
+        backgroundColor: palette.background.paper,
         toolbar: {},
       },
       editor: {
@@ -25,8 +30,8 @@ const theme = createMuiTheme({
         minHeight: 200,
         padding: 10,
         lineHeight: 1.5,
-        backgroundColor: "#333d69",
-        borderBottom: "1px solid gray",
+        backgroundColor: palette.background.default,
+        //borderBottom: "1px solid gray",
         fontSize: 18,
       },
       placeHolder: {
@@ -41,7 +46,7 @@ const theme = createMuiTheme({
           color: palette.text.primary,
           borderRadius: 2,
           lineHeight: 1,
-          backgroundColor: "#4C5B9C",
+          backgroundColor: palette.background.codeBlock,
         },
         '& div[class^="Blockquote-root-"]': {
           color: palette.text.primary,

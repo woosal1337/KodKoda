@@ -9,12 +9,49 @@ import initFirebase from '../utils/auth/initFirebase'
 // Init the Firebase app.
 initFirebase()
 
-const createUser = (email, uid, uname) => {
+const createUser = async (email, uid, uname) => 
   fetch('/api/user/create', {
     method: 'POST',
     body: JSON.stringify({ email: email, userId: uid , username: uname })
   }).then((res) => res.json());
+
+const getUsername = (uid, token) => 
+  fetch(`/api/user/getUsername/${uid}`, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json", token }),
+    credentials: "same-origin"
+  }).then((res) => res.json());
+
+const isNewUser = async (uid, email, token) =>  {
+  // create random username
+  var uname = "user-" + Math.floor(Math.random() * 1000000);
+  var userData = {
+    id: uid,
+    username: uname,
+    email,
+    token: token,
+  }
+  cookie.set('auth', userData, {
+    expires: 1,
+  })
+  await createUser(email, uid, uname)
+  window.location.assign('/');
 }
+
+const isNotNewUser = async (uid, email, token) => {
+  var { uname } = await getUsername(uid, token)
+  var userData = {
+    id: uid,
+    username: uname,
+    email,
+    token: token,
+  }
+  cookie.set('auth', userData, {
+    expires: 1,
+  })
+  window.location.assign('/');
+}
+
 
 const firebaseAuthConfig = {
   signInFlow: 'popup',
@@ -29,26 +66,16 @@ const firebaseAuthConfig = {
   signInSuccessUrl: '/',
   credentialHelper: 'none',
   callbacks: {
-    signInSuccessWithAuthResult: async ({ user, additionalUserInfo }, redirectUrl) => {
+    signInSuccessWithAuthResult: ({ user, additionalUserInfo }, redirectUrl) => {
       // xa is the access token, which can be retrieved through
       // firebase.auth().currentUser.getIdToken()
       const { uid, email, xa } = user
-
-      // create random username
-      const uname = "user-" + Math.floor(Math.random() * 1000000);
-
-      const userData = {
-        id: uid,
-        username: uname,
-        email,
-        token: xa,
-      }
       if (additionalUserInfo.isNewUser) {
-        await createUser(email, uid)
+        isNewUser(uid, email, xa)
+      } else {
+        isNotNewUser(uid, email, xa)
       }
-      cookie.set('auth', userData, {
-        expires: 1,
-      })
+      return false;
     },
   },
 }

@@ -11,7 +11,7 @@ const fetcher = async (...args) => {
   return res.json();
 };
 
-function Post  () {
+const Post = () => {
   const router = useRouter()
   const { id } = router.query
   const { user, logout } = useUser();

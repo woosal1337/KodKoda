@@ -63,6 +63,9 @@ const useStyles = makeStyles(theme => ({
         //maxWidth:300
     },
     answerPoster: {},
+    answerPosterContainer: {
+        marginTop: 20
+    },
     answerText: {
         marginTop:5,
         fontSize: 16,
@@ -133,7 +136,7 @@ const PostAnswer = props => {
                             }
                         </Grid>
                         <Grid item >
-                            <Grid item>
+                            <Grid item className={classes.answerPosterContainer}>
                                 <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.answerPoster}>
                                         @{data.ownerName}

@@ -26,7 +26,6 @@ export default (req, res) => {
             upvotes: [], 
         })
         .then((doc) => {
-            const data = doc.data();
             res.json({status:"success"})
             resolve()
         })

@@ -4,7 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import Link from '../Link';
+import BetterLink from '../Link';
+import Link from "next/link";
 import MUIRichTextEditor from 'mui-rte';
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../../src/theme'
@@ -192,23 +193,25 @@ const PostQuestion = props => {
                     <Grid item className={classes.nameLanguage}>
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item>
-                                <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
+                                <BetterLink href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.questionPoster}>
                                         @{data.ownerName}
                                     </Typography>
-                                </Link>
+                                </BetterLink>
                             </Grid>
                             <Grid item>
                                 {data.language.map(lang =>  
-                                    <Button
-                                        variant="contained"
-                                        onClick={props.goToLanguage}
-                                        size="small"
-                                        className={classes.languageButton}
-                                        style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
-                                    >
-                                        {lang}
-                                    </Button>
+                                    <Link href={`/language/${lang}`} passHref>
+                                        <Button
+                                            variant="contained"
+                                            onClick={props.goToLanguage}
+                                            size="small"
+                                            className={classes.languageButton}
+                                            style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
+                                        >
+                                            {lang}
+                                        </Button>
+                                    </Link>
                                 )}
                             </Grid>
                         </Grid>

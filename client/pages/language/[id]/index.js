@@ -13,12 +13,10 @@ function Post  () {
   const router = useRouter()
   const { user, logout } = useUser();
   const { id } = router.query
-  console.log(id)
   const { data } = useSWR(`/api/language/${id}`,fetcher)
   if (!data){
     return 'Loading...'
   }
-  console.log(data);
   if (!user) {
     return (
       <Layout user={user} auth={false} authPage={false} >

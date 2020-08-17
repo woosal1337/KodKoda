@@ -25,8 +25,8 @@ export default (req, res) => {
             })
             .then((doc) => {
                 const data = doc.data();
-                res.json({status:"success"})
-                resolve()
+                res.json({status:"success"});
+                resolve();
             })
             .catch((error) => {
               res.json({ error });

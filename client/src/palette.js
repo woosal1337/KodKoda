@@ -19,20 +19,6 @@ export default {
     main: "#ff921e",
     light: "#FF9E38"
   },
-  languages: {
-    c: "#885FA4",
-    python: "#2B9AEA" ,
-    cpp: "#FF7BAC",
-    java: "#b2475d",
-    react: "#15A160",
-    javascript: "#F5B50F",
-    p5js: "#FF7D75",
-    //javascript: "#15A160",
-    //p5js: "#0f7445",
-    go: "#2969DE",
-    kotlin: "#f9d371",
-    rust:"#eb7f64",
-  },
   success: {
     contrastText: "#fefefe",
     dark: "#015E1D",

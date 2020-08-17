@@ -45,7 +45,7 @@ const Editor = () => {
             </Typography>
             <Divider className={classes.divider} />
             <Grid container direction="column" wrap="nowrap" >
-                <EditorArea userId={user.id} />
+                <EditorArea userId={user.id} userName={user.username} />
             </Grid>
         </Grid>
     );

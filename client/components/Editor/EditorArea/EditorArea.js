@@ -89,12 +89,16 @@ const EditorArea = (props) => {
   const editorRef = useRef(null);
 
   const onEditorSubmit = (values) => {
+    console.log(values)
     const qData = {
       title: values.title,
       body: convertToRaw(values.body.getCurrentContent()),
+      languages: values.languages,
       userId: props.userId,
+      userName: props.userName
     };
     // ADD CLIENT VALIDATIONS HERE WITH YUP
+    
     fetch("/api/soru/post", {
       method: "POST",
       body: JSON.stringify(qData),
@@ -105,10 +109,16 @@ const EditorArea = (props) => {
     initialValues: {
       title: "",
       body: new EditorState.createEmpty(),
+      languages: []
     },
     validate: editorValidations,
     onSubmit: onEditorSubmit,
   });
+
+  const handleTagsChange = (evt, val) => {
+    evt.preventDefault()
+    console.log(val)
+  }
 
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
@@ -155,7 +165,7 @@ const EditorArea = (props) => {
               />
             </Grid>
             <Grid>
-              <Tags />
+              <Tags values={formik.values.languages} handleChange={formik.setFieldValue}/>
             </Grid>
             <Grid item align="right" className={classes.postButtonGrid}>
               <Button

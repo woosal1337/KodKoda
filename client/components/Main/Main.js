@@ -1,4 +1,5 @@
 import React, { useState, useEffect  } from "react";
+import { useRouter } from 'next/router'
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   questionsContainer: {},
 }));
 
-
 const updateVote = (userid, postid) => 
   fetch('/api/soru/upvote', {
     method: 'POST',
@@ -40,6 +40,7 @@ const updateVote = (userid, postid) =>
 
 const Main = (props) => {
   const classes = useStyles();
+  const router = useRouter()
   const [ loading, setLoading ] = useState(false);
   const { data, mutateFunc } = props
   const { auth, userId } = props
@@ -56,9 +57,10 @@ const Main = (props) => {
           return data.map((d, i) => {return (i == idx) ? newData : d})
         }
       }, false)
-    } 
+    } else {
+      router.push('/auth')
+    }
   }
-
   
   return (
     <Container maxWidth="md" className={classes.mainContainer}>

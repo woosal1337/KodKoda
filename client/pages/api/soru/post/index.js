@@ -5,7 +5,7 @@ require("firebase/firestore");
 
 export default (req, res) => {
     const qData = JSON.parse(req.body)
-    // ADD SERVER-SIDE VALIDATIONS 
+    // ADD SERVER-SIDE VALIDATIONS
     return new Promise((resolve, reject) => {
         const postsRef = db.collection('posts')
         postsRef
@@ -13,14 +13,14 @@ export default (req, res) => {
                 title: qData.title,
                 body: qData.body,
                 tags: [],
-                language: "c",
+                language: qData.languages,
                 likeCount: 0,
                 responses:[],
                 postType: 1,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),
                 answerCount: 0,
                 ownerUserId: qData.userId,
-                ownerName: "", 
+                ownerName: qData.userName, 
                 voteCount: 0
             })
             .then((doc) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,8 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LanguageSelector = () => {
+const LanguageSelector = props => {
   const classes = useStyles();
+  const [value, setValue] = useState([]);
+
+  const handleChange = (vals) => {
+    props.handleChange('languages', vals)
+    setValue(vals)
+  }
 
   return (
     <div className={classes.root}>
@@ -34,13 +40,16 @@ const LanguageSelector = () => {
         classes={classes}
         multiple
         id="tags-standard"
+        value={value}
         options={languages.map((language) => language.name)}
         getOptionLabel={(option) => option}
+        onChange={(event, newValue) => {handleChange(newValue)}}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => {
             const selectedLanguage = languages.find((language) => {
               return language.name === option;
             });
+            console.log(selectedLanguage);
             return (
               <Chip
                 variant="standard"

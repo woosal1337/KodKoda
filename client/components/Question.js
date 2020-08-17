@@ -9,7 +9,8 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { makeStyles } from '@material-ui/core/styles';
-import  palette  from '../src/palette'
+import palette  from '../src/palette'
+import languages from '../src/languages'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 600,
         color: 'white',
         height: 24,
+        marginRight: 10,
         padding: '0 10px',
     },
     buttons: {
@@ -111,15 +113,17 @@ const Question = props => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    onClick={props.goToLanguage}
-                                    size="small"
-                                    className={classes.languageButton}
-                                    style= {{ 'background': palette.languages[q.data.language] }}
-                                >
-                                    {q.data.language}
-                                </Button>
+                                {q.data.language.map(lang => 
+                                    <Button
+                                        variant="contained"
+                                        onClick={props.goToLanguage}
+                                        size="small"
+                                        className={classes.languageButton}
+                                        style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
+                                    >
+                                        {lang}
+                                    </Button>
+                                )}
                             </Grid>
                             <Grid item>
                                 <Typography className={classes.questionResponders}>

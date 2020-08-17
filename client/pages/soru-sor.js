@@ -5,7 +5,6 @@ import Editor from '../components/Editor'
 
 const AskQuestion = () => {
   const router = useRouter()
-
   return (
     <>
       <PostLayout >

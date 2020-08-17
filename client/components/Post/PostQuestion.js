@@ -9,6 +9,7 @@ import MUIRichTextEditor from 'mui-rte';
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../../src/theme'
 import palette from '../../src/palette'
+import languages from '../../src/languages'
 
 import GenericEditor from "../Editor/EditorArea/GenericEditor";
 import { useFormik } from "formik";
@@ -122,6 +123,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 600,
         color: 'white',
         height: 24,
+        marginRight: 10,
         padding: '0 10px',
     },
 }))
@@ -197,15 +199,17 @@ const PostQuestion = props => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    onClick={props.goToLanguage}
-                                    size="small"
-                                    className={classes.languageButton}
-                                    style= {{ 'background': palette.languages[data.language] }}
-                                >
-                                    {data.language}
-                                </Button>
+                                {data.language.map(lang =>  
+                                    <Button
+                                        variant="contained"
+                                        onClick={props.goToLanguage}
+                                        size="small"
+                                        className={classes.languageButton}
+                                        style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
+                                    >
+                                        {lang}
+                                    </Button>
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>

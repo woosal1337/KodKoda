@@ -9,6 +9,7 @@ const languages = [
   { name: "Go", color: "#2969DE" },
   { name: "Kotlin", color: "#f9d371" },
   { name: "Rust", color: "#eb7f64" },
+  { name: "Pascal", color: "#eb7f64" },
 ];
 
 export default languages;

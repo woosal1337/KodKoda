@@ -32,9 +32,15 @@ const useUser = () => {
       // redirect to "/", otherwise.
       //router.push('/')
       if (router.pathname.includes('/user')) {
-        router.push('/')
+        router.push('/auth')
         return
-      }
+      } 
+
+      if (router.pathname.includes('/soru-sor')) {
+        router.push('/auth')
+        return
+      } 
+
       return
     }
     setUser(JSON.parse(cookie))

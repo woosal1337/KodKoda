@@ -26,10 +26,12 @@ const updateTheme = { ...theme,
             ...theme.overrides.MUIRichTextEditor,
             editor: {
                 ...theme.overrides.MUIRichTextEditor.editor,
-                minHeight:150
+                minHeight:150,
+                padding: 0,
               },
             editorContainer: {
                 ...theme.overrides.MUIRichTextEditor.editorContainer,
+                padding: 0,
             }
         }
     }
@@ -75,7 +77,7 @@ const useStyles = makeStyles(theme => ({
         maxWidth:120,
     },
     questionText: {
-        marginTop:5,
+        //marginTop:5,
         fontSize: 18,
         lineHeight: 1.5,
         //minWidth: 800

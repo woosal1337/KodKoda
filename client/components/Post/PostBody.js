@@ -21,6 +21,11 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'Hind, sans-serif',
         fontWeight: 700,
     },
+    oops: {
+        fontSize: 28,
+        fontFamily: 'Hind, sans-serif',
+        fontWeight: 700,
+    },
     rightTitle:{
         lineHeight: '29px'
     },
@@ -79,15 +84,24 @@ const PostBody = props => {
     const classes = useStyles();
     const {userId, userName, data, onMutate} = props
     return (
+         
         <Grid container alignItems="stretch">
-            <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
-              {data.q.title.charAt(0).toUpperCase() + data.q.title.slice(1)}
-            </Typography>
-            <Grid container direction="column" wrap="nowrap" >
-                <Divider className={classes.divider} />
-                <PostQuestion data={data.q} id={data.id} userId={userId} userName={userName} onMutate={onMutate} />
-                <PostAnswers data={data.a} />
-            </Grid>
+            {!data.q ?
+                <Typography variant="h3" component="h3" className={classes.oops} gutterBottom>
+                    Yüklenemedi, tekrar deneyin.
+                </Typography>
+                :
+                <>
+                    <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
+                      {data.q.title.charAt(0).toUpperCase() + data.q.title.slice(1)}
+                    </Typography>
+                    <Grid container direction="column" wrap="nowrap" >
+                        <Divider className={classes.divider} />
+                        <PostQuestion data={data.q} id={data.id} userId={userId} userName={userName} onMutate={onMutate} />
+                        <PostAnswers data={data.a} />
+                    </Grid>
+                </>
+            }
         </Grid>
     );
 }

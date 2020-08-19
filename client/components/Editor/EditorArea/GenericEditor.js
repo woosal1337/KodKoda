@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import MUIRichTextEditor from 'mui-rte'
 import { MuiThemeProvider } from '@material-ui/core/styles'
+import { convertToRaw } from "draft-js";
 
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../../src/theme'
@@ -27,7 +28,7 @@ const GenericEditor = props => {
     const { forwardRef, label, handleChange } = props;
 
     const onChange = editorState => {
-        handleChange('body', editorState)
+        handleChange('bodyText', convertToRaw(editorState.getCurrentContent()))
     }
 
     const onFocus = () => {

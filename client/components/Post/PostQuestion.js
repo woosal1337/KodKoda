@@ -15,7 +15,7 @@ import languages from '../../src/languages'
 import GenericEditor from "../Editor/EditorArea/GenericEditor";
 import { useFormik } from "formik";
 import { EditorState, convertToRaw } from "draft-js";
-import { responseEditorValidations } from "../../utils/form";
+import { responseEditorValidationSchema  } from "../../utils/form";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -40,6 +40,9 @@ const updateTheme = { ...theme,
 const useStyles = makeStyles(theme => ({
     root: {
         boxShadow: 'none',
+    },
+    error: {
+        color: theme.palette.secondary.main
     },
     MUIRichTextEditor: {
       root: {
@@ -147,7 +150,7 @@ const PostQuestion = props => {
         if (userId) {   
             // ADD CLIENT VALIDATIONS HERE WITH YUP
             const rData = {
-              body: convertToRaw(values.body.getCurrentContent()),
+              body: values.bodyText,
               postId: id,
               userId: userId,
               userName: userName
@@ -161,9 +164,9 @@ const PostQuestion = props => {
     const editorRef = useRef(null);
     const formik = useFormik({
         initialValues: {
-          body: new EditorState.createEmpty(),
+          bodyText: {blocks:[{text:""}]},
         },
-        validate: responseEditorValidations,
+        validationSchema: responseEditorValidationSchema,
         onSubmit: onEditorSubmit,
     });
 
@@ -225,6 +228,7 @@ const PostQuestion = props => {
                                 label={"Buraya cevabınızı yazın..."}
                                 handleChange={formik.setFieldValue}
                             />
+                            {formik.errors.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
                         </Grid>
                         <Grid item align="right" className={classes.postButtonGrid}>
                             <Button
@@ -232,6 +236,7 @@ const PostQuestion = props => {
                               variant="contained"
                               size="large"
                               color="secondary"
+                              disabled={!formik.isValid}
                               className={classes.postButton}
                             >
                               Paylaş

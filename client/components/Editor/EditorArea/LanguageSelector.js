@@ -49,7 +49,6 @@ const LanguageSelector = props => {
             const selectedLanguage = languages.find((language) => {
               return language.name === option;
             });
-            console.log(selectedLanguage);
             return (
               <Chip
                 variant="standard"

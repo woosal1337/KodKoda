@@ -94,7 +94,7 @@ const EditorArea = (props) => {
   const onEditorSubmit = (values) => {
     const qData = {
       title: values.title,
-      body: convertToRaw(values.bodyText.getCurrentContent()),
+      body: values.bodyText,
       languages: values.languages,
       userId: props.userId,
       userName: props.userName
@@ -166,6 +166,7 @@ const EditorArea = (props) => {
                 label={"Buraya sorunuzu yazın..."}
                 handleChange={formik.setFieldValue}
               />
+              {formik.errors.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
             </Grid>
             <Grid>
               <Tags values={formik.values.languages} handleChange={formik.setFieldValue}/>

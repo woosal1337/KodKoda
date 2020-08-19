@@ -5,16 +5,16 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gi
 
 export const editorValidationSchema = Yup.object().shape({
   title: Yup.string()
-   .min(5, 'Please enter no less than 5 characters')
-   .required( 'Başlığı unuttun canım' ),
-  body: Yup.object().shape({
+   .min(5, 'Beş harften daha uzun yazabilirseniz, müthiş olur.')
+   .required( 'Başlığı unuttunuz' ),
+  bodyText: Yup.object().shape({
     blocks: Yup.array().of(
         Yup.object().shape({
-          text: Yup.string().min(10, 'too short').required('Required')
+          text: Yup.string().min(10, 'Birazcık kısa bir soru gibi bu.').required('Soru alanı boş kaldı.')
       }))
     })
-   .required("What's happening here?"),
-  languages: Yup.array().of(Yup.string()).required('Must have language')
+   .required("Burada bir yanlışlık var."),
+  languages: Yup.array().of(Yup.string()).required('En az bir dil seçmeniz gerekiyor.')
  });
 
 export const editorValidations = values => {

@@ -15,7 +15,7 @@ const BetterEditor = props => {
     const { forwardRef, label, handleSave } = props;
 
     const onChange = editorState => {
-        props.handleChange('body', convertToRaw(editorState.getCurrentContent()))
+        props.handleChange('bodyText', convertToRaw(editorState.getCurrentContent()))
     }
     
     if ( loading ) {

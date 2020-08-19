@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   flexGrow: {
     flexGrow: 1,
   },
+  error: {
+    color: theme.palette.secondary.main
+  },
   title: {
     fontSize: 36,
     fontFamily: "Hind, sans-serif",
@@ -91,7 +94,7 @@ const EditorArea = (props) => {
   const onEditorSubmit = (values) => {
     const qData = {
       title: values.title,
-      body: convertToRaw(values.body.getCurrentContent()),
+      body: convertToRaw(values.bodyText.getCurrentContent()),
       languages: values.languages,
       userId: props.userId,
       userName: props.userName
@@ -108,7 +111,7 @@ const EditorArea = (props) => {
   const formik = useFormik({
     initialValues: {
       title: "",
-      body: {blocks:[{text:""}]},
+      bodyText: {blocks:[{text:""}]},
       languages: []
     },
     validationSchema: editorValidationSchema,
@@ -155,7 +158,7 @@ const EditorArea = (props) => {
                 inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
-              {formik.errors.title ? <div>{formik.errors.title}</div> : null}
+              {formik.errors.title ? <div className={classes.error}>{formik.errors.title}</div> : null}
             </Grid>
             <Grid item>
               <BetterEditor
@@ -166,6 +169,7 @@ const EditorArea = (props) => {
             </Grid>
             <Grid>
               <Tags values={formik.values.languages} handleChange={formik.setFieldValue}/>
+              {formik.errors.languages? <div className={classes.error}>{formik.errors.languages}</div> : null}
             </Grid>
             <Grid item align="right" className={classes.postButtonGrid}>
               <Button

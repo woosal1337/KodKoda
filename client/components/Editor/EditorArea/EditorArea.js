@@ -8,7 +8,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import { useFormik } from "formik";
 import { EditorState, convertToRaw } from "draft-js";
 import TextField from "@material-ui/core/TextField";
-import { editorValidations } from "../../../utils/form";
+import { editorValidationSchema, editorValidations } from "../../../utils/form";
 
 import BetterEditor from "./BetterEditor";
 import FormatPopover from "./FormatPopover";
@@ -89,7 +89,6 @@ const EditorArea = (props) => {
   const editorRef = useRef(null);
 
   const onEditorSubmit = (values) => {
-    console.log(values)
     const qData = {
       title: values.title,
       body: convertToRaw(values.body.getCurrentContent()),
@@ -103,15 +102,16 @@ const EditorArea = (props) => {
       method: "POST",
       body: JSON.stringify(qData),
     }).then((res) => res.json());
+    
   };
 
   const formik = useFormik({
     initialValues: {
       title: "",
-      body: new EditorState.createEmpty(),
+      body: {blocks:[{text:""}]},
       languages: []
     },
-    validate: editorValidations,
+    validationSchema: editorValidationSchema,
     onSubmit: onEditorSubmit,
   });
 
@@ -173,6 +173,7 @@ const EditorArea = (props) => {
                 variant="contained"
                 size="large"
                 color="secondary"
+                disabled={!formik.isValid}
                 className={classes.postButton}
               >
                 Paylaş

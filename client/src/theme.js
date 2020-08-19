@@ -38,10 +38,13 @@ const theme = createMuiTheme({
         color: palette.text.secondary,
         fontSize: 18,
       },
+      
+
       editorContainer: {
         height: "100%",
         margin: 0,
         padding: 10,
+
         '& div[class^="CodeBlock-root-"]': {
           color: palette.text.primary,
           borderRadius: 2,

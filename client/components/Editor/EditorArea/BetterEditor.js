@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import CodeIcon from "@material-ui/icons/Code";
 import CodeBlock from "./CustomBlocks/CodeBlock";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import Blockquote from "./CustomBlocks/Blockquote";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +48,7 @@ const BetterEditor = (props) => {
         "redo",
         "link",
         "bulletList",
-        "quote",
+        "Blockquote",
         "codeBlock",
         "clear",
       ]}
@@ -56,6 +58,12 @@ const BetterEditor = (props) => {
           icon: <CodeIcon />,
           type: "block",
           blockWrapper: <CodeBlock />,
+        },
+        {
+          name: "Blockquote",
+          icon: <FormatQuoteIcon />,
+          type: "block",
+          blockWrapper: <Blockquote />,
         },
       ]}
     />

@@ -5,12 +5,15 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gi
 
 export const responseEditorValidationSchema = Yup.object().shape({
   bodyText: Yup.object().shape({
-    blocks: Yup.array().of(
-        Yup.object().shape({
-          text: Yup.string().min(5, 'Birazcık kısa bir cevap gibi bu.').required('Cevap alanı boş kaldı.')
-      }))
-    })
-   .required("Burada bir yanlışlık var."),
+    blocks: Yup.array()
+      .when({
+        is: blocks => blocks.length == 1,
+        then: Yup.array().of(
+          Yup.object().shape({
+            text: Yup.string().min(5, 'Birazcık kısa bir cevap gibi bu.').required('Cevap alanı boş kaldı.')
+        }))
+        }) 
+      }).required("Burada bir yanlışlık var."),
  });
 
 
@@ -20,12 +23,15 @@ export const editorValidationSchema = Yup.object().shape({
    .min(5, 'Beş harften daha uzun yazabilirseniz, müthiş olur.')
    .required( 'Başlığı unuttunuz' ),
   bodyText: Yup.object().shape({
-    blocks: Yup.array().of(
+    blocks: Yup.array()
+    .when({
+      is: blocks => blocks.length == 1,
+      then: Yup.array().of(
         Yup.object().shape({
-          text: Yup.string().min(10, 'Birazcık kısa bir soru gibi bu.').required('Soru alanı boş kaldı.')
-      }))
-    })
-   .required("Burada bir yanlışlık var."),
+          text: Yup.string().min(5, 'Birazcık kısa bir cevap gibi bu.').required('Cevap alanı boş kaldı.')
+        }))
+      }) 
+    }).required("Burada bir yanlışlık var."),
   languages: Yup.array().of(Yup.string()).required('En az bir dil seçmeniz gerekiyor.')
  });
 

@@ -116,10 +116,6 @@ const EditorArea = (props) => {
     validationSchema: editorValidationSchema,
     onSubmit: onEditorSubmit,
   });
-
-  console.log(formik.touched)
-
-
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
       <Grid

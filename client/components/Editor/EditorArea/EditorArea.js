@@ -6,9 +6,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import { useFormik } from "formik";
-import { EditorState, convertToRaw } from "draft-js";
 import TextField from "@material-ui/core/TextField";
-import { editorValidationSchema, editorValidations } from "../../../utils/form";
+import { editorValidationSchema } from "../../../utils/form";
 
 import BetterEditor from "./BetterEditor";
 import FormatPopover from "./FormatPopover";
@@ -118,10 +117,8 @@ const EditorArea = (props) => {
     onSubmit: onEditorSubmit,
   });
 
-  const handleTagsChange = (evt, val) => {
-    evt.preventDefault()
-    console.log(val)
-  }
+  console.log(formik.touched)
+
 
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
@@ -155,22 +152,24 @@ const EditorArea = (props) => {
                 value={formik.values.title}
                 placeholder={"Buraya başlığınızı yazın .."}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
-              {formik.errors.title ? <div className={classes.error}>{formik.errors.title}</div> : null}
+              {formik.errors.title && formik.touched.title ? <div className={classes.error}>{formik.errors.title}</div> : null}
             </Grid>
             <Grid item>
               <BetterEditor
                 forwardRef={editorRef}
                 label={"Buraya sorunuzu yazın..."}
                 handleChange={formik.setFieldValue}
+                handleBlur={formik.setFieldTouched}
               />
-              {formik.errors.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
+              {formik.errors.bodyText && formik.touched.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
             </Grid>
             <Grid>
-              <Tags values={formik.values.languages} handleChange={formik.setFieldValue}/>
-              {formik.errors.languages? <div className={classes.error}>{formik.errors.languages}</div> : null}
+              <Tags values={formik.values.languages} handleChange={formik.setFieldValue} handleBlur={formik.handleBlur} />
+              {formik.errors.languages && formik.touched.languages? <div className={classes.error}>{formik.errors.languages}</div> : null}
             </Grid>
             <Grid item align="right" className={classes.postButtonGrid}>
               <Button

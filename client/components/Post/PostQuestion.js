@@ -227,8 +227,11 @@ const PostQuestion = props => {
                                 forwardRef={editorRef}
                                 label={"Buraya cevabınızı yazın..."}
                                 handleChange={formik.setFieldValue}
+                                handleBlur={formik.setFieldTouched}
+                                userId={userId}
+                                postId={id}
                             />
-                            {formik.errors.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
+                            {formik.errors.bodyText && formik.touched.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
                         </Grid>
                         <Grid item align="right" className={classes.postButtonGrid}>
                             <Button

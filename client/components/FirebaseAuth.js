@@ -1,5 +1,6 @@
 /* globals window */
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -22,7 +23,7 @@ const getUsername = (uid, token) =>
     credentials: "same-origin"
   }).then((res) => res.json());
 
-const isNewUser = async (uid, email, token) =>  {
+const isNewUser = async (uid, email, token, path) =>  {
   // create random username
   var uname = "user-" + Math.floor(Math.random() * 1000000);
   var userData = {
@@ -35,10 +36,10 @@ const isNewUser = async (uid, email, token) =>  {
     expires: 1,
   })
   await createUser(email, uid, uname)
-  window.location.assign('/');
+  path[0] != 'standard' ? window.location.assign(`/${path.join('/')}`) : window.location.assign('/')
 }
 
-const isNotNewUser = async (uid, email, token) => {
+const isNotNewUser = async (uid, email, token, path) => {
   var { uname } = await getUsername(uid, token)
   var userData = {
     id: uid,
@@ -49,54 +50,60 @@ const isNotNewUser = async (uid, email, token) => {
   cookie.set('auth', userData, {
     expires: 1,
   })
-  window.location.assign('/');
+  path[0] != 'standard' ? window.location.assign(`/${path.join('/')}`) : window.location.assign('/')
 }
 
 
-const firebaseAuthConfig = {
-  signInFlow: 'popup',
-  // Auth providers
-  // https://github.com/firebase/firebaseui-web#configure-oauth-providers
-  signInOptions: [
-    {
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      requireDisplayName: false,
-    },
-  ],
-  signInSuccessUrl: '/',
-  credentialHelper: 'none',
-  callbacks: {
-    signInSuccessWithAuthResult: ({ user, additionalUserInfo }, redirectUrl) => {
-      // xa is the access token, which can be retrieved through
-      // firebase.auth().currentUser.getIdToken()
-      const { uid, email, xa } = user
-      if (additionalUserInfo.isNewUser) {
-        isNewUser(uid, email, xa)
-      } else {
-        isNotNewUser(uid, email, xa)
+const returnConfig = path => {
+  return {
+    signInFlow: 'popup',
+    // Auth providers
+    // https://github.com/firebase/firebaseui-web#configure-oauth-providers
+    signInOptions: [
+      {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: false,
+      },
+    ],
+    signInSuccessUrl: '/',
+    credentialHelper: 'none',
+    callbacks: {
+      signInSuccessWithAuthResult: ({ user, additionalUserInfo }, redirectUrl) => {
+        // xa is the access token, which can be retrieved through
+        // firebase.auth().currentUser.getIdToken()
+        const { uid, email, xa } = user
+        if (additionalUserInfo.isNewUser) {
+          isNewUser(uid, email, xa, path)
+        } else {
+          isNotNewUser(uid, email, xa, path)
+        }
+        return false;
       }
-      return false;
-    },
-  },
+    }
+  }
 }
 
 const FirebaseAuth = () => {
   // Do not SSR FirebaseUI, because it is not supported.
   // https://github.com/firebase/firebaseui-web/issues/213
   const [renderAuth, setRenderAuth] = useState(false)
+  const router = useRouter()
+  const { path } = router.query
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setRenderAuth(true)
     }
   }, [])
+
   return (
     <div>
-      {renderAuth ? (
+      {renderAuth && path ? (
         <StyledFirebaseAuth
-          uiConfig={firebaseAuthConfig}
+          uiConfig={returnConfig(path)}
           firebaseAuth={firebase.auth()}
         />
-      ) : null}
+      ) :  null }
     </div>
   )
 }

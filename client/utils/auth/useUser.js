@@ -18,7 +18,7 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         cookies.remove('auth')
-        router.push('/auth')
+        router.push('/auth/standard')
       })
       .catch((e) => {
         console.error(e)
@@ -32,12 +32,12 @@ const useUser = () => {
       // redirect to "/", otherwise.
       //router.push('/')
       if (router.pathname.includes('/user')) {
-        router.push('/auth')
+        router.push('/auth/user')
         return
       } 
 
       if (router.pathname.includes('/soru-sor')) {
-        router.push('/auth')
+        router.push('/auth/soru-sor')
         return
       } 
 

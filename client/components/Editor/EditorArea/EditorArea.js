@@ -6,9 +6,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import IconButton from "@material-ui/core/IconButton";
 import CreateIcon from "@material-ui/icons/Create";
 import { useFormik } from "formik";
-import { EditorState, convertToRaw } from "draft-js";
 import TextField from "@material-ui/core/TextField";
-import { editorValidations } from "../../../utils/form";
+import { editorValidationSchema } from "../../../utils/form";
 
 import BetterEditor from "./BetterEditor";
 import FormatPopover from "./FormatPopover";
@@ -22,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flexGrow: {
     flexGrow: 1,
+  },
+  error: {
+    color: theme.palette.secondary.main
   },
   title: {
     fontSize: 36,
@@ -89,10 +91,9 @@ const EditorArea = (props) => {
   const editorRef = useRef(null);
 
   const onEditorSubmit = (values) => {
-    console.log(values)
     const qData = {
       title: values.title,
-      body: convertToRaw(values.body.getCurrentContent()),
+      body: values.bodyText,
       languages: values.languages,
       userId: props.userId,
       userName: props.userName
@@ -103,22 +104,21 @@ const EditorArea = (props) => {
       method: "POST",
       body: JSON.stringify(qData),
     }).then((res) => res.json());
+    
   };
 
   const formik = useFormik({
     initialValues: {
       title: "",
-      body: new EditorState.createEmpty(),
+      bodyText: {blocks:[{text:""}]},
       languages: []
     },
-    validate: editorValidations,
+    validationSchema: editorValidationSchema,
     onSubmit: onEditorSubmit,
   });
 
-  const handleTagsChange = (evt, val) => {
-    evt.preventDefault()
-    console.log(val)
-  }
+  console.log(formik.touched)
+
 
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
@@ -152,20 +152,24 @@ const EditorArea = (props) => {
                 value={formik.values.title}
                 placeholder={"Buraya başlığınızı yazın .."}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
-              {formik.errors.title ? <div>{formik.errors.title}</div> : null}
+              {formik.errors.title && formik.touched.title ? <div className={classes.error}>{formik.errors.title}</div> : null}
             </Grid>
             <Grid item>
               <BetterEditor
                 forwardRef={editorRef}
                 label={"Buraya sorunuzu yazın..."}
                 handleChange={formik.setFieldValue}
+                handleBlur={formik.setFieldTouched}
               />
+              {formik.errors.bodyText && formik.touched.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
             </Grid>
             <Grid>
-              <Tags values={formik.values.languages} handleChange={formik.setFieldValue}/>
+              <Tags values={formik.values.languages} handleChange={formik.setFieldValue} handleBlur={formik.handleBlur} />
+              {formik.errors.languages && formik.touched.languages? <div className={classes.error}>{formik.errors.languages}</div> : null}
             </Grid>
             <Grid item align="right" className={classes.postButtonGrid}>
               <Button
@@ -173,6 +177,7 @@ const EditorArea = (props) => {
                 variant="contained"
                 size="large"
                 color="secondary"
+                disabled={!formik.isValid}
                 className={classes.postButton}
               >
                 Paylaş

@@ -63,13 +63,13 @@ const Bar = (props) => {
               </Button>
             ) : (
               <>
-                <Link href="/auth" className={classes.menuButton}>
+                <Link href="/auth/standard" className={classes.menuButton}>
                   <Typography variant="h4" className={classes.login}>
                     {" "}
                     Giriş Yap{" "}
                   </Typography>
                 </Link>
-                <Link href="/auth" className={classes.menuButton}>
+                <Link href="/auth/standard" className={classes.menuButton}>
                   <Typography variant="h4" className={classes.login}>
                     {" "}
                     Üye Ol{" "}

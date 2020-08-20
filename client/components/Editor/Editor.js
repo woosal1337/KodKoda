@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const Editor = () => {
+const Editor = props => {
     const classes = useStyles();
     const { user, logout } = useUser();
     

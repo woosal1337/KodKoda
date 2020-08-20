@@ -30,8 +30,8 @@ const LanguageSelector = props => {
   const [value, setValue] = useState([]);
 
   const handleChange = (vals) => {
-    props.handleChange('languages', vals)
-    setValue(vals)
+      props.handleChange('languages', vals)
+      setValue(vals)
   }
 
   return (
@@ -49,10 +49,9 @@ const LanguageSelector = props => {
             const selectedLanguage = languages.find((language) => {
               return language.name === option;
             });
-            console.log(selectedLanguage);
             return (
               <Chip
-                variant="standard"
+                variant="default"
                 label={option}
                 {...getTagProps({ index })}
                 style={{ backgroundColor: selectedLanguage.color }}
@@ -63,6 +62,7 @@ const LanguageSelector = props => {
         renderInput={(params) => (
           <TextField
             {...params}
+            onBlur={props.handleBlur('languages')}
             label="Programlama Dilleri"
             placeholder="Dil Seçiniz"
             color="secondary"

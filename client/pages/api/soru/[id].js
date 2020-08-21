@@ -1,6 +1,7 @@
 import db from '../../../utils/db/firebase_db'
 
 export default (req, res) => {
+  
   return new Promise((resolve, reject) => {
     db
       .collection('posts')
@@ -23,7 +24,7 @@ export default (req, res) => {
             resolve()
           });
         } else { 
-          res.json({q:doc.data(),a:[]});
+          res.json({q:doc.data(),a:[], id: req.query.id});
           resolve()
         }
       })

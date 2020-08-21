@@ -2,12 +2,10 @@ import React, { useState, useEffect }  from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import PostQuestion from './PostQuestion';
 import PostAnswers from './PostAnswers';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { questions, answers } from '../../utils/fakeData';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -82,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 
 const PostBody = props => {
     const classes = useStyles();
-    const {userId, userName, data, onMutate} = props
+    const {userId, userName, data, mutate, onMutate} = props
     return (
          
         <Grid container alignItems="stretch">
@@ -97,7 +95,7 @@ const PostBody = props => {
                     </Typography>
                     <Grid container direction="column" wrap="nowrap" >
                         <Divider className={classes.divider} />
-                        <PostQuestion data={data.q} id={data.id} userId={userId} userName={userName} onMutate={onMutate} />
+                        <PostQuestion data={data} id={data.id} userId={userId} userName={userName} mutate={mutate} onMutate={onMutate} />
                         <PostAnswers data={data.a} />
                     </Grid>
                 </>

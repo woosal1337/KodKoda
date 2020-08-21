@@ -46,8 +46,8 @@ const Main = (props) => {
   const { auth, userId } = props
 
   async function handleUpVote(event, idx, postId) {
+    event.preventDefault()
     if (userId) {
-      event.preventDefault()
       const newData = {id: data[idx].id, data:{...data[idx].data, voteCount: data[idx].data.voteCount + 1}}
       // update the local data immediately
       // NOTE: key is not required when using useSWR's mutate as it's pre-bound

@@ -10,7 +10,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { makeStyles } from '@material-ui/core/styles';
-import palette  from '../src/palette'
 import languages from '../src/languages'
 
 const useStyles = makeStyles(theme => ({
@@ -79,8 +78,6 @@ const Question = props => {
     const [userid, setUserid] = useState(null);
     const [upvoted, setUpvoted] = useState(false);
     const { q, auth } = props
-    const goToLanguage = () => {
-    }
 
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>

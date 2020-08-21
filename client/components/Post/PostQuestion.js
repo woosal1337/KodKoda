@@ -9,12 +9,10 @@ import Link from "next/link";
 import MUIRichTextEditor from 'mui-rte';
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import theme from '../../src/theme'
-import palette from '../../src/palette'
 import languages from '../../src/languages'
 
 import GenericEditor from "../Editor/EditorArea/GenericEditor";
 import { useFormik } from "formik";
-import { EditorState, convertToRaw } from "draft-js";
 import { responseEditorValidationSchema  } from "../../utils/form";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -134,11 +132,18 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+const updateVote = (userid, postid) => 
+  fetch('/api/soru/upvote', {
+    method: 'POST',
+    body: JSON.stringify({ userId: userid, postId: postid })
+  }).then((res) => res.json());
+
 
 const PostQuestion = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
-    const { data, id, userId, userName, onMutate } = props
+    const [upvoted, setUpvoted] = useState(false);
+    const { data, id, userId, userName, mutate, onMutate } = props
 
     const onEditorSubmit = (values) => {
         const handled = handlePostResponse(values) 
@@ -159,7 +164,25 @@ const PostQuestion = props => {
             // NOTE: key is not required when using useSWR's mutate as it's pre-bound   
             onMutate(rData)
         } 
-      }
+    }
+
+    async function handleUpVote(event) {
+        event.preventDefault()
+        if (userId) {
+          const newData = {...data, q:{...data.q, voteCount: data.q.voteCount + 1}}
+          // update the local data immediately
+          // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+          //console.log(newData)
+          mutate(async data => { 
+            const { docExists, error } = await updateVote(userId, id)
+            if (!docExists) {
+              return newData
+            }
+          }, false)
+        } else {
+          router.push(`/auth/soru/${id}`);
+        }
+    }
 
     const editorRef = useRef(null);
     const formik = useFormik({
@@ -174,24 +197,24 @@ const PostQuestion = props => {
         <Grid container alignItems="stretch" direction="row" spacing={1} className={classes.questionContainer}>
             <Grid item container direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
-                    <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
+                    <IconButton onClick={(e) => { if (!upvoted) { handleUpVote(e); setUpvoted(true)} }} edge="start" className={classes.voteButton}  aria-label="upvote">
                         <ExpandLessIcon className={classes.voteMore} />
                     </IconButton>
                 </Grid>
                 <Grid item >
-                    <Typography className={classes.voteCount}>{data.voteCount}</Typography>
+                    <Typography className={classes.voteCount}>{data.q.voteCount}</Typography>
                 </Grid>
             </Grid>
             <Grid item xs={12} md={9} >
                 <Grid container  direction="column" justify="space-between" >
                     <Grid item >
-                        { data.body.blocks ? 
+                        { data.q.body.blocks ? 
                             <MuiThemeProvider theme={updateTheme}>
-                                <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
+                                <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.q.body)} />
                             </MuiThemeProvider>
                             :
                             <Typography variant="body1" component="body" className={classes.questionText}>
-                               {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                               {data.q.body.charAt(0).toUpperCase() + data.q.body.slice(1)}
                             </Typography>
                         }
                     </Grid>
@@ -200,12 +223,12 @@ const PostQuestion = props => {
                             <Grid item>
                                 <BetterLink href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
                                     <Typography className={classes.questionPoster}>
-                                        @{data.ownerName}
+                                        @{data.q.ownerName}
                                     </Typography>
                                 </BetterLink>
                             </Grid>
                             <Grid item>
-                                {data.language.map(lang =>  
+                                {data.q.language.map(lang =>  
                                     <Link href={`/language/${lang}`} passHref>
                                         <Button
                                             variant="contained"
@@ -251,7 +274,7 @@ const PostQuestion = props => {
             <Grid item xs={12} md={2} className={classes.leftColumnContainer}>
                 <Grid container direction="column" >
                     <Grid item>
-                        <Typography className={classes.questionResponders}>{data.answerCount} Cevap</Typography>
+                        <Typography className={classes.questionResponders}>{data.q.answerCount} Cevap</Typography>
                     </Grid>
                 </Grid>
             </Grid>

@@ -23,6 +23,7 @@ const Post = () => {
   const { id } = router.query
   const { user, logout } = useUser();
   const { data, error, mutate } = useSWR(`/api/soru/${id}`, fetcher)
+  console.log(data)
 
   const onMutate = (rData) => {
     mutate(async data => { 
@@ -37,7 +38,7 @@ const Post = () => {
         { !data ? 
           <CircularProgress />
           :
-          <PostBody id={id} userId={user ? user.id : null} userName={user ? user.username : null} data={data} onMutate={onMutate}/>
+          <PostBody id={id} userId={user ? user.id : null} userName={user ? user.username : null} data={data} mutate={mutate} onMutate={onMutate}/>
         }
       </PostLayout>
     </>

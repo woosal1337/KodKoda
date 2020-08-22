@@ -50,7 +50,7 @@ const Bar = (props) => {
             className={classes.titleLink}
           >
             <Typography variant="h2" component="h2" className={classes.title}>
-              418 | Ben bir Çaydanlığım
+              {"{ Kod Koda }"}
             </Typography>
           </Link>
           {!props.authPage ? (

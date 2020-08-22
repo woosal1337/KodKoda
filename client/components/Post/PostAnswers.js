@@ -28,7 +28,6 @@ const PostAnswers = props => {
                           <Grid key={i} item>
                             <PostAnswer data={e}/>
                           </Grid>
-                          
                         )
                   })
                   }

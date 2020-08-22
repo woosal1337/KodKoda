@@ -8,6 +8,10 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Link from '../Link';
 import MUIRichTextEditor from 'mui-rte';
 import { MuiThemeProvider } from '@material-ui/core/styles'
+import CodeIcon from "@material-ui/icons/Code";
+import CodeBlock from "../Editor/EditorArea/CustomBlocks/CodeBlock";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import Blockquote from "../Editor/EditorArea/CustomBlocks/Blockquote";
 
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../src/theme'
@@ -127,8 +131,25 @@ const PostAnswer = props => {
                         <Grid item >
                             { data.body.blocks ? 
                                 <MuiThemeProvider theme={updateTheme}>
-                                    <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
-                                </MuiThemeProvider>
+                                    <MUIRichTextEditor 
+                                        readOnly={true} 
+                                        toolbar={false} 
+                                        customControls={[
+                                            {
+                                              name: "codeBlock",
+                                              icon: <CodeIcon />,
+                                              type: "block",
+                                              blockWrapper: <CodeBlock />,
+                                            },
+                                            {
+                                              name: "Blockquote",
+                                              icon: <FormatQuoteIcon />,
+                                              type: "block",
+                                              blockWrapper: <Blockquote />,
+                                            },
+                                        ]} 
+                                        defaultValue={JSON.stringify(data.body)} />
+                                    </MuiThemeProvider>
                                 :
                                 <Typography variant="body1" component="body" className={classes.questionText}>
                                    {data.body.charAt(0).toUpperCase() + data.body.slice(1)}

@@ -18,7 +18,7 @@ export default function MyApp(props) {
   return (
       <React.Fragment>
         <Head>
-          <title>418</title>
+          <title>Kod Koda - Programcılar için soru cevap platformu</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>

@@ -15,7 +15,9 @@ export default (req, res) => {
           .where('__name__', 'in' , responses)
           .get()
           .then((querySnapshot) => {
-              var answers = querySnapshot.docs.map((doc) => doc.data());
+              var answers = querySnapshot.docs.map((doc) => {
+                return {...doc.data(), id: doc.id}
+              });
               res.json({q:doc.data(), a:answers, id: req.query.id});
               resolve()
           })

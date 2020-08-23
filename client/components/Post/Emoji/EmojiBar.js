@@ -23,37 +23,36 @@ const useStyles = makeStyles((theme) => ({
 
 const EmojiBar = (props) => {
   const classes = useStyles();
-  const { likes, claps, confuseds } = props.reaction;
+  const { likeCount, clapCount, confusedCount } = props.reaction;
 
   return (
     <div className={classes.wrapper}>
       <IconButton
         edge="start"
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("likes", "a", props.index)}
+        onClick={() => props.reactionUpvoteHandler("likeCount", props.postType, props.index, props.postId)}
       >
-        <Badge badgeContent={likes} color="primary" className={classes.badge}>
+        <Badge badgeContent={likeCount}  className={classes.badge}>
           <Emoji text=":+1:" />
         </Badge>
       </IconButton>
 
       <IconButton
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("claps", "a", props.index)}
+        onClick={() => props.reactionUpvoteHandler("clapCount", props.postType, props.index, props.postId)}
       >
-        <Badge badgeContent={claps} color="primary" className={classes.badge}>
+        <Badge badgeContent={clapCount} className={classes.badge}>
           <Emoji text=":clapping_hands:" />
         </Badge>
       </IconButton>
       <IconButton
         className={classes.iconButton}
         onClick={() =>
-          props.reactionUpvoteHandler("confuseds", "a", props.index)
+          props.reactionUpvoteHandler("confusedCount", props.postType, props.index, props.postId)
         }
       >
         <Badge
-          badgeContent={confuseds}
-          color="primary"
+          badgeContent={confusedCount}
           className={classes.badge}
         >
           <Emoji text=":confused:" />

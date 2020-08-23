@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 36,
+    lineHeight: 1.2,
     fontFamily: "Hind, sans-serif",
     fontWeight: 700,
   },
@@ -77,63 +79,89 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const updateReaction = (userid, postid, reactionType ) => {
+  console.log(userid, postid, reactionType);
+  return fetch("/api/soru/react", {
+    method: "POST",
+    body: JSON.stringify({ userId: userid, postId: postid, reaction: reactionType }),
+  }).then((res) => res.json());
+}
+
 const PostBody = (props) => {
   const classes = useStyles();
-  const { userId, userName, data, mutate, onMutate } = props;
-  console.log(data);
+  const router = useRouter();
+  const { id, userId, userName, data, mutate, onMutate } = props;
 
   const [reaction, setReaction] = useState({
     q: {
-      likes: data.q.likeCount,
-      claps: data.q.clapCount,
-      confuseds: data.q.confusedCount,
+      likeCount: data.q.likeCount,
+      clapCount: data.q.clapCount,
+      confusedCount: data.q.confusedCount,
     },
     a: {
       ...data.a.map((el) => {
         return {
-          likes: el.likeCount,
-          claps: el.clapCount,
-          confuseds: el.confusedCount,
+          likeCount: el.likeCount,
+          clapCount: el.clapCount,
+          confusedCount: el.confusedCount,
         };
       }),
     },
   });
 
-  // const [reaction, setReaction] = useState({
-  //   q: { likes: 3, claps: 1, confuseds: 2 },
-  //   a: {
-  //     0: { likes: 5, claps: 4, confuseds: 1 },
-  //     1: { likes: 2, claps: 1, confuseds: 3 },
-  //   },
-  // });
-
-  const reactionUpvoteHandler = (reactionType, postType, i) => {
-    if (postType === "a") {
-      setReaction({
-        ...reaction,
-        [postType]: {
-          ...Object.keys(reaction[postType]).map((el) => {
-            if (i === parseInt(el)) {
-              return {
-                ...reaction[postType][el],
-                [reactionType]: reaction[postType][el][reactionType] + 1,
-              };
-            } else {
-              return { ...reaction[postType][el] };
+  const reactionUpvoteHandler = (reactionType, postType, i, postId) => {
+    if (userId) {
+        if (postType === "a") {
+          var newReaction = {
+            ...reaction,
+            [postType]: {
+              ...Object.keys(reaction[postType]).map((el) => {
+                if (i === parseInt(el)) {
+                  return {
+                    ...reaction[postType][el],
+                    [reactionType]: reaction[postType][el][reactionType] + 1,
+                  };
+                } else {
+                  return { ...reaction[postType][el] };
+                }
+              }),
+            },
+          };
+          var newData = {
+            ...data,
+            a: data.a.map((el, idx) => {
+                if (i === idx) {
+                    return { ...el, ...newReaction.a }
+                } else {
+                    return el
+                }
+            })
+          };
+        } else {
+          var newReaction = {
+            ...reaction,
+            [postType]: {
+              ...reaction[postType],
+              [reactionType]: reaction[postType][reactionType] + 1,
+            },
+          };
+          var newData = {
+            ...data,
+            q: { ...data.q, ...newReaction.b },
+          };
+        }
+        mutate(async (data) => {
+            const { docExists, error } = await updateReaction(userId, postId, reactionType);
+            if (!docExists) {
+                setReaction(newReaction);
+                return newData;
             }
-          }),
-        },
-      });
+        }, false);
     } else {
-      setReaction({
-        ...reaction,
-        [postType]: {
-          ...reaction[postType],
-          [reactionType]: reaction[postType][reactionType] + 1,
-        },
-      });
+        router.push(`/auth/soru/${id}`);
     }
   };
+
 
   return (
     <Grid container alignItems="stretch">

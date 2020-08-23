@@ -195,9 +195,11 @@ const PostAnswer = (props) => {
             </Grid>
             <Grid>
               <EmojiBar
+                index={props.index}
+                postId={props.postId}
+                postType={"a"}
                 reaction={props.reaction}
                 reactionUpvoteHandler={props.reactionUpvoteHandler}
-                index={props.index}
               />
             </Grid>
           </Grid>

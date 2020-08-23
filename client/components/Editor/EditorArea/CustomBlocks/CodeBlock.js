@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#4C5B9C",
     fontFamily: "monospace",
     lineHeight: 1.5,
-    whiteSpace: "pre",
+    whiteSpace: "pre-wrap",
+    overflowWrap: "break-word",
   },
 }));
 

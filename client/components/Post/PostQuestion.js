@@ -305,6 +305,8 @@ const PostQuestion = (props) => {
             </Grid>
             <Grid>
               <EmojiBar
+                postId={id}
+                postType={"q"}
                 reaction={props.reaction}
                 reactionUpvoteHandler={props.reactionUpvoteHandler}
               />

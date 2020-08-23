@@ -68,7 +68,7 @@ const Footer = props => {
         <Grid container justify="center" alignItems="center">
           <Grid container item md={4} xs={12} direction="column" align="center" justify="center">
             <Grid item className={classes.auto}>
-              <Typography className={classes.text}>© 418-Çaydanlık 2020</Typography>
+              <Typography className={classes.text}>© Kod Koda 2020</Typography>
             </Grid>
           </Grid>
           <Grid container item md={6} xs={12} direction="row" align="center" justify="center">
@@ -82,8 +82,7 @@ const Footer = props => {
             </Grid>
           </Grid>
           <Grid item md={2} xs={12} align="center">
-            <SocialIcon className={classes.icon} style={{height: 40, width: 40}} network="github" bgColor="#ff921e" url="https://www.github.com" />
-            <SocialIcon className={classes.icon} style={{height: 40, width: 40}} network="twitter" bgColor="#ff921e" url="https://twitter.com" />
+            <SocialIcon className={classes.icon} style={{height: 40, width: 40}} network="github" bgColor="#ff921e" url="https://www.github.com/egeozin/418" />
           </Grid>
         </Grid>
       </div>

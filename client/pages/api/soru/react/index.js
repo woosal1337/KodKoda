@@ -4,27 +4,38 @@ const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
+const selectReaction = (reactionType) => {
+    switch(reactionType) {
+        case 'likeCount':
+            return 'likes'
+        case 'clapCount':
+            return 'claps'
+        case 'confusedCount':
+            return 'confuseds'
+    }
+}
+
 export default (req, res) => {
-    const postInfo = JSON.parse(req.body)
+    const reactionInfo = JSON.parse(req.body);
     return new Promise((resolve, reject) => {
-      var userRef = db.collection('users').doc(postInfo.userId)
+      var userRef = db.collection('users').doc(reactionInfo.userId)
       userRef
         .get().then((doc) => {
-          if (doc.data().upvotes.includes(postInfo.postId)) {
+          if (doc.data()[selectReaction(reactionInfo.reaction)].includes(reactionInfo.postId)) {
             res.json({status:"success", docExists:true, error:null})
             resolve()
           } else {
             userRef
               .update({
-                upvotes: firebase.firestore.FieldValue.arrayUnion(postInfo.postId)
+                [selectReaction(reactionInfo.reaction)]: firebase.firestore.FieldValue.arrayUnion(reactionInfo.postId)
               })
               .then((doc) => {
                 db
                 .collection('posts')
-                .doc(postInfo.postId)
+                .doc(reactionInfo.postId)
                 .update({
-                    voteCount: firebase.firestore.FieldValue.increment(1)
-                })
+                    [reactionInfo.reaction]: firebase.firestore.FieldValue.increment(1)
+                }) 
                 .then((doc) => {
                   res.json({status:"success", docExists:false, error:null})
                   resolve()

@@ -16,14 +16,14 @@ export default (req, res) => {
             description: "",
             creationDate: firebase.firestore.FieldValue.serverTimestamp(),
             lastAccessDate: firebase.firestore.FieldValue.serverTimestamp(),
-            claps:0,
-            confuseds: 0,
-            eyvallahs: 0,
             likes: 0,
             location: "",
             photoImageURL: "",
             reputation: 0,
             upvotes: [], 
+            claps:[],
+            confuseds: [],
+            eyvallahs: [],
         })
         .then((doc) => {
             res.json({status:"success"})

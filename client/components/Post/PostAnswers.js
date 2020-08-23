@@ -39,6 +39,7 @@ const PostAnswers = (props) => {
               <Grid key={i} item>
                 <PostAnswer
                   data={e}
+                  postId={e.id}
                   reaction={props.reaction[i]}
                   reactionUpvoteHandler={props.reactionUpvoteHandler}
                   index={i}

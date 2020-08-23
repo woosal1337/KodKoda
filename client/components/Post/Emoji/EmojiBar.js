@@ -30,7 +30,7 @@ const EmojiBar = (props) => {
       <IconButton
         edge="start"
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("likes", "q")}
+        onClick={() => props.reactionUpvoteHandler("likes", "a", props.index)}
       >
         <Badge badgeContent={likes} color="primary" className={classes.badge}>
           <Emoji text=":+1:" />
@@ -39,7 +39,7 @@ const EmojiBar = (props) => {
 
       <IconButton
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("claps", "q")}
+        onClick={() => props.reactionUpvoteHandler("claps", "a", props.index)}
       >
         <Badge badgeContent={claps} color="primary" className={classes.badge}>
           <Emoji text=":clapping_hands:" />
@@ -47,7 +47,9 @@ const EmojiBar = (props) => {
       </IconButton>
       <IconButton
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("confuseds", "q")}
+        onClick={() =>
+          props.reactionUpvoteHandler("confuseds", "a", props.index)
+        }
       >
         <Badge
           badgeContent={confuseds}

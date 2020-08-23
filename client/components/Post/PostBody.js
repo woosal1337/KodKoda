@@ -83,15 +83,17 @@ const PostBody = (props) => {
   console.log(data);
 
   const [reaction, setReaction] = useState({
-    q: { likes: data.q.likeCount, claps: 1, confuseds: 2 },
+    q: {
+      likes: data.q.likeCount,
+      claps: data.q.clapCount,
+      confuseds: data.q.confusedCount,
+    },
     a: {
-      ...data.a.map((el, i) => {
+      ...data.a.map((el) => {
         return {
-          [i]: {
-            likes: el.likeCount,
-            claps: 4,
-            confuseds: 4,
-          },
+          likes: el.likeCount,
+          claps: el.clapCount,
+          confuseds: el.confusedCount,
         };
       }),
     },
@@ -105,14 +107,32 @@ const PostBody = (props) => {
   //   },
   // });
 
-  const reactionUpvoteHandler = (reactionType, postType) => {
-    setReaction({
-      ...reaction,
-      [postType]: {
-        ...reaction[postType],
-        [reactionType]: reaction[postType][reactionType] + 1,
-      },
-    });
+  const reactionUpvoteHandler = (reactionType, postType, i) => {
+    if (postType === "a") {
+      setReaction({
+        ...reaction,
+        [postType]: {
+          ...Object.keys(reaction[postType]).map((el) => {
+            if (i === parseInt(el)) {
+              return {
+                ...reaction[postType][el],
+                [reactionType]: reaction[postType][el][reactionType] + 1,
+              };
+            } else {
+              return { ...reaction[postType][el] };
+            }
+          }),
+        },
+      });
+    } else {
+      setReaction({
+        ...reaction,
+        [postType]: {
+          ...reaction[postType],
+          [reactionType]: reaction[postType][reactionType] + 1,
+        },
+      });
+    }
   };
 
   return (
@@ -148,7 +168,11 @@ const PostBody = (props) => {
               reaction={reaction.q}
               reactionUpvoteHandler={reactionUpvoteHandler}
             />
-            <PostAnswers data={data.a} reaction={reaction.a} />
+            <PostAnswers
+              data={data.a}
+              reaction={reaction.a}
+              reactionUpvoteHandler={reactionUpvoteHandler}
+            />
           </Grid>
         </>
       )}

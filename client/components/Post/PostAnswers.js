@@ -37,7 +37,12 @@ const PostAnswers = (props) => {
           {data.map((e, i) => {
             return (
               <Grid key={i} item>
-                <PostAnswer data={e} reaction={props.reaction[i]} />
+                <PostAnswer
+                  data={e}
+                  reaction={props.reaction[i]}
+                  reactionUpvoteHandler={props.reactionUpvoteHandler}
+                  index={i}
+                />
               </Grid>
             );
           })}

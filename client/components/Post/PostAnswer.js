@@ -8,12 +8,15 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Link from "../Link";
 import MUIRichTextEditor from "mui-rte";
 import { MuiThemeProvider } from "@material-ui/core/styles";
+import CodeIcon from "@material-ui/icons/Code";
+import CodeBlock from "../Editor/EditorArea/CustomBlocks/CodeBlock";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import Blockquote from "../Editor/EditorArea/CustomBlocks/Blockquote";
 
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "../../src/theme";
 import palette from "../../src/palette";
 import EmojiBar from "./Emoji/EmojiBar";
-import Emoji from "react-emoji-render";
 
 const updateTheme = {
   ...theme,
@@ -154,6 +157,20 @@ const PostAnswer = (props) => {
                   <MUIRichTextEditor
                     readOnly={true}
                     toolbar={false}
+                    customControls={[
+                      {
+                        name: "codeBlock",
+                        icon: <CodeIcon />,
+                        type: "block",
+                        blockWrapper: <CodeBlock />,
+                      },
+                      {
+                        name: "Blockquote",
+                        icon: <FormatQuoteIcon />,
+                        type: "block",
+                        blockWrapper: <Blockquote />,
+                      },
+                    ]}
                     defaultValue={JSON.stringify(data.body)}
                   />
                 </MuiThemeProvider>
@@ -177,7 +194,11 @@ const PostAnswer = (props) => {
               </Grid>
             </Grid>
             <Grid>
-              <EmojiBar reaction={props.reaction} />
+              <EmojiBar
+                reaction={props.reaction}
+                reactionUpvoteHandler={props.reactionUpvoteHandler}
+                index={props.index}
+              />
             </Grid>
           </Grid>
         </Grid>

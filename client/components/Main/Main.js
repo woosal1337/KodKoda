@@ -2,6 +2,7 @@ import React, { useState, useEffect  } from "react";
 import { useRouter } from 'next/router'
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
+import AskQuestion from "./AskQuestion";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontFamily: "Hind",
-    fontWeight: 700,
-    fontSize: 36,
+    fontWeight: 600,
+    fontSize: 32,
   },
   rightTitle: {
     lineHeight: "29px",
@@ -29,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   questionsContainer: {},
+  askQuestionContainer:{
+    borderStyle: 'solid',
+    borderRadius: '5px',
+    borderWidth: '1px' ,
+    borderColor:  theme.palette.background.border,
+    margin: 10,
+    textAlign: "center"
+  }
 }));
 
 const updateVote = (userid, postid) => 
@@ -65,6 +74,9 @@ const Main = (props) => {
   return (
     <Container maxWidth="md" className={classes.mainContainer}>
       <Grid container spacing={4} className={classes.mainGridContainer}>
+        <Grid item container direction="column" spacing={2} xs={12} md={12} className={classes.askQuestionContainer}>
+          <AskQuestion />
+        </Grid>
         <Grid item xs={12} md={12}>
           <Typography
             variant="h2"

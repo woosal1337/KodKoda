@@ -115,7 +115,6 @@ const Question = props => {
                                     <Link href={`/language/${lang}`} passHref>
                                         <Button
                                             variant="contained"
-                                            onClick={props.goToLanguage}
                                             size="small"
                                             className={classes.languageButton}
                                             style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}

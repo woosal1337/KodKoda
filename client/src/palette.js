@@ -59,6 +59,7 @@ export default {
     //default: "#153647",
     default: "#222947",
     paper: "#333d69", //%5 lighter of above
+    border: "#4C5B9C",
     codeBlock: "#4C5B9C" //%15 lighter of above
   },
   icon: colors.blueGrey[600],

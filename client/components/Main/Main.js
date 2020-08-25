@@ -67,7 +67,7 @@ const Main = (props) => {
         }
       }, false)
     } else {
-      router.push('/auth')
+      router.push('/auth/standard')
     }
   }
   

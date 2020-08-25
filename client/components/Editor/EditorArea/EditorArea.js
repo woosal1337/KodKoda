@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -88,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditorArea = (props) => {
   const classes = useStyles();
+  const router = useRouter();
   const editorRef = useRef(null);
 
   const onEditorSubmit = (values) => {
@@ -103,7 +105,10 @@ const EditorArea = (props) => {
     fetch("/api/soru/post", {
       method: "POST",
       body: JSON.stringify(qData),
-    }).then((res) => res.json());
+    }).then((res) => {
+      router.push('/')
+      return res.json()
+    });
     
   };
 
@@ -116,6 +121,7 @@ const EditorArea = (props) => {
     validationSchema: editorValidationSchema,
     onSubmit: onEditorSubmit,
   });
+
   return (
     <Grid container direction="row" spacing={1} wrap="nowrap">
       <Grid

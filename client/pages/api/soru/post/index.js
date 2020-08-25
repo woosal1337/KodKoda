@@ -18,6 +18,7 @@ export default (req, res) => {
                 responses:[],
                 postType: 1,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),
+                updateDate: firebase.firestore.FieldValue.serverTimestamp(),
                 answerCount: 0,
                 ownerUserId: qData.userId,
                 ownerName: qData.userName, 

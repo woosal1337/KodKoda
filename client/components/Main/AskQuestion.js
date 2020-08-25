@@ -4,9 +4,6 @@ import Link from "next/link";
 import { Typography, Button, makeStyles, Grid} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    postButton: {
-
-    },
     askQuestionTitle: {
       fontFamily: "Hind",
       fontWeight: 600,
@@ -14,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 36,
     },
     postButton: {
-        background: `linear-gradient(45deg, ${theme.palette.secondary.light} 30%, #FE6B8B 90%)`,
+        background: 'linear-gradient(45deg, #FF9E38 30%, #FE6B8B 90%)',
         borderRadius: 3,
         boxShadow: "none",
         border: 0,

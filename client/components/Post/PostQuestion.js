@@ -116,8 +116,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     fontWeight: 600,
     color: "white",
-    height: 24,
-    padding: 20,
+    padding: "2px 20px",
   },
   languageButton: {
     background:
@@ -315,7 +314,7 @@ const PostQuestion = (props) => {
               <Button
                 type="submit"
                 variant="contained"
-                size="large"
+                size="small"
                 color="secondary"
                 disabled={!formik.isValid}
                 className={classes.postButton}

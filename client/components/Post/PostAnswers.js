@@ -40,7 +40,7 @@ const PostAnswers = (props) => {
                 <PostAnswer
                   data={e}
                   postId={e.id}
-                  reaction={props.reaction[i]}
+                  reaction={{id: e.id, likeCount: e.likeCount, confusedCount: e.confusedCount, clapCount: e.clapCount }}
                   reactionUpvoteHandler={props.reactionUpvoteHandler}
                   index={i}
                 />

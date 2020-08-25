@@ -29,10 +29,7 @@ const Post = () => {
       const result = await postResponse(rData);
       return {
         ...data,
-        a: [
-          { ...post, body: rData.body, ownerName: rData.userName },
-          ...data.a,
-        ],
+        a: result.a
       };
     }, false);
   };

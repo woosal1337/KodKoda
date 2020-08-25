@@ -22,7 +22,7 @@ export default (req, res) => {
       userRef
         .get().then((doc) => {
           if (doc.data()[selectReaction(reactionInfo.reaction)].includes(reactionInfo.postId)) {
-            res.json({status:"success", docExists:true, error:null})
+            res.json({status:"success", reactionExists:true, error:null})
             resolve()
           } else {
             userRef
@@ -37,7 +37,7 @@ export default (req, res) => {
                     [reactionInfo.reaction]: firebase.firestore.FieldValue.increment(1)
                 }) 
                 .then((doc) => {
-                  res.json({status:"success", docExists:false, error:null})
+                  res.json({status:"success", reactionExists:false, error:null})
                   resolve()
                 })
                 .catch((error) => {

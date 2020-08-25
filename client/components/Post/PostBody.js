@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const updateReaction = (userid, postid, reactionType ) => {
-  console.log(userid, postid, reactionType);
   return fetch("/api/soru/react", {
     method: "POST",
     body: JSON.stringify({ userId: userid, postId: postid, reaction: reactionType }),
@@ -92,46 +91,48 @@ const PostBody = (props) => {
   const router = useRouter();
   const { id, userId, userName, data, mutate, onMutate } = props;
 
+
   const [reaction, setReaction] = useState({
     q: {
+      id: id,
       likeCount: data.q.likeCount,
       clapCount: data.q.clapCount,
       confusedCount: data.q.confusedCount,
     },
-    a: {
-      ...data.a.map((el) => {
+    a: data.a.map((el) => {
         return {
+          id: el.id,
           likeCount: el.likeCount,
           clapCount: el.clapCount,
           confusedCount: el.confusedCount,
         };
       }),
-    },
-  });
+  }, []);
 
   const reactionUpvoteHandler = (reactionType, postType, i, postId) => {
     if (userId) {
         if (postType === "a") {
           var newReaction = {
             ...reaction,
-            [postType]: {
-              ...Object.keys(reaction[postType]).map((el) => {
-                if (i === parseInt(el)) {
+            a: data.a.map(el => {
+                if (el.id === postId) {
                   return {
-                    ...reaction[postType][el],
-                    [reactionType]: reaction[postType][el][reactionType] + 1,
+                    id: el.id, 
+                    likeCount: el.likeCount, 
+                    clapCount: el.clapCount, 
+                    confusedCount: el.confusedCount,
+                    [reactionType]: el[reactionType] + 1,
                   };
                 } else {
-                  return { ...reaction[postType][el] };
+                  return el;
                 }
               }),
-            },
           };
           var newData = {
             ...data,
-            a: data.a.map((el, idx) => {
-                if (i === idx) {
-                    return { ...el, ...newReaction.a }
+            a: data.a.map(el => {
+                if (el.id === postId) {
+                    return { ...el, ...newReaction.a.filter(e => {return e.id === postId})[0] }
                 } else {
                     return el
                 }
@@ -151,8 +152,8 @@ const PostBody = (props) => {
           };
         }
         mutate(async (data) => {
-            const { docExists, error } = await updateReaction(userId, postId, reactionType);
-            if (!docExists) {
+            const { reactionExists, error } = await updateReaction(userId, postId, reactionType);
+            if (!reactionExists) {
                 setReaction(newReaction);
                 return newData;
             }
@@ -186,21 +187,27 @@ const PostBody = (props) => {
           </Typography>
           <Grid container direction="column" wrap="nowrap">
             <Divider className={classes.divider} />
-            <PostQuestion
-              data={data}
-              id={data.id}
-              userId={userId}
-              userName={userName}
-              mutate={mutate}
-              onMutate={onMutate}
-              reaction={reaction.q}
-              reactionUpvoteHandler={reactionUpvoteHandler}
-            />
-            <PostAnswers
-              data={data.a}
-              reaction={reaction.a}
-              reactionUpvoteHandler={reactionUpvoteHandler}
-            />
+            {reaction ? 
+                (<>
+                    <PostQuestion
+                      data={data}
+                      id={data.id}
+                      userId={userId}
+                      userName={userName}
+                      mutate={mutate}
+                      onMutate={onMutate}
+                      reaction={reaction.q}
+                      reactionUpvoteHandler={reactionUpvoteHandler}
+                    />
+                    <PostAnswers
+                      data={data.a}
+                      reaction={reaction.a}
+                      reactionUpvoteHandler={reactionUpvoteHandler}
+                    />
+                </>)
+                :
+                null
+            }
           </Grid>
         </>
       )}

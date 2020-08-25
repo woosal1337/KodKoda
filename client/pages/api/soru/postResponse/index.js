@@ -13,8 +13,10 @@ export default (req, res) => {
                 title: "",
                 body: rData.body,
                 tags: [],
-                language: "c",
+                language: [],
                 likeCount: 0,
+                clapCount: 0,
+                confusedCount: 0,
                 responses:[],
                 postType: 2,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),
@@ -38,7 +40,9 @@ export default (req, res) => {
                                 .where('__name__', 'in' , parentDoc.data().responses)
                                 .get()
                                 .then((querySnapshot) => {
-                                    var answers = querySnapshot.docs.map((doc) => doc.data());
+                                    var answers = querySnapshot.docs.map((doc) => {
+                                        return {...doc.data(), id: doc.id}
+                                    });
                                     res.json({q:parentDoc.data(), a:answers, id: rData.postId});
                                     resolve()
                                 })

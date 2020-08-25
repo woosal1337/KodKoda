@@ -7,6 +7,10 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BetterLink from "../Link";
 import Link from "next/link";
 import MUIRichTextEditor from "mui-rte";
+import CodeIcon from "@material-ui/icons/Code";
+import CodeBlock from "../Editor/EditorArea/CustomBlocks/CodeBlock";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import Blockquote from "../Editor/EditorArea/CustomBlocks/Blockquote";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import theme from "../../src/theme";
 import languages from "../../src/languages";
@@ -242,6 +246,20 @@ const PostQuestion = (props) => {
                 <MUIRichTextEditor
                   readOnly={true}
                   toolbar={false}
+                  customControls={[
+                    {
+                      name: "codeBlock",
+                      icon: <CodeIcon />,
+                      type: "block",
+                      blockWrapper: <CodeBlock />,
+                    },
+                    {
+                      name: "Blockquote",
+                      icon: <FormatQuoteIcon />,
+                      type: "block",
+                      blockWrapper: <Blockquote />,
+                    },
+                  ]}
                   defaultValue={JSON.stringify(data.q.body)}
                 />
               </MuiThemeProvider>

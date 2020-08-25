@@ -15,6 +15,8 @@ export default (req, res) => {
                 tags: [],
                 language: qData.languages,
                 likeCount: 0,
+                confusedCount:0,
+                clapCount: 0,
                 responses:[],
                 postType: 1,
                 creationDate: firebase.firestore.FieldValue.serverTimestamp(),

@@ -4,6 +4,8 @@ exports.post = {
     tags: [],
     language: "",
     likeCount: 0,
+    clapCount: 0,
+    confusedCount: 0,
     responses:[],
     postType: 1,
     creationDate: "",

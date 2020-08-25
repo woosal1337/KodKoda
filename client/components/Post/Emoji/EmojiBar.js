@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "15px 0px",
   },
   iconButton: {
-    transition: "all .2s ease-in-out",
+    transition: "all .3s ease-in-out",
     "&:hover": {
       backgroundColor: "#dddddd30",
       transform: "scale(1.1)",
@@ -30,16 +30,30 @@ const EmojiBar = (props) => {
       <IconButton
         edge="start"
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("likeCount", props.postType, props.index, props.postId)}
+        onClick={() =>
+          props.reactionUpvoteHandler(
+            "likeCount",
+            props.postType,
+            props.index,
+            props.postId
+          )
+        }
       >
-        <Badge badgeContent={likeCount}  className={classes.badge}>
+        <Badge badgeContent={likeCount} className={classes.badge}>
           <Emoji text=":+1:" />
         </Badge>
       </IconButton>
 
       <IconButton
         className={classes.iconButton}
-        onClick={() => props.reactionUpvoteHandler("clapCount", props.postType, props.index, props.postId)}
+        onClick={() =>
+          props.reactionUpvoteHandler(
+            "clapCount",
+            props.postType,
+            props.index,
+            props.postId
+          )
+        }
       >
         <Badge badgeContent={clapCount} className={classes.badge}>
           <Emoji text=":clapping_hands:" />
@@ -48,13 +62,15 @@ const EmojiBar = (props) => {
       <IconButton
         className={classes.iconButton}
         onClick={() =>
-          props.reactionUpvoteHandler("confusedCount", props.postType, props.index, props.postId)
+          props.reactionUpvoteHandler(
+            "confusedCount",
+            props.postType,
+            props.index,
+            props.postId
+          )
         }
       >
-        <Badge
-          badgeContent={confusedCount}
-          className={classes.badge}
-        >
+        <Badge badgeContent={confusedCount} className={classes.badge}>
           <Emoji text=":confused:" />
         </Badge>
       </IconButton>

@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   error: {
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.main,
   },
   title: {
     fontSize: 36,
@@ -65,8 +65,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     fontWeight: 600,
     color: "white",
-    height: 24,
-    padding: 20,
+    padding: "2px 20px",
   },
   postButtonGrid: {
     marginTop: 20,
@@ -98,25 +97,24 @@ const EditorArea = (props) => {
       body: values.bodyText,
       languages: values.languages,
       userId: props.userId,
-      userName: props.userName
+      userName: props.userName,
     };
     // ADD CLIENT VALIDATIONS HERE WITH YUP
-    
+
     fetch("/api/soru/post", {
       method: "POST",
       body: JSON.stringify(qData),
     }).then((res) => {
-      router.push('/')
-      return res.json()
+      router.push("/");
+      return res.json();
     });
-    
   };
 
   const formik = useFormik({
     initialValues: {
       title: "",
-      bodyText: {blocks:[{text:""}]},
-      languages: []
+      bodyText: { blocks: [{ text: "" }] },
+      languages: [],
     },
     validationSchema: editorValidationSchema,
     onSubmit: onEditorSubmit,
@@ -158,7 +156,9 @@ const EditorArea = (props) => {
                 inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
-              {formik.errors.title && formik.touched.title ? <div className={classes.error}>{formik.errors.title}</div> : null}
+              {formik.errors.title && formik.touched.title ? (
+                <div className={classes.error}>{formik.errors.title}</div>
+              ) : null}
             </Grid>
             <Grid item>
               <BetterEditor
@@ -167,11 +167,23 @@ const EditorArea = (props) => {
                 handleChange={formik.setFieldValue}
                 handleBlur={formik.setFieldTouched}
               />
-              {formik.errors.bodyText && formik.touched.bodyText ? (formik.errors.bodyText.blocks[0].text ? <div className={classes.error}>{formik.errors.bodyText.blocks[0].text}</div> : null) : null}
+              {formik.errors.bodyText && formik.touched.bodyText ? (
+                formik.errors.bodyText.blocks[0].text ? (
+                  <div className={classes.error}>
+                    {formik.errors.bodyText.blocks[0].text}
+                  </div>
+                ) : null
+              ) : null}
             </Grid>
             <Grid>
-              <Tags values={formik.values.languages} handleChange={formik.setFieldValue} handleBlur={formik.handleBlur} />
-              {formik.errors.languages && formik.touched.languages? <div className={classes.error}>{formik.errors.languages}</div> : null}
+              <Tags
+                values={formik.values.languages}
+                handleChange={formik.setFieldValue}
+                handleBlur={formik.handleBlur}
+              />
+              {formik.errors.languages && formik.touched.languages ? (
+                <div className={classes.error}>{formik.errors.languages}</div>
+              ) : null}
             </Grid>
             <Grid item align="right" className={classes.postButtonGrid}>
               <Button

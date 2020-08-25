@@ -18,7 +18,11 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         cookies.remove('auth')
-        router.push('/auth/standard')
+        if (router.pathname.includes('/soru-sor')) {
+          router.push('/')
+        } else {
+          router.reload('/')
+        }
       })
       .catch((e) => {
         console.error(e)

@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     color: theme.palette.secondary.main,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
   title: {
     fontSize: 36,
@@ -82,7 +85,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 10px",
   },
   textFieldItem: {
-    marginBottom: 20,
+    marginBottom: 30,
+  },
+  formField: {
+    position: "relative",
   },
 }));
 
@@ -144,23 +150,28 @@ const EditorArea = (props) => {
             direction="column"
             className={classes.editorContainer}
           >
-            <Grid item className={classes.textFieldItem}>
+            <Grid
+              item
+              className={`${classes.textFieldItem} ${classes.formField}`}
+            >
               <TextField
                 id="title"
                 name="title"
                 color="secondary"
                 value={formik.values.title}
-                placeholder={"Buraya başlığınızı yazın .."}
+                placeholder={"Buraya başlığınızı yazın..."}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 inputProps={{ style: { fontSize: 20, fontWeight: 600 } }}
                 fullWidth
               />
               {formik.errors.title && formik.touched.title ? (
-                <div className={classes.error}>{formik.errors.title}</div>
+                <div className={classes.error} style={{ bottom: -20 }}>
+                  {formik.errors.title}
+                </div>
               ) : null}
             </Grid>
-            <Grid item>
+            <Grid item className={classes.formField}>
               <BetterEditor
                 forwardRef={editorRef}
                 label={"Buraya sorunuzu yazın..."}
@@ -175,7 +186,7 @@ const EditorArea = (props) => {
                 ) : null
               ) : null}
             </Grid>
-            <Grid>
+            <Grid className={classes.formField}>
               <Tags
                 values={formik.values.languages}
                 handleChange={formik.setFieldValue}

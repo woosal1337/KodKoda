@@ -1,6 +1,7 @@
 const languages = [
   { name: "C", color: "#885FA4" },
   { name: "Python", color: "#2B9AEA" },
+  { name: "CS50", color: "#59B0EF" },
   { name: "C++", color: "#FF7BAC" },
   { name: "Java", color: "#b2475d" },
   { name: "React", color: "#15A160" },

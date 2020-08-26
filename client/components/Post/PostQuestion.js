@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -49,6 +49,16 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     color: theme.palette.secondary.main,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    bottom: -20,
+  },
+  formField: {
+    position: "relative",
+  },
+  emojiBar: {
+    marginTop: 25,
   },
   MUIRichTextEditor: {
     root: {
@@ -109,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
   responseEditorContainer: {
     marginTop: 20,
+    position: "relative",
   },
   postButtonGrid: {
     marginTop: 20,
@@ -148,7 +159,7 @@ const PostQuestion = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const { data, id, userId, userName, mutate, onMutate } = props;
 
   const onEditorSubmit = (values) => {
@@ -322,7 +333,7 @@ const PostQuestion = (props) => {
                 ) : null
               ) : null}
             </Grid>
-            <Grid>
+            <Grid className={classes.emojiBar}>
               <EmojiBar
                 postId={id}
                 postType={"q"}

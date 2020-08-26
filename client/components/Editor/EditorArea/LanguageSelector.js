@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LanguageSelector = props => {
+const LanguageSelector = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState([]);
 
   const handleChange = (vals) => {
-      props.handleChange('languages', vals)
-      setValue(vals)
-  }
+    props.handleChange("languages", vals);
+    setValue(vals);
+  };
 
   return (
     <div className={classes.root}>
@@ -41,9 +41,12 @@ const LanguageSelector = props => {
         multiple
         id="tags-standard"
         value={value}
+        getOptionDisabled={() => value.length >= 3}
         options={languages.map((language) => language.name)}
         getOptionLabel={(option) => option}
-        onChange={(event, newValue) => {handleChange(newValue)}}
+        onChange={(event, newValue) => {
+          handleChange(newValue);
+        }}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => {
             const selectedLanguage = languages.find((language) => {
@@ -62,7 +65,7 @@ const LanguageSelector = props => {
         renderInput={(params) => (
           <TextField
             {...params}
-            onBlur={props.handleBlur('languages')}
+            onBlur={props.handleBlur("languages")}
             label="Programlama Dilleri"
             placeholder="Dil Seçiniz"
             color="secondary"

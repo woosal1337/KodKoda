@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
 
 const PostAnswers = props => {
     const classes = useStyles();
-    const { data } = props;
+    const { data, userId, userName, onMutate, handleDelete } = props
+    console.log(userId)
     return (
         <Grid container direction="row" spacing={1} className={classes.answersContainer}>
             <Grid item xs={3} md={1} ></Grid>
@@ -26,7 +27,7 @@ const PostAnswers = props => {
                   {data.map((e, i) => {
                       return (
                           <Grid key={i} item>
-                            <PostAnswer data={e}/>
+                            <PostAnswer data={e} userId={userId} userName={userName} onMutate={onMutate} handleDelete={handleDelete}/>
                           </Grid>
                           
                         )

@@ -82,7 +82,7 @@ const useStyles = makeStyles(theme => ({
 
 const PostBody = props => {
     const classes = useStyles();
-    const {userId, userName, data, onMutate} = props
+    const {userId, userName, data, onMutate, handleDelete} = props
     return (
          
         <Grid container alignItems="stretch">
@@ -98,7 +98,7 @@ const PostBody = props => {
                     <Grid container direction="column" wrap="nowrap" >
                         <Divider className={classes.divider} />
                         <PostQuestion data={data.q} id={data.id} userId={userId} userName={userName} onMutate={onMutate} />
-                        <PostAnswers data={data.a} />
+                        <PostAnswers data={data.a} userId={userId} userName={userName} onMutate={onMutate} handleDelete={handleDelete}  />
                     </Grid>
                 </>
             }

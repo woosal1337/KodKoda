@@ -13,31 +13,39 @@ const fetcher = async (...args) => {
 };
 
 const postResponse = (rData) =>
-    fetch("/api/soru/postResponse", {
-      method: "POST",
-      body: JSON.stringify(rData),
-    }).then((res) => res.json());
+  fetch("/api/soru/postResponse", {
+    method: "POST",
+    body: JSON.stringify(rData),
+  }).then((res) => res.json());
+
+const deletePost = (userid, postid) =>
+  fetch('/api/soru/delete', {
+    method: 'POST',
+    body: JSON.stringify({ userId: userid, postId: postid })
+  }).then((res) => res.json())
 
 const Post = () => {
   const router = useRouter()
   const { id } = router.query
   const { user, logout } = useUser();
   const { data, error, mutate } = useSWR(`/api/soru/${id}`, fetcher)
-
+  console.log(data)
   const onMutate = (rData) => {
-    mutate(async data => { 
+    mutate(async data => {
       const result = await postResponse(rData)
-      return {...data, a: [{...post, body: rData.body , ownerName: rData.userName }, ...data.a]}
+      return { ...data, a: [{ ...post, body: rData.body, ownerName: rData.userName }, ...data.a] }
     }, false)
   }
 
+  const handleDelete = (rData) =>{
+  }
   return (
     <>
       <PostLayout auth={user ? true : false} logOut={logout} authPage={false} >
-        { !data ? 
+        {!data ?
           <CircularProgress />
           :
-          <PostBody id={id} userId={user ? user.id : null} userName={user ? user.username : null} data={data} onMutate={onMutate}/>
+          <PostBody id={id} userId={user ? user.id : null} userName={user ? user.username : null} data={data} onMutate={onMutate} handleDelete={handleDelete} />
         }
       </PostLayout>
     </>

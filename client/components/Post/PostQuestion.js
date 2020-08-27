@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef }  from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -19,16 +19,17 @@ import { responseEditorValidations } from "../../utils/form";
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const updateTheme = { ...theme,
+const updateTheme = {
+    ...theme,
     overrides: {
         ...theme.overrides,
         MUIRichTextEditor: {
             ...theme.overrides.MUIRichTextEditor,
             editor: {
                 ...theme.overrides.MUIRichTextEditor.editor,
-                minHeight:150,
+                minHeight: 150,
                 padding: 0,
-              },
+            },
             editorContainer: {
                 ...theme.overrides.MUIRichTextEditor.editorContainer,
                 padding: 0,
@@ -42,9 +43,9 @@ const useStyles = makeStyles(theme => ({
         boxShadow: 'none',
     },
     MUIRichTextEditor: {
-      root: {
-        color: 'red',
-      },
+        root: {
+            color: 'red',
+        },
     },
     flexGrow: {
         flexGrow: 1
@@ -54,27 +55,27 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'Hind, sans-serif',
         fontWeight: 700,
     },
-    rightTitle:{
+    rightTitle: {
         lineHeight: '29px'
     },
-    divider:{
-        marginTop:20,
-        marginBottom:20,
+    divider: {
+        marginTop: 20,
+        marginBottom: 20,
     },
     postContainer: {
     },
-    postGridContainer:{
-        marginTop:20
+    postGridContainer: {
+        marginTop: 20
     },
     questionContainer: {
         minHeight: 200,
         width: '100%'
     },
-    nameLanguage:{
-        marginTop:10
+    nameLanguage: {
+        marginTop: 10
     },
     leftColumnContainer: {
-        maxWidth:120,
+        maxWidth: 120,
     },
     questionText: {
         //marginTop:5,
@@ -83,25 +84,25 @@ const useStyles = makeStyles(theme => ({
         //minWidth: 800
     },
     buttons: {
-        marginTop:-6,
-        marginLeft:4
+        marginTop: -6,
+        marginLeft: 4
     },
     voteButton: {
         color: theme.palette.text.secondary,
     },
-    voteCount:{
+    voteCount: {
     },
     voteMore: {
         fontSize: 40,
-        margin:-12
+        margin: -12
     },
     voteLess: {
         fontSize: 40,
-        margin:-12,
+        margin: -12,
         marginTop: -18
     },
-    responseEditorContainer:{
-        marginTop:20
+    responseEditorContainer: {
+        marginTop: 20
     },
     postButtonGrid: {
         marginTop: 20,
@@ -122,7 +123,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 3,
         boxShadow: 'none',
         border: 0,
-        fontSize:14,
+        fontSize: 14,
         fontWeight: 600,
         color: 'white',
         height: 24,
@@ -138,30 +139,60 @@ const PostQuestion = props => {
     const { data, id, userId, userName, onMutate } = props
 
     const onEditorSubmit = (values) => {
-        const handled = handlePostResponse(values) 
+        const handled = handlePostResponse(values)
     };
+
+
+    const updateVote = (userid, postid) =>
+        fetch('/api/soru/upvote', {
+            method: 'POST',
+            body: JSON.stringify({ userId: userid, postId: postid })
+        }).then((res) => res.json());
+
+    const deletePost = (userid,postid) =>
+        fetch('/api/soru/delete', {
+            method: 'POST',
+            body: JSON.stringify({userId:userid, postId:postid})
+        }).then((res)=>res.json())
+
+    async function handleDelete(event, idx, postId) {
+        if (userId) {
+            event.preventDefault()
+            const newData = { id: data[idx].id, data: { ...data[idx].data, voteCount: data[idx].data.voteCount + 1 } }
+            // update the local data immediately
+            // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+            mutateFunc(async data => {
+                const { docExists, error } = await deletePost(userId, postId)
+                if (!docExists) {
+                    return data.map((d, i) => { return (i == idx) ? newData : d })
+                }
+            }, false)
+        } else {
+            router.push('/auth')
+        }
+    }
 
     async function handlePostResponse(values) {
         // Data format for Question 
         // {q:doc.data(), a:answers, id: req.query.id}
-        if (userId) {   
+        if (userId) {
             // ADD CLIENT VALIDATIONS HERE WITH YUP
             const rData = {
-              body: convertToRaw(values.body.getCurrentContent()),
-              postId: id,
-              userId: userId,
-              userName: userName
+                body: convertToRaw(values.body.getCurrentContent()),
+                postId: id,
+                userId: userId,
+                userName: userName
             };
             // update the local data immediately
             // NOTE: key is not required when using useSWR's mutate as it's pre-bound   
             onMutate(rData)
-        } 
-      }
+        }
+    }
 
     const editorRef = useRef(null);
     const formik = useFormik({
         initialValues: {
-          body: new EditorState.createEmpty(),
+            body: new EditorState.createEmpty(),
         },
         validate: responseEditorValidations,
         onSubmit: onEditorSubmit,
@@ -171,7 +202,7 @@ const PostQuestion = props => {
         <Grid container alignItems="stretch" direction="row" spacing={1} className={classes.questionContainer}>
             <Grid item container direction="column" alignItems="left" xs={12} md={1} className={classes.buttons}>
                 <Grid item >
-                    <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
+                    <IconButton edge="start" className={classes.voteButton} aria-label="menu">
                         <ExpandLessIcon className={classes.voteMore} />
                     </IconButton>
                 </Grid>
@@ -180,15 +211,15 @@ const PostQuestion = props => {
                 </Grid>
             </Grid>
             <Grid item xs={12} md={9} >
-                <Grid container  direction="column" justify="space-between" >
+                <Grid container direction="column" justify="space-between" >
                     <Grid item >
-                        { data.body.blocks ? 
+                        {data.body.blocks ?
                             <MuiThemeProvider theme={updateTheme}>
                                 <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
                             </MuiThemeProvider>
                             :
                             <Typography variant="body1" component="body" className={classes.questionText}>
-                               {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                                {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
                             </Typography>
                         }
                     </Grid>
@@ -202,14 +233,14 @@ const PostQuestion = props => {
                                 </BetterLink>
                             </Grid>
                             <Grid item>
-                                {data.language.map(lang =>  
+                                {data.language.map(lang =>
                                     <Link href={`/language/${lang}`} passHref>
                                         <Button
                                             variant="contained"
                                             onClick={props.goToLanguage}
                                             size="small"
                                             className={classes.languageButton}
-                                            style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
+                                            style={{ 'background': languages.filter(l => l.name == lang)[0].color }}
                                         >
                                             {lang}
                                         </Button>
@@ -228,13 +259,13 @@ const PostQuestion = props => {
                         </Grid>
                         <Grid item align="right" className={classes.postButtonGrid}>
                             <Button
-                              type="submit"
-                              variant="contained"
-                              size="large"
-                              color="secondary"
-                              className={classes.postButton}
+                                type="submit"
+                                variant="contained"
+                                size="large"
+                                color="secondary"
+                                className={classes.postButton}
                             >
-                              Paylaş
+                                Paylaş
                             </Button>
                         </Grid>
                     </form>
@@ -247,7 +278,7 @@ const PostQuestion = props => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid> 
+        </Grid>
 
     );
 }

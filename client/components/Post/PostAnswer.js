@@ -1,10 +1,12 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import DeletePopover from './DeletePopover'
 import Link from '../Link';
 import MUIRichTextEditor from 'mui-rte';
 import { MuiThemeProvider } from '@material-ui/core/styles'
@@ -13,20 +15,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../src/theme'
 import palette from '../../src/palette'
 
-const updateTheme = { ...theme,
+const updateTheme = {
+    ...theme,
     overrides: {
         ...theme.overrides,
-        
+
         MUIRichTextEditor: {
             ...theme.overrides.MUIRichTextEditor,
             editor: {
                 ...theme.overrides.MUIRichTextEditor.editor,
                 padding: 0,
-                minHeight:100
-              },
+                minHeight: 100
+            },
             editorContainer: {
                 ...theme.overrides.MUIRichTextEditor.editorContainer,
-                padding:0
+                padding: 0
             }
         }
     }
@@ -44,22 +47,22 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'Hind, sans-serif',
         fontWeight: 700,
     },
-    rightTitle:{
+    rightTitle: {
         lineHeight: '29px'
     },
-    divider:{
-        marginBottom:20,
+    divider: {
+        marginBottom: 20,
         backgroundColor: "#d7d7d7",
     },
     postContainer: {
     },
-    postGridContainer:{
-        marginTop:20
+    postGridContainer: {
+        marginTop: 20
     },
     answersContainer: {
     },
     answerContainer: {
-        minHeight:120,
+        minHeight: 120,
         //maxWidth:300
     },
     answerPoster: {},
@@ -67,26 +70,26 @@ const useStyles = makeStyles(theme => ({
         marginTop: 20
     },
     answerText: {
-        marginTop:5,
+        marginTop: 5,
         fontSize: 16,
         lineHeight: 1.5
     },
     buttons: {
-        marginTop:-6,
-        marginLeft:4
+        marginTop: -6,
+        marginLeft: 4
     },
     voteButton: {
         color: theme.palette.text.secondary,
     },
-    voteCount:{
+    voteCount: {
     },
     voteMore: {
         fontSize: 40,
-        margin:-12
+        margin: -12
     },
     voteLess: {
         fontSize: 40,
-        margin:-12,
+        margin: -12,
         marginTop: -18
     },
     languageButton: {
@@ -94,27 +97,27 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 3,
         boxShadow: 'none',
         border: 0,
-        fontSize:14,
+        fontSize: 14,
         fontWeight: 600,
         color: 'white',
         height: 24,
         padding: '0 10px',
-    },
+    }
 }))
 
 
 const PostAnswer = props => {
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
-    const { data } = props
-
+    const { data, userId, userName, onMutate, handleDelete } = props
+    console.log(userId)
     return (
         <>
-            <Divider className={classes.divider}/>
+            <Divider className={classes.divider} />
             <Grid container direction="row" spacing={1} className={classes.answersContainer}>
                 <Grid item container direction="column" alignItems="left" xs={1} md={1} className={classes.buttons}>
                     <Grid item >
-                        <IconButton edge="start" className={classes.voteButton}  aria-label="menu">
+                        <IconButton edge="start" className={classes.voteButton} aria-label="menu">
                             <ExpandLessIcon className={classes.voteMore} />
                         </IconButton>
                     </Grid>
@@ -124,17 +127,29 @@ const PostAnswer = props => {
                 </Grid>
                 <Grid item xs={10} md={10} >
                     <Grid container direction="column" justify={"space-between"} className={classes.answerContainer}>
-                        <Grid item >
-                            { data.body.blocks ? 
-                                <MuiThemeProvider theme={updateTheme}>
-                                    <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
-                                </MuiThemeProvider>
-                                :
-                                <Typography variant="body1" component="body" className={classes.questionText}>
-                                   {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
-                                </Typography>
-                            }
+                        <Grid container direction="row" justify={"space-between"} className={classes.answerContainer}>
+
+                            <Grid item >
+                                {data.body.blocks ?
+                                    <MuiThemeProvider theme={updateTheme}>
+                                        <MUIRichTextEditor readOnly={true} toolbar={false} defaultValue={JSON.stringify(data.body)} />
+                                    </MuiThemeProvider>
+                                    :
+                                    <Typography variant="body1" component="body" className={classes.questionText}>
+                                        {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                                    </Typography>
+                                }
+                            </Grid>
+                            {userId == data.ownerUserId ?
+                            <Grid item>
+                                <IconButton edge="start" className={classes.deleteButton} aria-label="delete">
+                                <DeletePopover data={data} userId={userId} userName={userName} handleDelete={handleDelete}/>
+                                </IconButton>
+                            </Grid>
+                            : <div />
+                        }
                         </Grid>
+                        
                         <Grid item >
                             <Grid item className={classes.answerPosterContainer}>
                                 <Link href="/user/[id]/" as={`/user/${data.ownerUserId}`}>

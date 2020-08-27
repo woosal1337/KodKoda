@@ -18,6 +18,12 @@ const postResponse = (rData) =>
     body: JSON.stringify(rData),
   }).then((res) => res.json());
 
+const deletePost = (userid, postid) =>
+  fetch('/api/soru/delete', {
+    method: 'POST',
+    body: JSON.stringify({ userId: userid, postId: postid })
+  }).then((res) => res.json())
+
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -34,6 +40,8 @@ const Post = () => {
     }, false);
   };
 
+  const handleDelete = (rData) =>{
+  }
   return (
     <>
       <PostLayout auth={user ? true : false} logOut={logout} authPage={false}>
@@ -47,6 +55,7 @@ const Post = () => {
             data={data}
             mutate={mutate}
             onMutate={onMutate}
+            handleDelete={handleDelete}
           />
         )}
       </PostLayout>

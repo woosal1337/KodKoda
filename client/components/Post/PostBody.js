@@ -89,7 +89,7 @@ const updateReaction = (userid, postid, reactionType ) => {
 const PostBody = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, userId, userName, data, mutate, onMutate } = props;
+  const { id, userId, userName, data, mutate, onMutate, handleDelete } = props;
 
 
   const [reaction, setReaction] = useState({

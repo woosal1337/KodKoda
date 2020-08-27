@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import BetterLink from "../Link";
 =======
+=======
+>>>>>>> 47f98c2ead8a5de20589e31b3c939cb368bdff0a
 import React, { useState, useEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -33,8 +36,11 @@ import { responseEditorValidationSchema } from "../../utils/form";
 import EmojiBar from "./Emoji/EmojiBar";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { makeStyles } from "@material-ui/core/styles";
 =======
+=======
+>>>>>>> 47f98c2ead8a5de20589e31b3c939cb368bdff0a
 const updateTheme = {
     ...theme,
     overrides: {
@@ -61,6 +67,7 @@ const updateTheme = {
     ...theme.overrides,
     MUIRichTextEditor: {
 <<<<<<< HEAD
+<<<<<<< HEAD
       ...theme.overrides.MUIRichTextEditor,
       editor: {
         ...theme.overrides.MUIRichTextEditor.editor,
@@ -71,6 +78,11 @@ const updateTheme = {
         ...theme.overrides.MUIRichTextEditor.editorContainer,
         padding: 0,
       },
+=======
+        root: {
+            color: 'red',
+        },
+>>>>>>> 47f98c2ead8a5de20589e31b3c939cb368bdff0a
     },
   },
 };
@@ -609,6 +621,7 @@ const PostQuestion = (props) => {
                 Paylaş
               </Button>
             </Grid>
+<<<<<<< HEAD
           </form>
         </Grid>
       </Grid>
@@ -625,6 +638,8 @@ const PostQuestion = (props) => {
   );
 };
 =======
+=======
+>>>>>>> 47f98c2ead8a5de20589e31b3c939cb368bdff0a
         </Grid>
 
     );

@@ -91,6 +91,7 @@ const PostBody = (props) => {
   const router = useRouter();
   const { id, userId, userName, data, mutate, onMutate, handleDelete } = props;
 
+<<<<<<< HEAD
 
   const [reaction, setReaction] = useState({
     q: {
@@ -207,6 +208,29 @@ const PostBody = (props) => {
                 </>)
                 :
                 null
+=======
+const PostBody = props => {
+    const classes = useStyles();
+    const {userId, userName, data, onMutate, handleDelete} = props
+    return (
+         
+        <Grid container alignItems="stretch">
+            {!data.q ?
+                <Typography variant="h3" component="h3" className={classes.oops} gutterBottom>
+                    Yüklenemedi, tekrar deneyin.
+                </Typography>
+                :
+                <>
+                    <Typography variant="h3" component="h3" className={classes.title} gutterBottom>
+                      {data.q.title.charAt(0).toUpperCase() + data.q.title.slice(1)}
+                    </Typography>
+                    <Grid container direction="column" wrap="nowrap" >
+                        <Divider className={classes.divider} />
+                        <PostQuestion data={data.q} id={data.id} userId={userId} userName={userName} onMutate={onMutate} />
+                        <PostAnswers data={data.a} userId={userId} userName={userName} onMutate={onMutate} handleDelete={handleDelete}  />
+                    </Grid>
+                </>
+>>>>>>> 47f98c2ead8a5de20589e31b3c939cb368bdff0a
             }
           </Grid>
         </>

@@ -64,14 +64,21 @@ const useStyles = makeStyles((theme) => ({
 
 const DeletePopover = props => {
   const classes = useStyles();
-  const { data, userId, userName, handleDelete } = props
+  const { data, parentId, userId, postId, handleDelete } = props
   const [anchorEl, setAnchorEl] = useState(null);
 
+  console.log(parentId);
+  console.log(postId);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDeleteConfirm = ()=>{
+    handleDelete(userId,postId,parentId)
     setAnchorEl(null);
   };
 
@@ -112,10 +119,14 @@ const DeletePopover = props => {
             </Grid>
             <Grid container direction="row" spacing={1} justify={"space-around"}>
               <Grid item>
-                <DoneIcon className={classes.done} />
+                <DoneIcon 
+                    className={classes.done} 
+                    onClick={handleDeleteConfirm}/>
               </Grid>
               <Grid item>
-                <CloseIcon className={classes.close} />
+                <CloseIcon 
+                    className={classes.close}
+                    onClick={handleClose} />
               </Grid>
             </Grid>
           </Grid>

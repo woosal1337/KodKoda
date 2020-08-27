@@ -84,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   voteButton: {
     color: theme.palette.text.secondary,
   },
+  deleteButton: {
+    color: theme.palette.text.secondary,
+  },
   voteCount: {},
   voteMore: {
     fontSize: 40,
@@ -112,7 +115,6 @@ const PostAnswer = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const { data } = props;
-
   return (
     <>
       <Divider className={classes.divider} />
@@ -191,7 +193,7 @@ const PostAnswer = (props) => {
                     </Typography>
                 )}
                 </Grid>
-                {userId == data.ownerUserId ?
+                {props.userId == data.ownerUserId ?
                 <Grid item>
                     <IconButton 
                         edge="start" 
@@ -199,9 +201,10 @@ const PostAnswer = (props) => {
                         aria-label="delete">
                         <DeletePopover 
                             data={data} 
-                            userId={userId} 
-                            userName={userName} 
-                            handleDelete={handleDelete}/>
+                            parentId={props.parentId}
+                            userId={props.userId} 
+                            postId={props.postId} 
+                            handleDelete={props.handleDelete}/>
                     </IconButton>
                 </Grid>: <div />}
             </Grid>

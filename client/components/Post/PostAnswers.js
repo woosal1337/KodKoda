@@ -38,11 +38,14 @@ const PostAnswers = (props) => {
             return (
               <Grid key={i} item>
                 <PostAnswer
-                  data={e}
+                  data={e} 
+                  parentId={props.parentId}        
                   postId={e.id}
+                  userId={props.userId}
                   reaction={{id: e.id, likeCount: e.likeCount, confusedCount: e.confusedCount, clapCount: e.clapCount }}
                   reactionUpvoteHandler={props.reactionUpvoteHandler}
                   index={i}
+                  handleDelete={props.handleDelete}
                 />
               </Grid>
             );

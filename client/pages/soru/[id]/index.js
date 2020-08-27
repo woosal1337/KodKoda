@@ -18,10 +18,10 @@ const postResponse = (rData) =>
     body: JSON.stringify(rData),
   }).then((res) => res.json());
 
-const deletePost = (userid, postid) =>
+const deletePost = (userid, postid,parentid) =>
   fetch('/api/soru/delete', {
     method: 'POST',
-    body: JSON.stringify({ userId: userid, postId: postid })
+    body: JSON.stringify({ userId: userid, postId: postid, parentId : parentid })
   }).then((res) => res.json())
 
 const Post = () => {
@@ -40,8 +40,16 @@ const Post = () => {
     }, false);
   };
 
-  const handleDelete = (rData) =>{
-  }
+  const handleDelete = (userId,postId,parentId) =>{
+    mutate(async(data)=>{
+      const result = await deletePost(userId,postId,parentId);
+      return {
+        ...data,
+        a: result.a
+      };
+    }, false);
+  };
+
   return (
     <>
       <PostLayout auth={user ? true : false} logOut={logout} authPage={false}>

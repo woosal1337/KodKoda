@@ -200,8 +200,11 @@ const PostBody = (props) => {
                     />
                     <PostAnswers
                       data={data.a}
+                      parentId={data.id}
+                      userId={userId}
                       reaction={reaction.a}
                       reactionUpvoteHandler={reactionUpvoteHandler}
+                      handleDelete={handleDelete}
                     />
                 </>)
                 :

@@ -1,6 +1,7 @@
 import db from '../../../utils/db/firebase_db'
 
 export default (req, res) => {
+  
   return new Promise((resolve, reject) => {
     db
       .collection('posts')
@@ -11,19 +12,21 @@ export default (req, res) => {
         if (responses.length) {
           db 
           .collection('posts')
-          .where('__name__', 'in' ,responses)
+          .where('__name__', 'in' , responses)
           .get()
           .then((querySnapshot) => {
-              var answers = querySnapshot.docs.map((doc) => doc.data());
-              res.json({q:doc.data(),a:answers});
+              var answers = querySnapshot.docs.map((doc) => {
+                return {...doc.data(), id: doc.id}
+              });
+              res.json({q:doc.data(), a:answers, id: req.query.id});
               resolve()
-            })
-            .catch((error) => {
-              res.json({ error });
-              resolve()
-            });
+          })
+          .catch((error) => {
+            res.json({ error });
+            resolve()
+          });
         } else { 
-          res.json({q:doc.data(),a:[]});
+          res.json({q:doc.data(),a:[], id: req.query.id});
           resolve()
         }
       })

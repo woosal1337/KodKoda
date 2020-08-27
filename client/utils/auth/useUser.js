@@ -18,7 +18,11 @@ const useUser = () => {
       .then(() => {
         // Sign-out successful.
         cookies.remove('auth')
-        router.push('/auth')
+        if (router.pathname.includes('/soru-sor')) {
+          router.push('/')
+        } else {
+          router.reload('/')
+        }
       })
       .catch((e) => {
         console.error(e)
@@ -32,9 +36,15 @@ const useUser = () => {
       // redirect to "/", otherwise.
       //router.push('/')
       if (router.pathname.includes('/user')) {
-        router.push('/')
+        router.push('/auth/user')
         return
-      }
+      } 
+
+      if (router.pathname.includes('/soru-sor')) {
+        router.push('/auth/soru-sor')
+        return
+      } 
+
       return
     }
     setUser(JSON.parse(cookie))

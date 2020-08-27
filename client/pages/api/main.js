@@ -5,6 +5,7 @@ export default (req, res) => {
     db
     .collection("posts")
     .where("postType", "==", 1)
+    .orderBy("creationDate", "desc")
     .limit(10)
     .get().then((querySnapshot) => {
         var docs = querySnapshot.docs.map((doc) => ({id:doc.id, data:doc.data()}));

@@ -3,13 +3,14 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Link from './Link';
+import BetterLink from './Link';
+import Link from "next/link";
 import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { makeStyles } from '@material-ui/core/styles';
-import  palette  from '../src/palette'
+import languages from '../src/languages'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 600,
         color: 'white',
         height: 24,
+        marginRight: 10,
         padding: '0 10px',
     },
     buttons: {
@@ -76,8 +78,6 @@ const Question = props => {
     const [userid, setUserid] = useState(null);
     const [upvoted, setUpvoted] = useState(false);
     const { q, auth } = props
-    const goToLanguage = () => {
-    }
 
     return (
         <Grid container direction="row" spacing={1} className={classes.questionContainer}>
@@ -97,11 +97,11 @@ const Question = props => {
             <Grid item xs={8} className={classes.questionTextContainer}>
                 <Grid container direction="column" >
                     <Grid item >
-                        <Link href="/soru/[id]/" as={`/soru/${q.id}`} style={{ textDecoration: 'none' }}>
+                        <BetterLink href="/soru/[id]/" as={`/soru/${q.id}`} style={{ textDecoration: 'none' }}>
                             <Typography variant="h5" component="h5" className={classes.questionTitle}>
                                 {q.data.title.charAt(0).toUpperCase() + q.data.title.slice(1)}
                             </Typography>
-                        </Link>
+                        </BetterLink>
                     </Grid>
                     <Grid item>
                         <Grid container direction="row" alignItems="center" spacing={2}>
@@ -111,15 +111,18 @@ const Question = props => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button
-                                    variant="contained"
-                                    onClick={props.goToLanguage}
-                                    size="small"
-                                    className={classes.languageButton}
-                                    style= {{ 'background': palette.languages[q.data.language] }}
-                                >
-                                    {q.data.language}
-                                </Button>
+                                {q.data.language.map(lang => 
+                                    <Link href={`/language/${lang}`} passHref>
+                                        <Button
+                                            variant="contained"
+                                            size="small"
+                                            className={classes.languageButton}
+                                            style= {{ 'background': languages.filter(l => l.name == lang)[0].color }}
+                                        >
+                                            {lang}
+                                        </Button>
+                                    </Link>
+                                )}
                             </Grid>
                             <Grid item>
                                 <Typography className={classes.questionResponders}>

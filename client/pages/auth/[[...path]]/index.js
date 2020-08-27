@@ -1,6 +1,7 @@
-import FirebaseAuth from "../components/FirebaseAuth";
+import FirebaseAuth from "../../../components/FirebaseAuth";
+import { useRouter } from 'next/router'
 import { makeStyles, Grid } from "@material-ui/core";
-import { Layout } from "../components";
+import { Layout } from "../../../components";
 
 const useStyles = makeStyles((theme) => ({
   authContainer: {
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Auth = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Layout authPage={true}>
       <Grid container spacing={4} className={classes.authContainer}>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect  } from "react";
+import { useRouter } from 'next/router'
 import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
 import Question from "../Question";
+import AskQuestion from "./AskQuestion";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontFamily: "Hind",
-    fontWeight: 700,
-    fontSize: 36,
+    fontWeight: 600,
+    fontSize: 32,
   },
   rightTitle: {
     lineHeight: "29px",
@@ -28,8 +30,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 20,
   },
   questionsContainer: {},
+  askQuestionContainer:{
+    borderStyle: 'solid',
+    borderRadius: '5px',
+    borderWidth: '1px' ,
+    borderColor:  theme.palette.background.border,
+    margin: 10,
+    textAlign: "center"
+  }
 }));
-
 
 const updateVote = (userid, postid) => 
   fetch('/api/soru/upvote', {
@@ -40,13 +49,14 @@ const updateVote = (userid, postid) =>
 
 const Main = (props) => {
   const classes = useStyles();
+  const router = useRouter()
   const [ loading, setLoading ] = useState(false);
   const { data, mutateFunc } = props
   const { auth, userId } = props
 
   async function handleUpVote(event, idx, postId) {
+    event.preventDefault()
     if (userId) {
-      event.preventDefault()
       const newData = {id: data[idx].id, data:{...data[idx].data, voteCount: data[idx].data.voteCount + 1}}
       // update the local data immediately
       // NOTE: key is not required when using useSWR's mutate as it's pre-bound
@@ -56,13 +66,17 @@ const Main = (props) => {
           return data.map((d, i) => {return (i == idx) ? newData : d})
         }
       }, false)
-    } 
+    } else {
+      router.push('/auth/standard')
+    }
   }
-
   
   return (
     <Container maxWidth="md" className={classes.mainContainer}>
       <Grid container spacing={4} className={classes.mainGridContainer}>
+        <Grid item container direction="column" spacing={2} xs={12} md={12} className={classes.askQuestionContainer}>
+          <AskQuestion />
+        </Grid>
         <Grid item xs={12} md={12}>
           <Typography
             variant="h2"

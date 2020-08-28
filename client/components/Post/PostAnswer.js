@@ -12,6 +12,8 @@ import CodeIcon from "@material-ui/icons/Code";
 import CodeBlock from "../Editor/EditorArea/CustomBlocks/CodeBlock";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 import Blockquote from "../Editor/EditorArea/CustomBlocks/Blockquote";
+import DeleteIcon from '@material-ui/icons/Delete';
+import DeletePopover from './DeletePopover'
 
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "../../src/theme";
@@ -82,6 +84,9 @@ const useStyles = makeStyles((theme) => ({
   voteButton: {
     color: theme.palette.text.secondary,
   },
+  deleteButton: {
+    color: theme.palette.text.secondary,
+  },
   voteCount: {},
   voteMore: {
     fontSize: 40,
@@ -110,7 +115,6 @@ const PostAnswer = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const { data } = props;
-
   return (
     <>
       <Divider className={classes.divider} />
@@ -151,38 +155,59 @@ const PostAnswer = (props) => {
             justify={"space-between"}
             className={classes.answerContainer}
           >
-            <Grid item>
-              {data.body.blocks ? (
-                <MuiThemeProvider theme={updateTheme}>
-                  <MUIRichTextEditor
-                    readOnly={true}
-                    toolbar={false}
-                    customControls={[
-                      {
-                        name: "codeBlock",
-                        icon: <CodeIcon />,
-                        type: "block",
-                        blockWrapper: <CodeBlock />,
-                      },
-                      {
-                        name: "Blockquote",
-                        icon: <FormatQuoteIcon />,
-                        type: "block",
-                        blockWrapper: <Blockquote />,
-                      },
-                    ]}
-                    defaultValue={JSON.stringify(data.body)}
-                  />
-                </MuiThemeProvider>
-              ) : (
-                <Typography
-                  variant="body1"
-                  component="body"
-                  className={classes.questionText}
-                >
-                  {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
-                </Typography>
-              )}
+          <Grid 
+            container 
+            direction="row" 
+            justify={"space-between"} 
+            className={classes.answerContainer}>
+                <Grid item>
+                {data.body.blocks ? (
+                    <MuiThemeProvider theme={updateTheme}>
+                    <MUIRichTextEditor
+                        readOnly={true}
+                        toolbar={false}
+                        customControls={[
+                        {
+                            name: "codeBlock",
+                            icon: <CodeIcon />,
+                            type: "block",
+                            blockWrapper: <CodeBlock />,
+                        },
+                        {
+                            name: "Blockquote",
+                            icon: <FormatQuoteIcon />,
+                            type: "block",
+                            blockWrapper: <Blockquote />,
+                        },
+                        ]}
+                        defaultValue={JSON.stringify(data.body)}
+                    />
+                    </MuiThemeProvider>
+                ) : (
+                    <Typography
+                    variant="body1"
+                    component="body"
+                    className={classes.questionText}
+                    >
+                    {data.body.charAt(0).toUpperCase() + data.body.slice(1)}
+                    </Typography>
+                )}
+                </Grid>
+                {props.userId == data.ownerUserId ?
+                <Grid item >
+                    <IconButton 
+                        //edge="start" 
+                        className={classes.deleteButton} 
+                        aria-label="delete">
+                        <DeletePopover 
+                            data={data} 
+                            parentId={props.parentId}
+                            userId={props.userId} 
+                            postId={props.postId} 
+                            handleDelete={props.handleDelete}
+                        />
+                    </IconButton>
+                </Grid>: <div />}
             </Grid>
             <Grid item>
               <Grid item className={classes.answerPosterContainer}>

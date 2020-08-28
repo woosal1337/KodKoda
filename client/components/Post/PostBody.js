@@ -89,8 +89,9 @@ const updateReaction = (userid, postid, reactionType ) => {
 const PostBody = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, userId, userName, data, mutate, onMutate } = props;
+  const { id, userId, userName, data, mutate, onMutate, handleDelete } = props;
 
+  console.log(data);
 
   const [reaction, setReaction] = useState({
     q: {
@@ -201,8 +202,11 @@ const PostBody = (props) => {
                     />
                     <PostAnswers
                       data={data.a}
+                      parentId={data.id}
+                      userId={userId}
                       reaction={reaction.a}
                       reactionUpvoteHandler={reactionUpvoteHandler}
+                      handleDelete={handleDelete}
                     />
                 </>)
                 :

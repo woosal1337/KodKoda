@@ -194,9 +194,9 @@ const PostAnswer = (props) => {
                 )}
                 </Grid>
                 {props.userId == data.ownerUserId ?
-                <Grid item>
+                <Grid item >
                     <IconButton 
-                        edge="start" 
+                        //edge="start" 
                         className={classes.deleteButton} 
                         aria-label="delete">
                         <DeletePopover 
@@ -204,7 +204,8 @@ const PostAnswer = (props) => {
                             parentId={props.parentId}
                             userId={props.userId} 
                             postId={props.postId} 
-                            handleDelete={props.handleDelete}/>
+                            handleDelete={props.handleDelete}
+                        />
                     </IconButton>
                 </Grid>: <div />}
             </Grid>

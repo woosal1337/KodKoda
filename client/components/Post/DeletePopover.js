@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   formattingPopover: {
     padding: 10
   },
-  typography: {
+  deleteText: {
     padding: theme.spacing(1),
   },
   bold: {
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
   },
   tipsIcon: {
-    marginLeft: 20,
     cursor: "pointer",
     transition: "all 0.25s ease-in-out",
     "&:hover": {
@@ -43,20 +42,16 @@ const useStyles = makeStyles((theme) => ({
   },
   delete: {
     fontSize: 20,
-    margin: -12,
-    marginTop: -18
   },
   done: {
     fontSize: 30,
-    margin: -12,
-    color: green[500],
-    marginTop: -18
+    color: theme.palette.secondary.main,
+    cursor: 'pointer'
   },
   close: {
     fontSize: 30,
-    margin: -12,
     color: red[500],
-    marginTop: -18
+    cursor: 'pointer'
   },
 }));
 
@@ -67,8 +62,6 @@ const DeletePopover = props => {
   const { data, parentId, userId, postId, handleDelete } = props
   const [anchorEl, setAnchorEl] = useState(null);
 
-  console.log(parentId);
-  console.log(postId);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -92,7 +85,7 @@ const DeletePopover = props => {
           aria-describedby={id}
           variant="contained"
           onClick={handleClick}
-          fontSize="large"
+          fontSize="medium"
           className={classes.tipsIcon}
         />
       </Tooltip>
@@ -113,9 +106,9 @@ const DeletePopover = props => {
         <div className={classes.formattingPopover}>
           <Grid container direction="row" pacing={1} justify={"space-around"}>
             <Grid item>
-              <Typography className={classes.typography}>
+              <Typography className={classes.deleteText}>
                 Girdinizi silmek istediğinize emin misiniz?
-                      </Typography>
+              </Typography>
             </Grid>
             <Grid container direction="row" spacing={1} justify={"space-around"}>
               <Grid item>

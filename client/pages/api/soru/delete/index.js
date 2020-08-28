@@ -25,22 +25,29 @@ export default (req, res) => {
                         parent
                             .get()
                             .then((parentDoc) => {
-                                postsRef
-                                .where('__name__', 'in' , parentDoc.data().responses)
-                                .get()
-                                .then((querySnapshot) => {
-                                    var answers = querySnapshot.docs.map((doc) => {
-                                        return {...doc.data(), id: doc.id}
-                                    });
-                                    res.json({q:parentDoc.data(), a:answers, id: postId});
+                                if (parentDoc.data().responses.length) {
+                                    postsRef
+                                        .where('__name__', 'in' , parentDoc.data().responses)
+                                        .get()
+                                        .then((querySnapshot) => {
+                                            var answers = querySnapshot.docs.map((doc) => {
+                                                return {...doc.data(), id: doc.id}
+                                            });
+                                            res.json({q:parentDoc.data(), a:answers, id: postId});
+                                            resolve()
+                                        })
+                                        .catch((error) => {
+                                            console.log({error})
+                                            res.json({ error });
+                                            res.status(405).end();
+                                            resolve()
+                                        });
+                                } else {
+                                    res.json({q:parentDoc.data(), a:[], id: postId});
                                     resolve()
-                                })
-                                .catch((error) => {
-                                    res.json({ error });
-                                    res.status(405).end();
-                                    resolve()
-                                });
+                                }
                             }).catch((error) => {
+                                console.log({error})
                                 res.json({ error });
                                 res.status(405).end();
                                 resolve()

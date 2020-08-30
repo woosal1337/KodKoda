@@ -40,13 +40,12 @@ const theme = createMuiTheme({
       },
 
       editorContainer: {
-        height: "130px",
-        // height: "100%",
+        minHeight: "130px",
         margin: 0,
         padding: 10,
 
         "& *": {
-          height: "100%",
+          minHeight: "110px",
         },
 
         '& div[class^="CodeBlock-root-"]': {

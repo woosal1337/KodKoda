@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formField: {
     position: "relative",
+    width: "100%",
   },
 }));
 

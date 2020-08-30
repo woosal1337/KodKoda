@@ -12,8 +12,8 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         borderRadius: 2,
-      }, 
-    }, 
+      },
+    },
     MUIRichTextEditor: {
       root: {
         color: palette.text.primary,
@@ -38,12 +38,15 @@ const theme = createMuiTheme({
         color: palette.text.secondary,
         fontSize: 18,
       },
-      
 
       editorContainer: {
-        height: "100%",
+        minHeight: "130px",
         margin: 0,
         padding: 10,
+
+        "& *": {
+          minHeight: "110px",
+        },
 
         '& div[class^="CodeBlock-root-"]': {
           color: palette.text.primary,

@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.5,
     whiteSpace: "pre-wrap",
     overflowWrap: "break-word",
+    maxHeight: "700px",
+    overflowY: "auto",
   },
 }));
 

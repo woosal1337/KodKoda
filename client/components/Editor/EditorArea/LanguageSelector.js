@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
       border: "1px solid #fff",
     },
   },
+  languageField: {
+    height: "55px",
+  },
 }));
 
 const LanguageSelector = (props) => {
@@ -64,6 +67,7 @@ const LanguageSelector = (props) => {
         }
         renderInput={(params) => (
           <TextField
+            className={classes.languageField}
             {...params}
             onBlur={props.handleBlur("languages")}
             label="Programlama Dilleri"

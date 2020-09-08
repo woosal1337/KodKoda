@@ -40,6 +40,8 @@ const PostAnswers = (props) => {
                 <PostAnswer
                   data={e}
                   id={e.id}
+                  parentId={props.parentId}
+                  userId={props.userId}
                   reaction={{id: e.id, likeCount: e.likeCount, confusedCount: e.confusedCount, clapCount: e.clapCount }}
                   upvoteHandler={props.upvoteHandler}
                   reactionUpvoteHandler={props.reactionUpvoteHandler}

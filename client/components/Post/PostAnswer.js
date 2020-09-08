@@ -210,7 +210,7 @@ const PostAnswer = (props) => {
                             data={data} 
                             parentId={props.parentId}
                             userId={props.userId} 
-                            postId={props.postId} 
+                            postId={id} 
                             handleDelete={props.handleDelete}
                         />
                     </IconButton>
@@ -228,7 +228,7 @@ const PostAnswer = (props) => {
             <Grid>
               <EmojiBar
                 index={props.index}
-                postId={props.postId}
+                postId={id}
                 postType={"a"}
                 reaction={props.reaction}
                 reactionUpvoteHandler={props.reactionUpvoteHandler}

@@ -208,7 +208,7 @@ const PostQuestion = (props) => {
           <IconButton
             onClick={(e) => {
               if (!upvoted) {
-                handleUpVote(e);
+                props.upvoteHandler(e, id, "q");
                 setUpvoted(true);
               }
             }}

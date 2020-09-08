@@ -170,6 +170,40 @@ const PostBody = (props) => {
     }
   };
 
+  async function handleUpVote(event, postId, postType) {
+    event.preventDefault();
+    if (userId) {
+      // update the local data immediately
+      // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+      //console.log(newData)
+      if (postType === "a") { 
+        var newData = {
+            ...data,
+            a: data.a.map(el => {
+                if (el.id === postId) {
+                    return { ...el, voteCount: el.voteCount + 1 }
+                } else {
+                    return el
+                }
+            })
+        };
+      } else {
+        var newData = {
+            ...data,
+            q: { ...data.q, voteCount: data.q.voteCount + 1 },
+          };
+      }
+      mutate(async (data) => {
+        const { docExists, error } = await updateVote(userId, postId);
+        if (!docExists) {
+          return newData;
+        }
+      }, false);
+    } else {
+      router.push(`/auth/soru/${data.id}`);
+    }
+  }
+
 
   return (
     <Grid container alignItems="stretch">

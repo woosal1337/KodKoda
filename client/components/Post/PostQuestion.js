@@ -149,11 +149,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const updateVote = (userid, postid) =>
-  fetch("/api/soru/upvote", {
-    method: "POST",
-    body: JSON.stringify({ userId: userid, postId: postid }),
-  }).then((res) => res.json());
 
 const PostQuestion = (props) => {
   const classes = useStyles();
@@ -180,27 +175,6 @@ const PostQuestion = (props) => {
       // update the local data immediately
       // NOTE: key is not required when using useSWR's mutate as it's pre-bound
       onMutate(rData);
-    }
-  }
-
-  async function handleUpVote(event) {
-    event.preventDefault();
-    if (userId) {
-      const newData = {
-        ...data,
-        q: { ...data.q, voteCount: data.q.voteCount + 1 },
-      };
-      // update the local data immediately
-      // NOTE: key is not required when using useSWR's mutate as it's pre-bound
-      //console.log(newData)
-      mutate(async (data) => {
-        const { docExists, error } = await updateVote(userId, id);
-        if (!docExists) {
-          return newData;
-        }
-      }, false);
-    } else {
-      router.push(`/auth/soru/${id}`);
     }
   }
 

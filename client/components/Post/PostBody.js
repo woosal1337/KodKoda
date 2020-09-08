@@ -238,6 +238,7 @@ const PostBody = (props) => {
                       mutate={mutate}
                       onMutate={onMutate}
                       reaction={reaction.q}
+                      upvoteHandler={handleUpVote}
                       reactionUpvoteHandler={reactionUpvoteHandler}
                     />
                     <PostAnswers

@@ -71,9 +71,13 @@ const UserBody = props => {
                 xs={12}
               >
                 <Grid className={classes.avatarContainer} item xs={12}>
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    {data.name.charAt(0).toUpperCase()}
-                  </Avatar>
+                  {data.photoImageURL ? 
+                    <Avatar aria-label="recipe" src={data.photoImageURL} className={classes.avatar} />
+                  :
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      {data.name.charAt(0).toUpperCase()}
+                    </Avatar>
+                  }
                 </Grid>
               </Grid>
               <Grid

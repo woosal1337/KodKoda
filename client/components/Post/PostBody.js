@@ -206,6 +206,7 @@ const PostBody = (props) => {
                       userId={userId}
                       reaction={reaction.a}
                       reactionUpvoteHandler={reactionUpvoteHandler}
+                      upvoteHandler={handleUpVote}
                       handleDelete={handleDelete}
                     />
                 </>)

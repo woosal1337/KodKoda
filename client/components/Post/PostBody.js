@@ -86,6 +86,12 @@ const updateReaction = (userid, postid, reactionType ) => {
   }).then((res) => res.json());
 }
 
+const updateVote = (userid, postid) =>
+  fetch("/api/soru/upvote", {
+    method: "POST",
+    body: JSON.stringify({ userId: userid, postId: postid }),
+  }).then((res) => res.json());
+
 const PostBody = (props) => {
   const classes = useStyles();
   const router = useRouter();

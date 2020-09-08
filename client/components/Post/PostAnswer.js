@@ -115,7 +115,7 @@ const PostAnswer = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
-  const { data } = props;
+  const { id, data } = props;
   return (
     <>
       <Divider className={classes.divider} />

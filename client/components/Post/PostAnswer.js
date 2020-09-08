@@ -114,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
 const PostAnswer = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+  const [upvoted, setUpvoted] = useState(false);
   const { data } = props;
   return (
     <>
@@ -135,6 +136,12 @@ const PostAnswer = (props) => {
         >
           <Grid item>
             <IconButton
+              onClick={(e) => {
+                if (!upvoted) {
+                  props.upvoteHandler(e, id, "a");
+                  setUpvoted(true);
+                }
+              }}
               edge="start"
               className={classes.voteButton}
               aria-label="menu"

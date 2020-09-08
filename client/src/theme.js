@@ -45,7 +45,7 @@ const theme = createMuiTheme({
         padding: 10,
 
         "& *": {
-          minHeight: "110px",
+          minHeight: "100%",
         },
 
         '& div[class^="CodeBlock-root-"]': {

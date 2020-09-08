@@ -23,6 +23,16 @@ const getUsername = (uid, token) =>
     credentials: "same-origin",
   }).then((res) => res.json());
 
+const generateImage = (uid) => {
+  fetch('https://europe-west3-portal-284118.cloudfunctions.net/generate-avatar', {
+    method: "POST",
+    body: `${uid}`
+  }).then((res) => res.json())
+    .catch( (err) =>{
+      console.log('Request failed', err)
+    });
+}
+
 const isNewUser = async (uid, email, token, path) => {
   // create random username
   var uname = "user-" + Math.floor(Math.random() * 1000000);
@@ -35,7 +45,10 @@ const isNewUser = async (uid, email, token, path) => {
   cookie.set("auth", userData, {
     expires: 1,
   });
+
+  await generateImage(uid);
   await createUser(email, uid, uname);
+  
   path[0] != "standard"
     ? window.location.assign(`/${path.join("/")}`)
     : window.location.assign("/");
@@ -64,14 +77,14 @@ const returnConfig = (path) => {
     // https://github.com/firebase/firebaseui-web#configure-oauth-providers
     signInOptions: [
       {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: false,
+      },
+      {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         requireDisplayName: false,
         clientId:
           "676285786604-snen415p8senhpfaqhk8s4g3r9o06ch2.apps.googleusercontent.com",
-      },
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: false,
       },
       {
         provider: firebase.auth.GithubAuthProvider.PROVIDER_ID,
@@ -87,7 +100,7 @@ const returnConfig = (path) => {
       ) => {
         console.log("returnConfig -> user", additionalUserInfo);
         // xa is the access token, which can be retrieved through
-        firebase.auth().currentUser.getIdToken();
+        //firebase.auth().currentUser.getIdToken();
         const { uid, email, xa } = user;
         if (additionalUserInfo.isNewUser) {
           isNewUser(uid, email, xa, path);

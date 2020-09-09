@@ -16,7 +16,7 @@ export default (req, res) => {
             description: "",
             creationDate: firebase.firestore.FieldValue.serverTimestamp(),
             lastAccessDate: firebase.firestore.FieldValue.serverTimestamp(),
-            likes: 0,
+            likes: [],
             location: "",
             photoImageURL: `https://storage.cloud.google.com/kodkoda-generated-avatar/${userInfo.userId}.png`,
             reputation: 0,

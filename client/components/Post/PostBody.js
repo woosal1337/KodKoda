@@ -97,8 +97,6 @@ const PostBody = (props) => {
   const router = useRouter();
   const { id, userId, userName, data, mutate, onMutate, handleDelete } = props;
 
-  console.log(data);
-
   const [reaction, setReaction] = useState({
     q: {
       id: id,
@@ -115,6 +113,7 @@ const PostBody = (props) => {
         };
       }),
   }, []);
+
 
   const reactionUpvoteHandler = (reactionType, postType, i, postId) => {
     if (userId) {
@@ -153,6 +152,7 @@ const PostBody = (props) => {
               [reactionType]: reaction[postType][reactionType] + 1,
             },
           };
+
           var newData = {
             ...data,
             q: { ...data.q, ...newReaction.b },

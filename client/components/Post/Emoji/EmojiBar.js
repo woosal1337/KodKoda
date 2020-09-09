@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 const EmojiBar = (props) => {
   const classes = useStyles();
   const { likeCount, clapCount, confusedCount } = props.reaction;
-
   return (
     <div className={classes.wrapper}>
       <IconButton

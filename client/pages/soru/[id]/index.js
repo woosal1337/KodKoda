@@ -35,6 +35,10 @@ const Post = () => {
       const result = await postResponse(rData);
       return {
         ...data,
+        q: {
+          ...data.q,
+          answerCount: result.q.answerCount
+        },
         a: result.a
       };
     }, false);

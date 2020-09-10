@@ -6,11 +6,8 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: 20,
     marginBottom: 20,
     display: "flex",
-    border: "1px solid #fff",
-    borderRadius: "5px",
   },
   label: {
     fontWeight: "bold",
@@ -52,6 +49,7 @@ const InfoField = (props) => {
           id="outlined-multiline-flexible-1"
           label={label}
           rowsMax={4}
+          disabled
           value={value}
           onChange={handleChange}
           variant="outlined"

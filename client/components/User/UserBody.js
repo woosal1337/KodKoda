@@ -46,7 +46,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 40,
   },
 
-  formInputContainer: {},
+  formInputContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const UserBody = (props) => {
@@ -88,7 +91,6 @@ const UserBody = (props) => {
         <Grid
           container
           direction="column"
-          alignItems="center"
           container
           xs={8}
           className={classes.formInputContainer}

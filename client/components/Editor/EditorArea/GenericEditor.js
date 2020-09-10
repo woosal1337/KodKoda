@@ -36,6 +36,7 @@ const GenericEditor = (props) => {
 
   const onChange = (editorState) => {
     handleChange("bodyText", convertToRaw(editorState.getCurrentContent()));
+    console.log("editorState:", convertToRaw(editorState.getCurrentContent()));
   };
 
   const onBlur = () => {

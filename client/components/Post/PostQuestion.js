@@ -149,7 +149,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const PostQuestion = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
@@ -157,26 +156,29 @@ const PostQuestion = (props) => {
   const router = useRouter();
   const { data, id, userId, userName, mutate, onMutate } = props;
 
+  const handleClear = () => {};
+
   const onEditorSubmit = (values) => {
-    const handled = handlePostResponse(values);
+    // const handled = handlePostResponse(values);
+    // formik.setFieldValue("bodyText", { blocks: [{ text: "" }] });
   };
 
-  async function handlePostResponse(values) {
-    // Data format for Question
-    // {q:doc.data(), a:answers, id: req.query.id}
-    if (userId) {
-      // ADD CLIENT VALIDATIONS HERE WITH YUP
-      const rData = {
-        body: values.bodyText,
-        postId: id,
-        userId: userId,
-        userName: userName,
-      };
-      // update the local data immediately
-      // NOTE: key is not required when using useSWR's mutate as it's pre-bound
-      onMutate(rData);
-    }
-  }
+  // async function handlePostResponse(values) {
+  //   // Data format for Question
+  //   // {q:doc.data(), a:answers, id: req.query.id}
+  //   if (userId) {
+  //     // ADD CLIENT VALIDATIONS HERE WITH YUP
+  //     const rData = {
+  //       body: values.bodyText,
+  //       postId: id,
+  //       userId: userId,
+  //       userName: userName,
+  //     };
+  //     // update the local data immediately
+  //     // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+  //     onMutate(rData);
+  //   }
+  // }
 
   const editorRef = useRef(null);
   const formik = useFormik({
@@ -298,6 +300,7 @@ const PostQuestion = (props) => {
                 handleBlur={formik.setFieldTouched}
                 userId={userId}
                 postId={id}
+                handleClear={handleClear}
               />
               {formik.errors.bodyText && formik.touched.bodyText ? (
                 formik.errors.bodyText.blocks[0] ? (

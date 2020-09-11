@@ -46,9 +46,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 40,
   },
 
-  formInputContainer: {
-    display: "flex",
-    alignItems: "center",
+  inputContainer: {
+    margin: "auto",
+  },
+  editButton: {
+    marginTop: 20,
+    borderRadius: 10,
   },
 }));
 
@@ -57,69 +60,67 @@ const UserBody = (props) => {
   const { data, user, handleChange } = props;
 
   return (
-    <Grid container item>
-      <Grid
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="center"
-        item
-        xs={12}
-      >
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="center"
-          item
-          xs={12}
-        >
-          <Grid className={classes.avatarContainer} item xs={12}>
-            {data.photoImageURL ? (
-              <Avatar
-                aria-label="recipe"
-                src={data.photoImageURL}
-                className={classes.avatar}
-              />
-            ) : (
-              <Avatar aria-label="recipe" className={classes.avatar}>
-                {data.name.charAt(0).toUpperCase()}
-              </Avatar>
-            )}
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="column"
-          container
-          xs={8}
-          className={classes.formInputContainer}
-        >
-          {user && (
-            <>
-              <InfoField
-                label="Ad Soyad"
-                isDisabled={user.id !== data.id}
-                value={data.name}
-                handleChange={handleChange}
-              />
-              <InfoField
-                label="Kullanıcı Adı"
-                isDisabled={user.id !== data.id}
-                value={data.username}
-                handleChange={handleChange}
-              />
-
-              <InfoField
-                label="Email"
-                isDisabled={user.id !== data.id}
-                value={data.email}
-                handleChange={handleChange}
-              />
-            </>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      item
+      xs={12}
+    >
+      <Grid container direction="row" item xs={12}>
+        <Grid className={classes.avatarContainer} item xs={12}>
+          {data.photoImageURL ? (
+            <Avatar
+              aria-label="recipe"
+              src={data.photoImageURL}
+              className={classes.avatar}
+            />
+          ) : (
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {data.name.charAt(0).toUpperCase()}
+            </Avatar>
           )}
         </Grid>
       </Grid>
+      <Grid
+        container
+        direction="column"
+        container
+        xs={6}
+        alignItems="center"
+        className={classes.inputContainer}
+      >
+        {user && (
+          <>
+            <InfoField
+              label="Kullanıcı Adı"
+              value={data.username}
+              handleChange={handleChange}
+            />
+            <InfoField
+              label="Ad Soyad"
+              value={data.name}
+              handleChange={handleChange}
+            />
+            <InfoField
+              label="Email"
+              value={data.email}
+              handleChange={handleChange}
+            />
+          </>
+        )}
+      </Grid>
+      {user && user.id === data.id && (
+        <Button
+          variant="contained"
+          size="medium"
+          color="primary"
+          className={classes.editButton}
+        >
+          Profili Düzenle
+        </Button>
+      )}
     </Grid>
   );
 };

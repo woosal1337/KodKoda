@@ -31,7 +31,15 @@ const updateTheme = {
 const GenericEditor = (props) => {
   const [loading, setLoading] = useState(false);
   const [toolbar, setToolbar] = useState(false);
-  const { forwardRef, label, handleChange, handleBlur, userId, postId } = props;
+  const {
+    forwardRef,
+    label,
+    handleChange,
+    handleBlur,
+    userId,
+    postId,
+    defaultValue,
+  } = props;
   const router = useRouter();
 
   const onChange = (editorState) => {
@@ -54,6 +62,7 @@ const GenericEditor = (props) => {
   return (
     <MuiThemeProvider theme={updateTheme}>
       <MUIRichTextEditor
+        defaultValue={defaultValue}
         label={label}
         ref={forwardRef}
         onFocus={onFocus}

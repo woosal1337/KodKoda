@@ -149,16 +149,50 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const PostQuestion = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
+  const [defaultValue, setDefaultValue] = useState(
+    JSON.stringify({
+      blocks: [
+        {
+          key: "b9rgj",
+          text: "",
+          type: "unstyled",
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+    })
+  );
   const router = useRouter();
   const { data, id, userId, userName, mutate, onMutate } = props;
 
-  const onEditorSubmit = (values) => {
+  const onEditorSubmit = (values, { resetForm }) => {
     const handled = handlePostResponse(values);
+    setDefaultValue(
+      JSON.stringify({
+        blocks: [
+          {
+            key: "b9rgj",
+            text: " ",
+            type: "unstyled",
+            depth: 0,
+            inlineStyleRanges: [],
+            entityRanges: [],
+            data: {},
+          },
+        ],
+        entityMap: {},
+      })
+    );
+    resetForm({ bodyText: { blocks: [{ text: "" }] } });
+    formik.setTouched({});
+    formik.setErrors({});
   };
 
   async function handlePostResponse(values) {
@@ -298,6 +332,7 @@ const PostQuestion = (props) => {
                 handleBlur={formik.setFieldTouched}
                 userId={userId}
                 postId={id}
+                defaultValue={defaultValue}
               />
               {formik.errors.bodyText && formik.touched.bodyText ? (
                 formik.errors.bodyText.blocks[0] ? (

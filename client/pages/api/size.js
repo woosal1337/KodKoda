@@ -5,7 +5,7 @@ export default (req, res) => {
         db.collection("posts")
             .where("postType", "==", 1)
             .get().then((snapshot) => {
-                res.status(200).send({size: snapshot.size});
+                res.json({size: snapshot.size});
                 resolve()
             }).catch((error) => {
                 res.json({ error });

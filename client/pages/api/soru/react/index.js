@@ -21,7 +21,6 @@ export default (req, res) => {
       var userRef = db.collection('users').doc(reactionInfo.userId)
       userRef
         .get().then((doc) => {
-          
           if (doc.data()[selectReaction(reactionInfo.reaction)].includes(reactionInfo.postId)) {
             res.json({status:"success", reactionExists:true, error:null})
             resolve()

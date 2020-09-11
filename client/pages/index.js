@@ -14,7 +14,7 @@ const fetcher = (url, token) =>
 const fetchSize = (url, token) =>
   fetch(url, {
     method: "GET",
-    headers: new Headers({ "Content-Type": "application/json"}, token),
+    headers: new Headers({ "Content-Type": "application/json", token }),
     credentials: "same-origin",
   }).then((res) => res.json());
 
@@ -25,9 +25,16 @@ const Index = props => {
   
   const router = useRouter()
   const { pathname, query } = router
-  const [ count, setCount ] = useState(0);
-  //const { size } = useSWR("/api/size", fetchSize);
+  const [ size, setSize ] = useState(0);
   const { data, error, mutate } = useSWR(`/api/main/${query.sayfa || 1}`, fetcher);
+  const sizeData = useSWR("/api/size", fetchSize);
+
+  useEffect(() => { 
+    if (sizeData.data) {
+      setSize(sizeData.data.size)
+    }
+  }, [sizeData.data])
+
 
   const reload = () => {
     router.push(format({ pathname, query }))
@@ -41,7 +48,7 @@ const Index = props => {
 
   return (
     <Layout user={user ? user : null} auth={user ? true : false} logOut={logout} authPage={false}>
-      <Main auth={user ? true : false} userId={user ? user.id : null} data={data} onClick={incrementPage} mutateFunc={mutate} />
+      <Main auth={user ? true : false} userId={user ? user.id : null} data={data} size={size} count={query.sayfa ? parseInt(query.sayfa) : 1} onClick={incrementPage} mutateFunc={mutate} />
     </Layout>
   );
 };

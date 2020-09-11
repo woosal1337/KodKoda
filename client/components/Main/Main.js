@@ -68,7 +68,7 @@ const Main = (props) => {
   const classes = useStyles();
   const router = useRouter()
   const [ loading, setLoading ] = useState(false);
-  const { data, mutateFunc, auth, userId, pageNumber } = props
+  const { data, mutateFunc, auth, userId, size, count } = props
 
   async function handleUpVote(event, idx, postId) {
     event.preventDefault()
@@ -122,30 +122,34 @@ const Main = (props) => {
               })
             }
           </Grid>
-          <div className={classes.nextPageContainer}>
-            <Button variant="text" onClick={() => props.onClick()}>
-              <Grid
-                container
-                direction="row"
-                wrap="nowrap"
-                align="center"
-              >
-                <Grid item>
-                    <Typography
-                      variant="h4"
-                      component="h4"
-                      className={classes.nextPage}
-                      gutterBottom
-                    >
-                      Sonraki sayfa 
-                    </Typography>
+          {size > count*15 ? 
+            <div className={classes.nextPageContainer}>
+              <Button variant="text" onClick={() => props.onClick()}>
+                <Grid
+                  container
+                  direction="row"
+                  wrap="nowrap"
+                  align="center"
+                >
+                  <Grid item>
+                      <Typography
+                        variant="h4"
+                        component="h4"
+                        className={classes.nextPage}
+                        gutterBottom
+                      >
+                        Sonraki sayfa 
+                      </Typography>
+                  </Grid>
+                  <Grid item>
+                    <ArrowForwardIcon className={classes.nextIcon} />
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <ArrowForwardIcon className={classes.nextIcon} />
-                </Grid>
-              </Grid>
-            </Button>
-          </div>
+              </Button>
+            </div>
+            : 
+            null
+          }
         </Grid>
       </Grid>
     </Container>

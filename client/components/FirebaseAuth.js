@@ -49,9 +49,12 @@ const isNewUser = async (uid, email, token, path) => {
   await generateImage(uid);
   await createUser(email, uid, uname);
   
+  /*
   path[0] != "standard"
     ? window.location.assign(`/${path.join("/")}`)
     : window.location.assign("/");
+  */
+  window.location.assign(`/user/${uid}`)
 };
 
 const isNotNewUser = async (uid, email, token, path) => {
@@ -65,6 +68,8 @@ const isNotNewUser = async (uid, email, token, path) => {
   cookie.set("auth", userData, {
     expires: 1,
   });
+
+  console.log(path)
   path[0] != "standard"
     ? window.location.assign(`/${path.join("/")}`)
     : window.location.assign("/");

@@ -62,6 +62,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const updateUser = (userid, username, fullName) =>
+  fetch("/api/user/update", {
+    method: "POST",
+    body: JSON.stringify({ userId: userid, username: username, fullName: fullName }),
+  }).then((res) => res.json());
+
 const UserBody = (props) => {
   const classes = useStyles();
   const { data, user, handleChange } = props;
@@ -71,8 +77,9 @@ const UserBody = (props) => {
     setEditMode(!editMode);
   };
 
-  const onUserDetailSubmit = (values) => {
-    const userData = {};
+  const onUserDetailSubmit = async (values) => {
+    setEditMode(!editMode);
+    const { updated, error } = await updateUser(data.id, values.username, values.fullName);
   };
 
   const cancelHandler = () => {
@@ -148,7 +155,6 @@ const UserBody = (props) => {
                 formik={formik}
               />
             </form>
-
             <InfoField
               label="Email"
               value={data.email}
@@ -159,16 +165,29 @@ const UserBody = (props) => {
       </Grid>
       <Grid container item xs={6} className={classes.buttonContainer}>
         {user && user.id === data.id && (
-          <Button
-            variant="contained"
-            size="medium"
-            color="primary"
-            className={classes.button}
-            onClick={edit}
-            disabled={!formik.isValid}
-          >
-            {editMode ? "Kaydet" : "Profili Düzenle"}
-          </Button>
+          editMode ? 
+            <Button
+              type="submit"
+              variant="contained"
+              size="medium"
+              color="primary"
+              className={classes.button}
+              onClick={formik.handleSubmit}
+              disabled={!formik.isValid}
+            > 
+              Kaydet 
+            </Button>
+          : 
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              className={classes.button}
+              onClick={edit}
+              disabled={!formik.isValid}
+            >
+              Profili Düzenle
+            </Button>
         )}
         {user && user.id === data.id && editMode && (
           <Button

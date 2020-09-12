@@ -12,7 +12,6 @@ export default async (req, res) => {
     .limit(pageCursor*15)
 
   const snapshot = await first.get();
-
   const cursor = page == 1 ? snapshot.docs[0] : snapshot.docs[snapshot.docs.length - 1]
 
   return new Promise((resolve, reject) => {

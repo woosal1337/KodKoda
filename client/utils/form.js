@@ -2,10 +2,20 @@ import isNumber from "lodash/isNumber";
 import * as Yup from "yup";
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/gim;
 
+const checkDup = (username) =>
+  fetch("/api/user/checkDuplicate", {
+    method: "POST",
+    body: JSON.stringify({ username: username }),
+  }).then(async (res) => { const resJson = await res.json(); return !resJson.userExists });
+
+
 export const userValidationSchema = Yup.object().shape({
   username: Yup.string()
     .min(5, "Kullanıcı adı 5 harften uzun olmalı.")
-    .required("Kullanıcı adı boş bırakılamaz."),
+    .required("Kullanıcı adı boş bırakılamaz.")
+    .test('checkDuplUsername', 'Bu kullanıcı adı alınmış :/', function (value) {
+        return checkDup(value)
+    }),
   fullName: Yup.string()
     .min(3, "Ad Soyad çok kısa.")
     .required("Lütfen ad ve soyad giriniz."),

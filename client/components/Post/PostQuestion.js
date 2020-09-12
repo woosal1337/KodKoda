@@ -172,6 +172,7 @@ const PostQuestion = (props) => {
   const router = useRouter();
   const { data, id, userId, userName, mutate, onMutate } = props;
 
+
   const onEditorSubmit = (values, { resetForm }) => {
     const handled = handlePostResponse(values);
     setDefaultValue(
@@ -195,22 +196,22 @@ const PostQuestion = (props) => {
     formik.setErrors({});
   };
 
-  async function handlePostResponse(values) {
-    // Data format for Question
-    // {q:doc.data(), a:answers, id: req.query.id}
-    if (userId) {
-      // ADD CLIENT VALIDATIONS HERE WITH YUP
-      const rData = {
-        body: values.bodyText,
-        postId: id,
-        userId: userId,
-        userName: userName,
-      };
-      // update the local data immediately
-      // NOTE: key is not required when using useSWR's mutate as it's pre-bound
-      onMutate(rData);
-    }
-  }
+  // async function handlePostResponse(values) {
+  //   // Data format for Question
+  //   // {q:doc.data(), a:answers, id: req.query.id}
+  //   if (userId) {
+  //     // ADD CLIENT VALIDATIONS HERE WITH YUP
+  //     const rData = {
+  //       body: values.bodyText,
+  //       postId: id,
+  //       userId: userId,
+  //       userName: userName,
+  //     };
+  //     // update the local data immediately
+  //     // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+  //     onMutate(rData);
+  //   }
+  // }
 
   const editorRef = useRef(null);
   const formik = useFormik({

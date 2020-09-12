@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -30,41 +30,68 @@ const useStyles = makeStyles((theme) => ({
       color: "#fff",
     },
   },
+  error: {
+    color: theme.palette.secondary.main,
+    position: "absolute",
+    bottom: 0,
+    left: 10,
+  },
+  formInputContainer: {
+    position: "relative",
+    width: "100%",
+    marginBottom: 20,
+  },
 }));
 
 const InfoField = (props) => {
   const classes = useStyles();
-  const { label, isDisabled, value, handleChange } = props;
+  const {
+    label,
+    isDisabled,
+    value,
+    handleChange,
+    isEditMode,
+    id,
+    name,
+    formik,
+  } = props;
 
-  return (
-    <Grid item className={classes.container}>
-      <Typography variant="h4" className={classes.label}>
-        {label}
-      </Typography>
-      <Divider className={classes.divider} />
+  if (isEditMode) {
+    return (
+      <Grid container item className={classes.formInputContainer}>
+        <TextField
+          className={classes.TextFieldContainer}
+          id={id}
+          name={name}
+          label={label}
+          rowsMax={4}
+          value={value}
+          onChange={formik.handleChange}
+          variant="outlined"
+          fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        {formik.errors[id] ? (
+          <div className={classes.error}>{formik.errors[id]}</div>
+        ) : null}
+      </Grid>
+    );
+  } else {
+    return (
+      <Grid item className={classes.container}>
+        <Typography variant="h4" className={classes.label}>
+          {label}
+        </Typography>
+        <Divider className={classes.divider} />
 
-      <Typography variant="h5" className={classes.value}>
-        {value}
-      </Typography>
-    </Grid>
-  );
-
-  // return (
-  //   <Grid container item className={classes.formInputContainer}>
-  //     <TextField
-  //       className={classes.TextFieldContainer}
-  //       id="outlined-multiline-flexible-1"
-  //       label={label}
-  //       rowsMax={4}
-  //       value={value}
-  //       onChange={handleChange}
-  //       variant="outlined"
-  //       fullWidth
-  //       InputLabelProps={{
-  //         shrink: true,
-  //       }}
-  //     />
-  //   </Grid>
+        <Typography variant="h5" className={classes.value}>
+          {value}
+        </Typography>
+      </Grid>
+    );
+  }
 };
 
 export default InfoField;

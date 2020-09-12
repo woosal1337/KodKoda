@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "next/link";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
 import { Button } from "@material-ui/core";
+import { useFormik } from "formik";
+import { userValidationSchema } from "../../utils/form";
 
 import InfoField from "./InfoField";
 
@@ -49,15 +51,48 @@ const useStyles = makeStyles((theme) => ({
   inputContainer: {
     margin: "auto",
   },
-  editButton: {
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  button: {
     marginTop: 20,
     borderRadius: 10,
+  },
+
+  formContainer: {
+    width: "100%",
   },
 }));
 
 const UserBody = (props) => {
   const classes = useStyles();
   const { data, user, handleChange } = props;
+  const [editMode, setEditMode] = useState(false);
+
+  const edit = () => {
+    setEditMode(!editMode);
+  };
+
+  const onUserDetailSubmit = (values) => {
+    const userData = {};
+  };
+
+  const cancelHandler = () => {
+    setEditMode(false);
+    formik.setErrors({});
+    formik.values.fullName = data.name;
+    formik.values.username = data.username;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: data.name,
+      username: data.username,
+    },
+    validationSchema: userValidationSchema,
+    onSubmit: onUserDetailSubmit,
+  });
 
   return (
     <Grid
@@ -78,7 +113,7 @@ const UserBody = (props) => {
             />
           ) : (
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {data.name.charAt(0).toUpperCase()}
+              {data.name ? data.name.charAt(0).toUpperCase() : "U"}
             </Avatar>
           )}
         </Grid>
@@ -86,23 +121,37 @@ const UserBody = (props) => {
       <Grid
         container
         direction="column"
-        container
         xs={6}
         alignItems="center"
         className={classes.inputContainer}
       >
         {user && (
           <>
-            <InfoField
-              label="Kullanıcı Adı"
-              value={data.username}
-              handleChange={handleChange}
-            />
-            <InfoField
-              label="Ad Soyad"
-              value={data.name}
-              handleChange={handleChange}
-            />
+            <form
+              onSubmit={formik.handleSubmit}
+              className={classes.formContainer}
+            >
+              <InfoField
+                id="username"
+                name="username"
+                label="Kullanıcı Adı"
+                value={formik.values.username}
+                handleChange={formik.handleChange}
+                isEditMode={editMode}
+                formik={formik}
+              />
+
+              <InfoField
+                id="fullName"
+                name="fullName"
+                label="Ad Soyad"
+                value={formik.values.fullName}
+                handleChange={formik.handleChange}
+                isEditMode={editMode}
+                formik={formik}
+              />
+            </form>
+
             <InfoField
               label="Email"
               value={data.email}
@@ -111,16 +160,31 @@ const UserBody = (props) => {
           </>
         )}
       </Grid>
-      {user && user.id === data.id && (
-        <Button
-          variant="contained"
-          size="medium"
-          color="primary"
-          className={classes.editButton}
-        >
-          Profili Düzenle
-        </Button>
-      )}
+      <Grid container item xs={6} className={classes.buttonContainer}>
+        {user && user.id === data.id && (
+          <Button
+            variant="contained"
+            size="medium"
+            color="primary"
+            className={classes.button}
+            onClick={edit}
+            disabled={!formik.isValid}
+          >
+            {editMode ? "Kaydet" : "Profili Düzenle"}
+          </Button>
+        )}
+        {user && user.id === data.id && editMode && (
+          <Button
+            variant="outlined"
+            size="medium"
+            color="primary"
+            className={classes.button}
+            onClick={() => cancelHandler()}
+          >
+            İptal Et
+          </Button>
+        )}
+      </Grid>
     </Grid>
   );
 };

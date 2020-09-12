@@ -1,9 +1,13 @@
 import React, { useState, useEffect  } from "react";
 import { useRouter } from 'next/router'
-import { Typography, Grid, Divider, makeStyles , Container} from "@material-ui/core";
+import Link from "next/link";
+import { Typography, Grid, Divider, makeStyles, Button, Container} from "@material-ui/core";
 import Question from "../Question";
 import AskQuestion from "./AskQuestion";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +20,19 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Hind",
     fontWeight: 600,
     fontSize: 32,
+  },
+  nextPage: {
+    fontFamily: "Hind",
+    fontWeight: 600,
+    fontSize: 20,
+  },
+  nextPageContainer: {
+    marginTop:30
+  },
+  nextIcon: {
+    padding: 0,
+    fontSize:24,
+    marginLeft: 4
   },
   rightTitle: {
     lineHeight: "29px",
@@ -51,8 +68,7 @@ const Main = (props) => {
   const classes = useStyles();
   const router = useRouter()
   const [ loading, setLoading ] = useState(false);
-  const { data, mutateFunc } = props
-  const { auth, userId } = props
+  const { data, mutateFunc, auth, userId, size, count } = props
 
   async function handleUpVote(event, idx, postId) {
     event.preventDefault()
@@ -106,6 +122,34 @@ const Main = (props) => {
               })
             }
           </Grid>
+          {size > count*15 ? 
+            <div className={classes.nextPageContainer}>
+              <Button variant="text" onClick={() => props.onClick()}>
+                <Grid
+                  container
+                  direction="row"
+                  wrap="nowrap"
+                  align="center"
+                >
+                  <Grid item>
+                      <Typography
+                        variant="h4"
+                        component="h4"
+                        className={classes.nextPage}
+                        gutterBottom
+                      >
+                        Sonraki sayfa 
+                      </Typography>
+                  </Grid>
+                  <Grid item>
+                    <ArrowForwardIcon className={classes.nextIcon} />
+                  </Grid>
+                </Grid>
+              </Button>
+            </div>
+            : 
+            null
+          }
         </Grid>
       </Grid>
     </Container>

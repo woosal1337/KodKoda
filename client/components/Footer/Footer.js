@@ -29,6 +29,7 @@ const useStyles = makeStyles( theme => ({
     }
   },
   footerLink: {
+    fontSize: 16,
     padding: "0 20px",
     textDecoration: "none",
     color: '#036be8',
@@ -66,19 +67,22 @@ const Footer = props => {
       <Divider className={classes.divider} />
       <div className={classes.footerContent}>
         <Grid container justify="center" alignItems="center">
-          <Grid container item md={4} xs={12} direction="column" align="center" justify="center">
+          <Grid container item md={3} xs={12} direction="column" align="center" justify="center">
             <Grid item className={classes.auto}>
               <Typography className={classes.text}>© Kod Koda 2020</Typography>
             </Grid>
           </Grid>
-          <Grid container item md={6} xs={12} direction="row" align="center" justify="center">
+          <Grid container item md={7} xs={12} direction="row" align="center" justify="center">
             <Grid item>
+              {/* 
               <Link href={`/privacy-policy`} as={`/gizlilik-sozlesmesi`} >
                 <MuiLink className={classes.footerLink}>Gizlilik Sözleşmesi</MuiLink>
               </Link>
-              <Link href={`/contact`} as={`/ulasin`} >
+               */}
+              <Link href={`/about`} as={`/hakkimizda`} >
                 <MuiLink className={classes.footerLink}>Hakkımızda</MuiLink>
               </Link>
+             
             </Grid>
           </Grid>
           <Grid item md={2} xs={12} align="center">

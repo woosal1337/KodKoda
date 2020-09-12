@@ -153,14 +153,47 @@ const PostQuestion = (props) => {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
+  const [defaultValue, setDefaultValue] = useState(
+    JSON.stringify({
+      blocks: [
+        {
+          key: "b9rgj",
+          text: "",
+          type: "unstyled",
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+    })
+  );
   const router = useRouter();
   const { data, id, userId, userName, mutate, onMutate } = props;
 
-  const handleClear = () => {};
 
-  const onEditorSubmit = (values) => {
-    // const handled = handlePostResponse(values);
-    // formik.setFieldValue("bodyText", { blocks: [{ text: "" }] });
+  const onEditorSubmit = (values, { resetForm }) => {
+    const handled = handlePostResponse(values);
+    setDefaultValue(
+      JSON.stringify({
+        blocks: [
+          {
+            key: "b9rgj",
+            text: " ",
+            type: "unstyled",
+            depth: 0,
+            inlineStyleRanges: [],
+            entityRanges: [],
+            data: {},
+          },
+        ],
+        entityMap: {},
+      })
+    );
+    resetForm({ bodyText: { blocks: [{ text: "" }] } });
+    formik.setTouched({});
+    formik.setErrors({});
   };
 
   // async function handlePostResponse(values) {
@@ -265,7 +298,7 @@ const PostQuestion = (props) => {
           <Grid item className={classes.nameLanguage}>
             <Grid container direction="row" alignItems="center" spacing={2}>
               <Grid item>
-                <BetterLink href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
+                <BetterLink href="/user/[id]/" as={`/user/${data.q.ownerUserId}`}>
                   <Typography className={classes.questionPoster}>
                     @{data.q.ownerName}
                   </Typography>
@@ -300,7 +333,7 @@ const PostQuestion = (props) => {
                 handleBlur={formik.setFieldTouched}
                 userId={userId}
                 postId={id}
-                handleClear={handleClear}
+                defaultValue={defaultValue}
               />
               {formik.errors.bodyText && formik.touched.bodyText ? (
                 formik.errors.bodyText.blocks[0] ? (

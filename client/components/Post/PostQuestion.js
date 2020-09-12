@@ -297,7 +297,7 @@ const PostQuestion = (props) => {
           <Grid item className={classes.nameLanguage}>
             <Grid container direction="row" alignItems="center" spacing={2}>
               <Grid item>
-                <BetterLink href="/user/[id]/" as={`/user/${data.ownerUserId}`}>
+                <BetterLink href="/user/[id]/" as={`/user/${data.q.ownerUserId}`}>
                   <Typography className={classes.questionPoster}>
                     @{data.q.ownerName}
                   </Typography>

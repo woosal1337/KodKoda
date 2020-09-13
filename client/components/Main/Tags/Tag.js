@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: (props) => props.color,
     },
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#fff",
   },
 }));
 
@@ -22,7 +25,7 @@ const Tag = (props) => {
       <Chip
         label={label}
         component="a"
-        href="#chip"
+        href={`/language/${label}`}
         clickable
         className={classes.tag}
       />

@@ -8,7 +8,6 @@ import {
   makeStyles,
   Button,
   Container,
-  useMediaQuery,
 } from "@material-ui/core";
 import Question from "../Question";
 import AskQuestion from "./AskQuestion";

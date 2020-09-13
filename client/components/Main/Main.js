@@ -8,6 +8,7 @@ import {
   makeStyles,
   Button,
   Container,
+  useMediaQuery,
 } from "@material-ui/core";
 import Question from "../Question";
 import AskQuestion from "./AskQuestion";
@@ -53,9 +54,15 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1200,
   },
   mainGridContainer: {
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "center",
+    },
     marginTop: 20,
   },
   mainBarContainer: {
+    [theme.breakpoints.down("sm")]: {
+      padding: 0,
+    },
     padding: "0px 40px",
   },
   questionsContainer: {},
@@ -68,6 +75,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
   },
   tagContainer: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
     display: "flex",
     flexWrap: "wrap",
     "& > *": {
@@ -120,7 +130,7 @@ const Main = (props) => {
         // spacing={4}
         className={classes.mainGridContainer}
       >
-        <Grid item xs={9} className={classes.mainBarContainer}>
+        <Grid item xs={12} md={9} className={classes.mainBarContainer}>
           <Grid
             item
             container

@@ -5,8 +5,10 @@ import {
   Toolbar,
   Typography,
   Button,
+  IconButton,
 } from "@material-ui/core";
 import Link from "../Link";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +37,26 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 600,
   },
+  iconButton: {
+    fontSize: "0rem",
+  },
 }));
 
 const Bar = (props) => {
   const classes = useStyles();
+  let cookie,
+    userId = null;
+
+  const parseIdFromCookie = (str) => {
+    const char = '"id":';
+    const auth = str.substring(str.indexOf(char) + char.length);
+    return auth.substring(1, auth.indexOf('"%2C"'));
+  };
+
+  if (typeof window !== "undefined") {
+    cookie = decodeURI(document.cookie);
+    userId = parseIdFromCookie(cookie);
+  }
 
   return (
     <div className={classes.root}>
@@ -55,12 +73,24 @@ const Bar = (props) => {
           </Link>
           {!props.authPage ? (
             props.auth ? (
-              <Button color="inherit" onClick={() => props.logOut()}>
-                <Typography variant="h4" className={classes.login}>
-                  {" "}
-                  Çıkış Yap{" "}
-                </Typography>
-              </Button>
+              <>
+                <IconButton className={classes.iconButton}>
+                  <Link href="/user/[id]/" as={`/user/${userId}`}>
+                    <AccountCircleIcon
+                      fontSize="large"
+                      color="secondary"
+                      className={classes.circleButton}
+                    />
+                  </Link>
+                </IconButton>
+
+                <Button color="inherit" onClick={() => props.logOut()}>
+                  <Typography variant="h4" className={classes.login}>
+                    {" "}
+                    Çıkış Yap{" "}
+                  </Typography>
+                </Button>
+              </>
             ) : (
               <>
                 <Link href="/auth/standard" className={classes.menuButton}>
